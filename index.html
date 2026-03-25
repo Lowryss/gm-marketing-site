@@ -129,6 +129,9 @@
 </head>
 <body class="antialiased">
 
+    <!-- Canvas de partículas de dinheiro (fixed, pointer-events:none) -->
+    <canvas id="money-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
+
     <!-- ══ HEADER NAV ══ -->
     <header class="w-full fixed top-0 z-40 py-4 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -138,7 +141,7 @@
     </header>
 
     <!-- ══ HERO SECTION ══ -->
-    <section class="v4-bg-dark min-h-screen flex flex-col justify-center pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
+    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
         <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             <!-- Copy esquerda -->
@@ -147,7 +150,7 @@
                     Assessoria de Marketing Especializada
                 </div>
                 <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight uppercase fade-up delay-1">
-                    Likes não pagam contas. <span class="v4-red block mt-2">Vendas pagam.</span>
+                    Likes não pagam contas. <span id="vendas-text" class="v4-red block mt-2">Vendas pagam.</span>
                 </h1>
                 <p class="text-lg text-gray-300 font-normal max-w-xl fade-up delay-2">
                     Implementamos uma máquina de aquisição focada 100% em ROI para empresas que faturam de R$ 50 mil a mais de R$ 100 milhões/ano. O método se adapta. A responsabilidade é a mesma.
@@ -653,6 +656,112 @@
                 }
             });
         });
+
+    /* ── Money particle explosion (scroll-driven) ── */
+    (function () {
+        var canvas = document.getElementById('money-canvas');
+        var span   = document.getElementById('vendas-text');
+        var hero   = document.getElementById('hero');
+        if (!canvas || !span || !hero) return;
+
+        var ctx = canvas.getContext('2d');
+        var W, H;
+        function resize() {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+
+        /* -- Captura posição absoluta do texto após layout -- */
+        var textAbsTop, textAbsLeft, textW, textH;
+        function captureTextPos() {
+            var r = span.getBoundingClientRect();
+            textAbsTop  = r.top  + window.scrollY;
+            textAbsLeft = r.left + window.scrollX;
+            textW = r.width;
+            textH = r.height;
+        }
+        /* espera o primeiro frame para garantir que o layout já calculou */
+        requestAnimationFrame(captureTextPos);
+
+        /* -- Partículas -- */
+        var SYMBOLS = ['$', 'R$', '$', '$', 'R$', '$'];
+        var N = 70;
+        var pts = [];
+        function buildParticles() {
+            pts = [];
+            for (var i = 0; i < N; i++) {
+                pts.push({
+                    ox:    textAbsLeft + Math.random() * textW,
+                    oy:    textAbsTop  + Math.random() * textH,
+                    vx:   (Math.random() - 0.5) * 160,  /* dispersão horizontal */
+                    vy0:   Math.random() * 30 + 10,      /* vel. inicial para cima (negativo) */
+                    sym:   SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)],
+                    size:  14 + Math.floor(Math.random() * 20),
+                    rot:   Math.random() * Math.PI * 2,
+                    rotV: (Math.random() - 0.5) * 6,
+                    delay: Math.random() * 0.4,
+                });
+            }
+        }
+        requestAnimationFrame(function () { captureTextPos(); buildParticles(); });
+
+        /* -- Progresso do scroll -- */
+        function getProgress() {
+            var heroH = hero.offsetHeight;
+            return Math.min(1, Math.max(0, window.scrollY / (heroH * 0.72)));
+        }
+
+        /* -- Desenha -- */
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            var prog = getProgress();
+            if (prog < 0.08 || pts.length === 0) return;
+
+            var p = Math.min(1, (prog - 0.08) / 0.65); /* 0→1 na faixa útil */
+            var scrollY = window.scrollY;
+
+            for (var i = 0; i < pts.length; i++) {
+                var pt = pts[i];
+                var pp = Math.max(0, (p - pt.delay) / (1 - pt.delay + 0.001));
+                if (pp <= 0) continue;
+
+                /* física: gravidade de 380px/s² escalonada pelo progresso */
+                var t  = pp * 1.4;
+                var vx = pt.ox + pt.vx * t;
+                var vy = pt.oy - scrollY
+                       - pt.vy0 * t          /* impulso inicial para cima */
+                       + 380 * t * t * 0.5; /* gravidade puxa para baixo */
+
+                if (vy > H + 60) continue;
+
+                var alpha = Math.max(0, 1 - pp * 1.3);
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.translate(vx, vy);
+                ctx.rotate(pt.rot + pt.rotV * t * 8);
+                ctx.font = 'bold ' + pt.size + 'px Montserrat,sans-serif';
+                ctx.fillStyle   = '#FFD700';
+                ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+                ctx.lineWidth   = 1.5;
+                ctx.strokeText(pt.sym, 0, 0);
+                ctx.fillText(pt.sym, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(function () { draw(); ticking = false; });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        draw();
+    })();
 
     /* ── Parallax #numeros ── */
     (function() {
