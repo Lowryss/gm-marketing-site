@@ -30,22 +30,23 @@
 
 ## Phase 2 — Enriquecimento: Animações + Conteúdo
 
-**Goal:** A página tem animações de entrada profissionais, contador animado nos números, seção FAQ e cards de depoimentos textuais.
+**Goal:** Seção dedicada de números/resultados com fundo vermelho GM, contador animado e glow de conclusão, destacada entre o hero e os logos de clientes.
 
 **Requirements:** DSN-02, DSN-03, SEC-01, SEC-02, SEC-03
 
+**Note:** DSN-02, DSN-03, SEC-01, SEC-02 foram antecipados na Fase 1 e estão concluídos. Apenas SEC-03 permanece pendente.
+
 **Success Criteria:**
-1. Todos os blocos de conteúdo aparecem com fade-up ao entrar na viewport (scroll-triggered)
-2. Números do hero animam de 0 até o valor final ao entrar na viewport
-3. Seção FAQ com mínimo 5 perguntas/respostas expandíveis (accordion)
-4. Seção de depoimentos textuais com 3 cards contendo resultado específico por cliente
+1. Seção #numeros com fundo #ff2a2a aparece imediatamente após o hero
+2. Três contadores animam de 0 ao valor final ao entrar na viewport (300+, R$79Mi+, R$210Mi+)
+3. Glow branco sutil aparece ao término de cada animação de contador (~0.6s)
+4. Hero não exibe mais os contadores pequenos em vermelho
 5. Animações não ocorrem quando `prefers-reduced-motion: reduce` está ativo
 
-**Plans:**
-- PLAN-2.1: IntersectionObserver fade-up em todas as seções (DSN-02)
-- PLAN-2.2: Contador animado nos números + efeito de destaque (DSN-03, SEC-03)
-- PLAN-2.3: Seção FAQ accordion (SEC-01)
-- PLAN-2.4: Cards de depoimentos textuais com foto placeholder e resultado (SEC-02)
+**Plans:** 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — Seção #numeros: migrar contadores do hero, inserir seção vermelha com glow (SEC-03)
 
 ---
 
@@ -72,7 +73,7 @@
 | # | Phase | Requirements | Plans |
 |---|-------|-------------|-------|
 | 1 | Fundação: Design System + Conversão | 13 | 4 |
-| 2 | Enriquecimento: Animações + Conteúdo | 5 | 4 |
+| 2 | Enriquecimento: Animações + Conteúdo | 5 | 1 |
 | 3 | Polimento: SEO + Performance | 4 | 2 |
 
-**Total:** 22 requirements → 10 plans → 3 phases
+**Total:** 22 requirements → 7 plans → 3 phases
