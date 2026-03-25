@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Marketing | Assessoria de Resultados Digitais — Mais Vendas, Mais ROI</title>
+    <meta name="description" content="GM Marketing: assessoria especializada em tráfego pago e performance. 300+ projetos. R$210M+ faturados para nossos clientes. Solicite seu diagnóstico gratuito.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="GM Marketing | Assessoria de Resultados Digitais">
+    <meta property="og:description" content="Implementamos uma máquina de aquisição focada 100% em ROI. 300+ projetos. R$210M+ faturados. Diagnóstico gratuito.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gmmkt.com.br/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ── Base ── */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #111; color: #fff; overflow-x: hidden; }
+
+        /* ── Brand tokens ── */
+        .v4-red { color: #ff2a2a; }
+        .v4-bg-red { background-color: #ff2a2a; }
+        .v4-bg-dark { background-color: #0a0a0a; }
+        .v4-bg-light { background-color: #f4f4f4; color: #111; }
+        .v4-border-red { border-color: #ff2a2a; }
+
+        /* ── Hero pattern ── */
+        .hero-pattern { background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px; }
+
+        /* ── Video ── */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 177.77%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(255, 42, 42, 0.1);
+            border: 1px solid #333;
+        }
+        .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── Scroll animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up.delay-1 { transition-delay: 0.1s; }
+        .fade-up.delay-2 { transition-delay: 0.2s; }
+        .fade-up.delay-3 { transition-delay: 0.3s; }
+
+        /* ── Form states ── */
+        .input-error { border-color: #ff2a2a !important; }
+        .input-valid { border-color: #22c55e !important; }
+        .field-error { display: none; color: #f87171; font-size: 0.75rem; margin-top: 2px; }
+        .field-error.show { display: block; }
+
+        /* ── WhatsApp float ── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            width: 3.5rem;
+            height: 3.5rem;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(34,197,94,0.4);
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            animation: pulse-green 2s infinite;
+        }
+        .whatsapp-float:hover { background-color: #16a34a; transform: scale(1.08); }
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+            50%       { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+        }
+
+        /* ── Counter animation ── */
+        .counter { display: inline-block; }
+
+        /* ── FAQ accordion ── */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        .faq-answer.open { max-height: 300px; }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        /* ── Reduced motion — global override ── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .fade-up { opacity: 1; transform: none; }
+            .whatsapp-float { animation: none; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ══ HEADER NAV ══ -->
+    <header class="w-full fixed top-0 z-40 py-4 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="font-black text-2xl tracking-tight">GM <span class="v4-red">MKT</span></div>
+            <a href="#form" class="text-sm font-bold uppercase tracking-wider text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200 cursor-pointer">Falar com Consultor</a>
+        </div>
+    </header>
+
+    <!-- ══ HERO SECTION ══ -->
+    <section class="v4-bg-dark min-h-screen flex flex-col justify-center pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
+        <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            <!-- Copy esquerda -->
+            <div class="lg:col-span-7 space-y-6 z-10">
+                <div class="inline-block px-3 py-1 bg-red-900/30 v4-border-red border text-red-400 text-xs font-bold uppercase tracking-widest fade-up">
+                    Assessoria de Marketing Especializada
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight uppercase fade-up delay-1">
+                    Likes não pagam contas. <span class="v4-red block mt-2">Vendas pagam.</span>
+                </h1>
+                <p class="text-lg text-gray-300 font-normal max-w-xl fade-up delay-2">
+                    Implementamos uma máquina de aquisição focada 100% em ROI para empresas que faturam de R$ 50 mil a mais de R$ 100 milhões/ano. O método se adapta. A responsabilidade é a mesma.
+                </p>
+
+                <!-- Números com contador -->
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-800 fade-up delay-3">
+                    <div>
+                        <span class="block text-2xl lg:text-3xl font-black v4-red">
+                            <span class="counter" data-target="300" data-suffix="+">300+</span>
+                        </span>
+                        <span class="text-xs text-gray-400 uppercase font-bold">Projetos</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl lg:text-3xl font-black v4-red">R$ <span class="counter" data-target="79" data-suffix=" Mi+">79 Mi+</span></span>
+                        <span class="text-xs text-gray-400 uppercase font-bold">Investidos</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl lg:text-3xl font-black v4-red">R$ <span class="counter" data-target="210" data-suffix=" Mi+">210 Mi+</span></span>
+                        <span class="text-xs text-gray-400 uppercase font-bold">Faturados</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário direita -->
+            <div id="form" class="lg:col-span-5 v4-bg-light p-8 relative z-10 w-full shadow-2xl border-t-4 v4-border-red rounded-lg fade-up delay-2">
+                <h3 class="text-2xl font-black uppercase mb-2 leading-tight text-gray-900">Receba um diagnóstico<br>do seu negócio</h3>
+                <p class="text-sm text-gray-600 mb-6 font-semibold">Preencha para falar com um especialista GM.</p>
+
+                <form id="lead-form" novalidate class="space-y-4">
+                    <div>
+                        <label for="nome" class="sr-only">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" placeholder="Nome Completo"
+                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors text-gray-800 rounded"
+                            required>
+                        <span class="field-error" id="nome-error">Por favor, informe seu nome.</span>
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">E-mail Profissional</label>
+                        <input type="email" id="email" name="email" placeholder="E-mail Profissional"
+                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors text-gray-800 rounded"
+                            required>
+                        <span class="field-error" id="email-error">E-mail inválido.</span>
+                    </div>
+                    <div>
+                        <label for="whatsapp" class="sr-only">WhatsApp</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="WhatsApp (ex: 11999999999)"
+                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors text-gray-800 rounded"
+                            required pattern="[0-9]{10,11}">
+                        <span class="field-error" id="whatsapp-error">Informe um WhatsApp válido (10-11 dígitos).</span>
+                    </div>
+                    <div>
+                        <label for="faturamento" class="sr-only">Faturamento Mensal</label>
+                        <select id="faturamento" name="faturamento"
+                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors text-gray-700 rounded"
+                            required>
+                            <option value="" disabled selected>Faturamento Mensal</option>
+                            <option value="Até R$ 50.000">Até R$ 50.000</option>
+                            <option value="R$ 50k a R$ 100k">R$ 50k a R$ 100k</option>
+                            <option value="Mais de R$ 100k">Mais de R$ 100k</option>
+                        </select>
+                        <span class="field-error" id="faturamento-error">Selecione o faturamento.</span>
+                    </div>
+
+                    <button type="submit" id="submit-btn"
+                        class="w-full v4-bg-red text-white font-black uppercase py-4 mt-2 hover:bg-red-700 transition-colors tracking-wider text-lg rounded shadow-[0_0_15px_rgba(255,42,42,0.4)] hover:shadow-[0_0_25px_rgba(255,42,42,0.6)] cursor-pointer flex items-center justify-center gap-2">
+                        <span id="btn-text">Quero Meu Diagnóstico Gratuito</span>
+                        <svg id="btn-spinner" class="hidden animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Sucesso -->
+                <div id="form-success" class="hidden text-center py-6">
+                    <svg class="w-12 h-12 text-green-500 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-green-600 font-black text-lg uppercase">Recebemos seu contato!</p>
+                    <p class="text-gray-500 text-sm mt-1">Abrindo WhatsApp em instantes…</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ LOGOS CLIENTES ══ -->
+    <section class="py-10 bg-black border-y border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 text-center fade-up">
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6">Metodologia validada por grandes marcas</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale font-bold text-xl md:text-2xl uppercase">
+                <span class="hover:opacity-100 hover:grayscale-0 transition duration-300 cursor-default">Grupo UniEduK</span>
+                <span class="hover:opacity-100 hover:grayscale-0 transition duration-300 cursor-default">Toldos Mundial</span>
+                <span class="hover:opacity-100 hover:grayscale-0 transition duration-300 cursor-default">Indústrias Moveleiras</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ DORES / O PROBLEMA ══ -->
+    <section class="py-24 bg-[#0a0a0a]">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">O Marketing Tradicional <span class="v4-red border-b-4 border-red-600 pb-1">Morreu.</span></h2>
+                <p class="text-gray-300 mt-4 max-w-3xl mx-auto text-lg">As agências antigas te vendem planilhas de curtidas e relatórios de vaidade. Enquanto você ganha seguidores, seu concorrente fatura milhões.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pain 1 -->
+                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-1">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Sem Previsibilidade</h3>
+                    <p class="text-sm text-gray-300">Você não sabe quanto vai vender amanhã. Depende de indicações e sorte no mercado.</p>
+                </div>
+                <!-- Pain 2 -->
+                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-2">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Dinheiro Queimado</h3>
+                    <p class="text-sm text-gray-300">Anúncios no Facebook e Google que não geram contatos qualificados ou vendas reais.</p>
+                </div>
+                <!-- Pain 3 -->
+                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-3">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Time Comercial Parado</h3>
+                    <p class="text-sm text-gray-300">Sua equipe de vendas gasta tempo ligando para leads frios, curiosos ou desqualificados.</p>
+                </div>
+                <!-- Pain 4 -->
+                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-3">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Foco na Vaidade</h3>
+                    <p class="text-sm text-gray-300">A agência cobra resultados focando no tamanho da sua página, não no caixa da sua empresa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ VÍDEOS / DEPOIMENTOS ══ -->
+    <section class="py-24 bg-[#111] border-y border-gray-800 hero-pattern">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">Quem confia na <span class="v4-red">GM Marketing</span></h2>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Resultados reais. Clientes que escalaram seus faturamentos e delegaram a máquina de vendas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="group relative fade-up delay-1">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-700"></div>
+                    <div class="video-wrapper bg-black z-10 relative">
+                        <video controls controlsList="nodownload" preload="metadata" poster="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80">
+                            <source src="video/IMG_7744.MP4" type="video/mp4">
+                            Seu navegador não suporta o formato de vídeo.
+                        </video>
+                    </div>
+                </div>
+                <div class="group relative fade-up delay-2">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-700"></div>
+                    <div class="video-wrapper bg-black z-10 relative">
+                        <video controls controlsList="nodownload" preload="metadata" poster="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80">
+                            <source src="video/IMG_7745.MP4" type="video/mp4">
+                            Seu navegador não suporta o formato de vídeo.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards depoimentos textuais -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-16">
+                <div class="bg-black/60 border border-gray-800 hover:border-red-500/50 transition-colors rounded-lg p-6 fade-up delay-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-red-900/50 flex items-center justify-center text-red-400 font-black text-sm">CS</div>
+                        <div>
+                            <p class="font-bold text-white text-sm">Carlos S.</p>
+                            <p class="text-gray-400 text-xs">CEO — Grupo Moveleiro</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Triplicamos o faturamento em 4 meses. A GM estruturou nosso funil do zero e hoje temos previsibilidade de receita."</p>
+                    <p class="text-red-400 font-black text-sm mt-3">+3x faturamento</p>
+                </div>
+                <div class="bg-black/60 border border-gray-800 hover:border-red-500/50 transition-colors rounded-lg p-6 fade-up delay-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-red-900/50 flex items-center justify-center text-red-400 font-black text-sm">AM</div>
+                        <div>
+                            <p class="font-bold text-white text-sm">Ana M.</p>
+                            <p class="text-gray-400 text-xs">Diretora — Rede de Clínicas</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Em 60 dias passamos de 20 para 85 consultas/mês. O tráfego pago da GM é cirúrgico — só leads qualificados."</p>
+                    <p class="text-red-400 font-black text-sm mt-3">+325% em consultas</p>
+                </div>
+                <div class="bg-black/60 border border-gray-800 hover:border-red-500/50 transition-colors rounded-lg p-6 fade-up delay-3">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-red-900/50 flex items-center justify-center text-red-400 font-black text-sm">RB</div>
+                        <div>
+                            <p class="font-bold text-white text-sm">Roberto B.</p>
+                            <p class="text-gray-400 text-xs">Sócio — Construtora Regional</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"ROI de 4x no primeiro trimestre. Antes queimávamos dinheiro em Ads sem saber o retorno. Agora medimos tudo."</p>
+                    <p class="text-red-400 font-black text-sm mt-3">ROAS 4x no 1º trimestre</p>
+                </div>
+            </div>
+
+            <!-- CTA intermediário pós-depoimentos -->
+            <div class="mt-16 text-center fade-up">
+                <a href="#form" class="inline-block v4-bg-red text-white font-black uppercase py-4 px-10 hover:bg-red-700 transition-colors tracking-wider text-xl rounded shadow-[0_0_20px_rgba(255,42,42,0.3)] cursor-pointer">
+                    Quero Ser o Próximo Case
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ METODOLOGIA / BENEFÍCIOS ══ -->
+    <section class="py-20 v4-bg-dark">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-5xl font-black uppercase"><span class="v4-red">Nossa</span> Metodologia</h2>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Atuamos desde empresas em fase de estruturação até operações multimilionárias.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="border border-gray-800 p-8 hover:border-red-500 transition-colors group bg-black/50 backdrop-blur rounded-lg fade-up delay-1">
+                    <div class="text-5xl font-black text-gray-800 group-hover:text-red-500 mb-6 transition-colors">01.</div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Auditoria & Funil</h3>
+                    <p class="text-sm text-gray-300">Desenhamos a jornada do cliente, desde o anúncio até a conversão. Estruturamos landing pages e fluxos validados de venda.</p>
+                </div>
+                <div class="border border-gray-800 p-8 hover:border-red-500 transition-colors group bg-black/50 backdrop-blur rounded-lg fade-up delay-2">
+                    <div class="text-5xl font-black text-gray-800 group-hover:text-red-500 mb-6 transition-colors">02.</div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Mídia Paga & Performance</h3>
+                    <p class="text-sm text-gray-300">Rastreamento milimétrico. Compramos dados. Alocamos os investimentos (R$ 79M+ de bagagem) de forma cirúrgica para menor CPA.</p>
+                </div>
+                <div class="border border-gray-800 p-8 hover:border-red-500 transition-colors group bg-black/50 backdrop-blur rounded-lg fade-up delay-3">
+                    <div class="text-5xl font-black text-gray-800 group-hover:text-red-500 mb-6 transition-colors">03.</div>
+                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Análise de Vendas (ROI)</h3>
+                    <p class="text-sm text-gray-300">O marketing termina onde a venda é feita. Acompanhamos o fechamento do seu time comercial para garantir o Retorno (ROAS) final.</p>
+                </div>
+            </div>
+
+            <!-- CTA intermediário pós-metodologia -->
+            <div class="mt-12 text-center fade-up">
+                <a href="#form" class="inline-block border-2 border-red-500 text-red-400 font-black uppercase py-3 px-8 hover:bg-red-500 hover:text-white transition-colors tracking-wider rounded cursor-pointer">
+                    Falar com um Especialista
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FAQ ══ -->
+    <section class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-12 fade-up">
+                <h2 class="text-3xl md:text-4xl font-black uppercase mb-4">Perguntas <span class="v4-red">Frequentes</span></h2>
+                <p class="text-gray-300">Tire suas dúvidas antes de conversar com nosso time.</p>
+            </div>
+            <div class="space-y-3" id="faq-list">
+                <!-- Item 1 -->
+                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-1">
+                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                        <span class="font-bold text-white text-sm md:text-base">Quanto custa contratar a GM Marketing?</span>
+                        <svg class="faq-icon w-5 h-5 text-red-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os valores variam conforme o escopo do projeto e o volume de investimento em mídia. Trabalhamos com empresas de diferentes portes. No diagnóstico gratuito apresentamos a proposta ideal para o seu momento.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-2">
+                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                        <span class="font-bold text-white text-sm md:text-base">Em quanto tempo verei resultados?</span>
+                        <svg class="faq-icon w-5 h-5 text-red-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os primeiros leads qualificados geralmente chegam nos primeiros 15 a 30 dias de campanha ativa. O ROAS positivo consolidado — onde o retorno supera o investimento — costuma se estabilizar entre 60 e 90 dias.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-3">
+                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                        <span class="font-bold text-white text-sm md:text-base">Preciso ter um time de vendas para contratar?</span>
+                        <svg class="faq-icon w-5 h-5 text-red-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Não necessariamente. Podemos trabalhar tanto com empresas que já têm equipe comercial estruturada quanto com negócios onde o próprio dono fecha as vendas. O processo é adaptado ao seu modelo.</p>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-1">
+                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                        <span class="font-bold text-white text-sm md:text-base">Qual o investimento mínimo em mídia?</span>
+                        <svg class="faq-icon w-5 h-5 text-red-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Recomendamos investimento mínimo de R$ 3.000/mês em mídia paga para gerar volume de dados suficiente para otimização. Abaixo disso, os resultados são imprevisíveis.</p>
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-2">
+                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                        <span class="font-bold text-white text-sm md:text-base">Como funciona o diagnóstico gratuito?</span>
+                        <svg class="faq-icon w-5 h-5 text-red-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">É uma reunião de 30 a 45 minutos onde nosso especialista analisa seu negócio, canais atuais e potencial de crescimento. Ao final, você recebe um plano de ação com as principais alavancas para escalar seu faturamento — sem compromisso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FOOTER CTA FINAL ══ -->
+    <section class="py-20 v4-bg-red relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 fade-up">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">O sucesso do seu negócio não pode esperar.</h2>
+            <p class="text-white/80 text-lg mb-10">Fale com um assessor de growth da GM Marketing e descubra a estratégia exata para escalar seu faturamento ainda neste trimestre.</p>
+            <a href="#form" class="inline-block bg-black text-white font-black uppercase py-5 px-12 hover:bg-gray-900 transition-colors tracking-widest text-xl rounded-sm shadow-2xl cursor-pointer">
+                Agendar Diagnóstico Gratuito
+            </a>
+        </div>
+    </section>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="bg-[#050505] py-10 text-center text-xs text-gray-600 uppercase tracking-wider font-bold">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-black text-xl tracking-tight text-white">GM <span class="v4-red">MKT</span></div>
+            <p>&copy; 2026 GM Marketing — Assessoria de Resultados Digitais.</p>
+            <div class="text-gray-500">Atendimento: 09:00h até 18:00h</div>
+        </div>
+    </footer>
+
+    <!-- ══ WHATSAPP FLOAT ══ -->
+    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Vi+o+site+da+GM+Marketing+e+gostaria+de+um+diagn%C3%B3stico+gratuito."
+       target="_blank" rel="noopener noreferrer"
+       class="whatsapp-float"
+       aria-label="Falar no WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 text-white">
+            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+        </svg>
+    </a>
+
+    <!-- ══ JAVASCRIPT ══ -->
+    <script>
+    (function() {
+
+        /* ── Scroll animations (IntersectionObserver) ── */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        /* ── Counter animation ── */
+        function animateCounter(el) {
+            const target = parseInt(el.dataset.target, 10);
+            const suffix = el.dataset.suffix || '';
+            const duration = 1600;
+            const step = target / (duration / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(current) + suffix;
+            }, 16);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+        /* ── Formulário: validação + WhatsApp redirect ── */
+        const form = document.getElementById('lead-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+        const formSuccess = document.getElementById('form-success');
+
+        function validateField(id, condition, errorId) {
+            const input = document.getElementById(id);
+            const error = document.getElementById(errorId);
+            if (!condition) {
+                input.classList.add('input-error');
+                input.classList.remove('input-valid');
+                error.classList.add('show');
+                return false;
+            }
+            input.classList.remove('input-error');
+            input.classList.add('input-valid');
+            error.classList.remove('show');
+            return true;
+        }
+
+        // Validação inline ao sair do campo
+        ['nome', 'email', 'whatsapp', 'faturamento'].forEach(id => {
+            const el = document.getElementById(id);
+            el.addEventListener('blur', () => {
+                if (id === 'nome') validateField('nome', el.value.trim().length > 1, 'nome-error');
+                if (id === 'email') validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value), 'email-error');
+                if (id === 'whatsapp') validateField('whatsapp', /^[0-9]{10,11}$/.test(el.value.replace(/\D/g, '')), 'whatsapp-error');
+                if (id === 'faturamento') validateField('faturamento', el.value !== '', 'faturamento-error');
+            });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nomeVal = document.getElementById('nome').value.trim();
+            const emailVal = document.getElementById('email').value.trim();
+            const wpVal = document.getElementById('whatsapp').value.replace(/\D/g, '');
+            const fatVal = document.getElementById('faturamento').value;
+
+            const v1 = validateField('nome', nomeVal.length > 1, 'nome-error');
+            const v2 = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal), 'email-error');
+            const v3 = validateField('whatsapp', /^[0-9]{10,11}$/.test(wpVal), 'whatsapp-error');
+            const v4 = validateField('faturamento', fatVal !== '', 'faturamento-error');
+
+            if (!v1 || !v2 || !v3 || !v4) return;
+
+            // Loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Enviando...';
+            btnSpinner.classList.remove('hidden');
+
+            // Sucesso e redirect
+            setTimeout(() => {
+                form.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+
+                const numero = '5511999999999'; // ⚠ SUBSTITUIR pelo número real da GM
+                const msg = encodeURIComponent(
+                    `Olá! Vi o site da GM Marketing e gostaria de um diagnóstico gratuito.\nNome: ${nomeVal}\nFaturamento mensal: ${fatVal}`
+                );
+                setTimeout(() => window.open(`https://wa.me/${numero}?text=${msg}`, '_blank'), 1500);
+            }, 800);
+        });
+
+        /* ── FAQ accordion ── */
+        document.querySelectorAll('.faq-trigger').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const item = this.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = item.classList.contains('open');
+
+                // Fechar todos
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-answer').classList.remove('open');
+                    i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                });
+
+                // Abrir o clicado (se não estava aberto)
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+    })();
+    </script>
+
+</body>
+</html>
