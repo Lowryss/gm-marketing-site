@@ -91,6 +91,16 @@
         /* ── Counter animation ── */
         .counter { display: inline-block; }
 
+        /* ── Counter glow (fim da animação) ── */
+        @keyframes counter-glow {
+            0%   { text-shadow: none; }
+            30%  { text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.3); }
+            100% { text-shadow: none; }
+        }
+        .counter-glow-active {
+            animation: counter-glow 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
         /* ── FAQ accordion ── */
         .faq-answer {
             max-height: 0;
@@ -139,23 +149,6 @@
                     Implementamos uma máquina de aquisição focada 100% em ROI para empresas que faturam de R$ 50 mil a mais de R$ 100 milhões/ano. O método se adapta. A responsabilidade é a mesma.
                 </p>
 
-                <!-- Números com contador -->
-                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-800 fade-up delay-3">
-                    <div>
-                        <span class="block text-2xl lg:text-3xl font-black v4-red">
-                            <span class="counter" data-target="300" data-suffix="+">300+</span>
-                        </span>
-                        <span class="text-xs text-gray-400 uppercase font-bold">Projetos</span>
-                    </div>
-                    <div>
-                        <span class="block text-2xl lg:text-3xl font-black v4-red">R$ <span class="counter" data-target="79" data-suffix=" Mi+">79 Mi+</span></span>
-                        <span class="text-xs text-gray-400 uppercase font-bold">Investidos</span>
-                    </div>
-                    <div>
-                        <span class="block text-2xl lg:text-3xl font-black v4-red">R$ <span class="counter" data-target="210" data-suffix=" Mi+">210 Mi+</span></span>
-                        <span class="text-xs text-gray-400 uppercase font-bold">Faturados</span>
-                    </div>
-                </div>
             </div>
 
             <!-- Formulário direita -->
@@ -216,6 +209,42 @@
                     <p class="text-green-600 font-black text-lg uppercase">Recebemos seu contato!</p>
                     <p class="text-gray-500 text-sm mt-1">Abrindo WhatsApp em instantes…</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ NÚMEROS / RESULTADOS ══ -->
+    <section id="numeros" class="v4-bg-red py-16 md:py-20 fade-up">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="text-white/70 text-xs font-bold uppercase tracking-widest mb-10">
+                Resultados que falam por si
+            </p>
+            <div class="grid grid-cols-3 divide-x-0 sm:divide-x divide-white/20 relative">
+
+                <!-- Bloco 1 -->
+                <div class="px-6 md:px-10 py-4">
+                    <p class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none whitespace-nowrap">
+                        <span class="counter" data-target="300" data-suffix="+">300+</span>
+                    </p>
+                    <p class="text-white text-sm md:text-base font-semibold mt-2">projetos entregues</p>
+                </div>
+
+                <!-- Bloco 2 -->
+                <div class="px-6 md:px-10 py-4">
+                    <p class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none whitespace-nowrap">
+                        R$&nbsp;<span class="counter" data-target="79" data-suffix=" Mi+">79 Mi+</span>
+                    </p>
+                    <p class="text-white text-sm md:text-base font-semibold mt-2">em mídia gerenciada</p>
+                </div>
+
+                <!-- Bloco 3 -->
+                <div class="px-6 md:px-10 py-4">
+                    <p class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none whitespace-nowrap">
+                        R$&nbsp;<span class="counter" data-target="210" data-suffix=" Mi+">210 Mi+</span>
+                    </p>
+                    <p class="text-white text-sm md:text-base font-semibold mt-2">faturados</p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -525,6 +554,7 @@
                 if (current >= target) {
                     current = target;
                     clearInterval(timer);
+                    el.classList.add('counter-glow-active');
                 }
                 el.textContent = Math.floor(current) + suffix;
             }, 16);
