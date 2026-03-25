@@ -101,16 +101,9 @@
             animation: counter-glow 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        /* ── Ticker / marquee ── */
-        .ticker-track { overflow: hidden; }
-        .ticker-inner { display: inline-flex; white-space: nowrap; }
-        .ticker-left  { animation: ticker-left  28s linear infinite; }
-        .ticker-right { animation: ticker-right 28s linear infinite; }
-        @keyframes ticker-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        @keyframes ticker-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-        @media (prefers-reduced-motion: reduce) {
-            .ticker-left, .ticker-right { animation: none; }
-        }
+        /* ── Parallax numbers ── */
+        #numeros { overflow: hidden; }
+        .num-row { display: flex; white-space: nowrap; will-change: transform; }
 
         /* ── FAQ accordion ── */
         .faq-answer {
@@ -224,29 +217,28 @@
         </div>
     </section>
 
-    <!-- ══ NÚMEROS / RESULTADOS ══ -->
-    <!-- ══ NÚMEROS / TICKER ══ -->
-    <section id="numeros" class="v4-bg-red overflow-hidden">
-        <!-- Linha 1 — scroll para a esquerda -->
-        <div class="ticker-track py-5 border-b border-white/15">
-            <div class="ticker-inner ticker-left font-black text-xl md:text-2xl uppercase tracking-widest text-white">
-                <span class="mx-10">• 300+ PROJETOS ENTREGUES</span>
-                <span class="mx-10">• R$ 79M+ EM MÍDIA GERENCIADA</span>
-                <span class="mx-10">• R$ 210M+ FATURADOS PELOS CLIENTES</span>
-                <span class="mx-10">• 300+ PROJETOS ENTREGUES</span>
-                <span class="mx-10">• R$ 79M+ EM MÍDIA GERENCIADA</span>
-                <span class="mx-10">• R$ 210M+ FATURADOS PELOS CLIENTES</span>
+    <!-- ══ NÚMEROS PARALLAX ══ -->
+    <section id="numeros" class="v4-bg-red">
+        <!-- Linha 1 — desliza para a esquerda ao scrollar -->
+        <div class="py-5 border-b border-white/15">
+            <div id="num-row-1" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white">
+                <span class="mx-12">• 300+ PROJETOS ENTREGUES</span>
+                <span class="mx-12">• R$ 79M+ EM MÍDIA GERENCIADA</span>
+                <span class="mx-12">• R$ 210M+ FATURADOS PELOS CLIENTES</span>
+                <span class="mx-12">• 300+ PROJETOS ENTREGUES</span>
+                <span class="mx-12">• R$ 79M+ EM MÍDIA GERENCIADA</span>
+                <span class="mx-12">• R$ 210M+ FATURADOS PELOS CLIENTES</span>
             </div>
         </div>
-        <!-- Linha 2 — scroll para a direita -->
-        <div class="ticker-track py-5">
-            <div class="ticker-inner ticker-right font-black text-xl md:text-2xl uppercase tracking-widest text-white/50">
-                <span class="mx-10">• RESULTADOS QUE FALAM POR SI</span>
-                <span class="mx-10">• +8 ANOS DE EXPERIÊNCIA</span>
-                <span class="mx-10">• MARKETING FOCADO EM ROI REAL</span>
-                <span class="mx-10">• RESULTADOS QUE FALAM POR SI</span>
-                <span class="mx-10">• +8 ANOS DE EXPERIÊNCIA</span>
-                <span class="mx-10">• MARKETING FOCADO EM ROI REAL</span>
+        <!-- Linha 2 — desliza para a direita ao scrollar -->
+        <div class="py-5">
+            <div id="num-row-2" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white/50">
+                <span class="mx-12">• RESULTADOS QUE FALAM POR SI</span>
+                <span class="mx-12">• +8 ANOS DE EXPERIÊNCIA</span>
+                <span class="mx-12">• MARKETING FOCADO EM ROI REAL</span>
+                <span class="mx-12">• RESULTADOS QUE FALAM POR SI</span>
+                <span class="mx-12">• +8 ANOS DE EXPERIÊNCIA</span>
+                <span class="mx-12">• MARKETING FOCADO EM ROI REAL</span>
             </div>
         </div>
     </section>
@@ -661,6 +653,30 @@
                 }
             });
         });
+
+    /* ── Parallax #numeros ── */
+    (function() {
+        var row1 = document.getElementById('num-row-1');
+        var row2 = document.getElementById('num-row-2');
+        var section = document.getElementById('numeros');
+        if (!row1 || !row2 || !section) return;
+
+        var ticking = false;
+        function update() {
+            var rect = section.getBoundingClientRect();
+            var vh   = window.innerHeight;
+            // progress: 0 = seção centrada, negativo = acima, positivo = abaixo
+            var progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+            var px = progress * 300; // amplitude em px
+            row1.style.transform = 'translateX(' + (-px) + 'px)';
+            row2.style.transform = 'translateX(' + ( px) + 'px)';
+            ticking = false;
+        }
+        window.addEventListener('scroll', function() {
+            if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        }, { passive: true });
+        update();
+    })();
 
     })();
     </script>
