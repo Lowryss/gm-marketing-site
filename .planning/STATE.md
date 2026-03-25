@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-03-25)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 — Fundação | ✓ Done | 3/3 | 100% |
-| 2 — Animações | ○ Pending | 0/4 | 0% |
+| 2 — Animações | ◑ In Progress | 1/4 | 25% |
 | 3 — SEO/Performance | ○ Pending | 0/2 | 0% |
 
 ## Phase 1 Deliverables
@@ -33,14 +33,24 @@ All requirements fulfilled in index.html:
 - A11Y-01: scroll-behavior: smooth ✓
 - SEO-01 to SEO-03: OG meta tags + SEO title/description ✓
 
+## Phase 2 Deliverables (in progress)
+
+- SEC-03: Seção #numeros com fundo #ff2a2a, contadores animados 5xl–8xl, glow branco ao finalizar ✓ (02-01)
+
 ## Last Action
 
-Phase 1 executed — 2026-03-25
-Commit: feat(phase-1): Phase 1 complete
+Phase 2 Plan 01 executed — 2026-03-25
+Commit: 3133f6a feat(02-01): seção #numeros com fundo vermelho e contadores animados
+
+## Decisions
+
+- divide-x Tailwind para separadores verticais (sem pseudo-elementos absolutos)
+- text-white puro nos labels da seção #numeros para contraste WCAG AA sobre #ff2a2a
+- Reutilizou counterObserver existente (seletor global) — zero código duplicado
 
 ## Next Step
 
-`/gsd:plan-phase 2` — Enriquecimento (animações avançadas, FAQ já implementado)
+Execute 02-02 — próximo plano da fase 02
 
 ## Pending
 

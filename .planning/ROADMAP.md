@@ -46,7 +46,7 @@
 **Plans:** 1 plan
 
 Plans:
-- [ ] 02-01-PLAN.md — Seção #numeros: migrar contadores do hero, inserir seção vermelha com glow (SEC-03)
+- [x] 02-01-PLAN.md — Seção #numeros: migrar contadores do hero, inserir seção vermelha com glow (SEC-03)
 
 ---
 

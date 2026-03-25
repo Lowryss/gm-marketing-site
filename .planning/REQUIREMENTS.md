@@ -31,7 +31,7 @@
 
 - [ ] **SEC-01**: Seção FAQ com 5-6 perguntas/respostas sobre objeções comuns (preço, prazo, resultados)
 - [ ] **SEC-02**: Cards de depoimentos textuais (3 cards com foto placeholder, nome, empresa e resultado específico)
-- [ ] **SEC-03**: Seção de números/resultados com destaque visual melhorado (before/after ou transformação)
+- [x] **SEC-03**: Seção de números/resultados com destaque visual melhorado (before/after ou transformação)
 
 ### Performance & Acessibilidade
 
