@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gmmkt.com.br/">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -37,55 +37,42 @@
     <style>
         /* ── Base ── */
         html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #111; color: #fff; overflow-x: hidden; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0d0d0d;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-        /* ── Top Bar ── */
-        .top-bar {
+        /* ── Dot pattern global ── */
+        body::before {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 60;
-            background-color: #000;
-            border-bottom: 1px solid #FF6B00;
-            padding: 7px 16px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #FF6B00;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* ── Brand tokens ── */
         .gm-orange { color: #FF6B00; }
         .gm-bg-orange { background-color: #FF6B00; }
-        .gm-border-orange { border-color: #FF6B00; }
-        /* Legacy aliases */
-        .v4-red { color: #FF6B00; }
-        .v4-bg-red { background-color: #FF6B00; }
-        .v4-bg-dark { background-color: #0a0a0a; }
-        .v4-bg-light { background-color: #f4f4f4; color: #111; }
+        .v4-bg-dark { background-color: #0d0d0d; }
         .v4-border-red { border-color: #FF6B00; }
 
         /* ── Hero pattern ── */
         .hero-pattern { background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px; }
 
-        /* ── Video ── */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 177.77%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.1);
-            border: 1px solid #333;
-        }
-        .video-wrapper video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
+        /* ── Barra exclusiva dentro do header ── */
+        .exclusive-bar {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #FF6B00;
+            text-align: center;
+            margin-top: 4px;
         }
 
         /* ── Case card thumbnail ── */
@@ -125,20 +112,13 @@
             border-radius: 4px;
         }
 
-        /* ── Stats section ── */
-        .stat-block { border-right: 1px solid rgba(255,255,255,0.08); }
-        .stat-block:last-child { border-right: none; }
-
         /* ── Scroll animations ── */
         .fade-up {
             opacity: 0;
             transform: translateY(32px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
         .fade-up.delay-1 { transition-delay: 0.1s; }
         .fade-up.delay-2 { transition-delay: 0.2s; }
         .fade-up.delay-3 { transition-delay: 0.3s; }
@@ -149,23 +129,23 @@
         .field-error { display: none; color: #f87171; font-size: 0.75rem; margin-top: 2px; }
         .field-error.show { display: block; }
 
-        /* ── Radio custom ── */
+        /* ── Radio custom (dark theme) ── */
         .radio-opt {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 8px 12px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #374151;
             border-radius: 6px;
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
             font-size: 13px;
-            color: #374151;
-            background: #fff;
+            color: #d1d5db;
+            background: #1a1a1a;
         }
         .radio-opt:hover { border-color: #FF6B00; }
-        .radio-opt input[type="radio"]:checked + span { color: #FF6B00; font-weight: 700; }
-        .radio-opt:has(input:checked) { border-color: #FF6B00; background: #fff8f5; }
+        .radio-opt input[type="radio"] { accent-color: #FF6B00; }
+        .radio-opt:has(input:checked) { border-color: #FF6B00; background: rgba(255,107,0,0.1); color: #FF6B00; font-weight: 700; }
 
         /* ── WhatsApp float ── */
         .whatsapp-float {
@@ -191,47 +171,110 @@
             50%       { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
         }
 
-        /* ── Counter animation ── */
+        /* ── Counter ── */
         .counter { display: inline-block; }
-
-        /* ── Counter glow ── */
         @keyframes counter-glow {
             0%   { text-shadow: none; }
             30%  { text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.3); }
             100% { text-shadow: none; }
         }
-        .counter-glow-active {
-            animation: counter-glow 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
+        .counter-glow-active { animation: counter-glow 0.65s cubic-bezier(0.4,0,0.2,1) forwards; }
 
         /* ── Parallax numbers ── */
         #numeros { overflow: hidden; }
         .num-row { display: flex; white-space: nowrap; will-change: transform; }
 
-        /* ── Client logos ── */
+        /* ── Client logos marquee ── */
+        .logos-marquee-wrap { overflow: hidden; }
+        .logos-marquee-track {
+            display: flex;
+            gap: 72px;
+            animation: marquee-scroll 22s linear infinite;
+            width: max-content;
+        }
+        .logos-marquee-wrap:hover .logos-marquee-track { animation-play-state: paused; }
+        @keyframes marquee-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         .client-logo {
-            filter: grayscale(1) opacity(0.45);
-            transition: filter 0.3s ease, opacity 0.3s ease;
+            filter: grayscale(100%) opacity(0.45);
+            transition: filter 0.3s ease;
             font-weight: 900;
             font-size: 1.1rem;
             letter-spacing: 0.04em;
             text-transform: uppercase;
             color: #fff;
+            cursor: default;
+            flex-shrink: 0;
         }
-        .client-logo:hover { filter: grayscale(0) opacity(1); }
+        .client-logo:hover { filter: grayscale(0%) opacity(1); }
 
-        /* ── Methodology pillars ── */
+        /* ── Photo placeholder ── */
+        .photo-placeholder {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #444;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            aspect-ratio: 4/3;
+        }
+
+        /* ── Methodology carousel ── */
+        .carousel-container { position: relative; overflow: hidden; }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .carousel-slide { min-width: 100%; padding: 0 4px; }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px; height: 44px;
+            background: rgba(255,107,0,0.12);
+            border: 1px solid rgba(255,107,0,0.35);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            z-index: 10;
+        }
+        .carousel-btn:hover { background: rgba(255,107,0,0.3); border-color: #FF6B00; }
+        .carousel-btn-prev { left: -22px; }
+        .carousel-btn-next { right: -22px; }
+        @media (max-width: 768px) {
+            .carousel-btn-prev { left: 4px; }
+            .carousel-btn-next { right: 4px; }
+        }
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+        .carousel-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #444;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .carousel-dot.active { background: #FF6B00; transform: scale(1.35); }
+
+        /* ── Pillar card ── */
         .pillar-card {
             border-left: 4px solid transparent;
-            background: #111;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: transform 0.2s, box-shadow 0.2s;
+            padding: 40px;
+            min-height: 280px;
         }
-        .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-        .pillar-orange { border-left-color: #FF6B00; }
-        .pillar-orange-dark { border-left-color: #cc5500; }
-        .pillar-blue { border-left-color: #3b82f6; }
-        .pillar-gray { border-left-color: #6b7280; }
+        .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
 
         /* ── FAQ accordion ── */
         .faq-answer {
@@ -252,6 +295,7 @@
             }
             .fade-up { opacity: 1; transform: none; }
             .whatsapp-float { animation: none; }
+            .logos-marquee-track { animation: none; }
         }
     </style>
 </head>
@@ -264,21 +308,20 @@
     <!-- Canvas de partículas de dinheiro -->
     <canvas id="money-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
 
-    <!-- ══ TOP BAR (EXCLUSIVO) ══ -->
-    <div class="top-bar">
-        Exclusivo para empresas que faturam acima de R$50 mil ao mês
-    </div>
-
     <!-- ══ HEADER NAV ══ -->
-    <header class="w-full fixed z-40 py-4 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top: 33px;">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <img src="https://gmmkt.com.br/wp-content/uploads/2025/01/logobranco.png" alt="GM Marketing" class="h-10 w-auto">
-            <a href="#form" data-track="cta-header" class="text-sm font-bold uppercase tracking-wider text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200 cursor-pointer">Falar com Consultor</a>
+    <header class="w-full fixed z-40 py-3 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top:0;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center">
+                <img src="https://gmmkt.com.br/wp-content/uploads/2025/01/logobranco.png" alt="GM Marketing" class="h-10 w-auto">
+                <a href="#form" data-track="cta-header" class="text-sm font-bold uppercase tracking-wider text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200 cursor-pointer">Falar com Consultor</a>
+            </div>
+            <!-- Barra exclusiva abaixo da logo -->
+            <div class="exclusive-bar">&#10022; Exclusivo para empresas que faturam acima de R$50 mil ao mês &#10022;</div>
         </div>
     </header>
 
     <!-- ══ HERO SECTION ══ -->
-    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-36 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
+    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-44 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
         <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             <!-- Copy esquerda -->
@@ -290,80 +333,79 @@
                     Previsibilidade de clientes para sua empresa <span id="vendas-text" class="gm-orange block mt-2">— todos os meses.</span>
                 </h1>
                 <p class="text-lg text-gray-300 font-normal max-w-xl fade-up delay-2">
-                    A Assessoria GM estrutura seu marketing e comercial de ponta a ponta para gerar demanda qualificada, aumentar suas vendas e transformar crescimento em algo previsível — não sorte.
+                    A Assessoria GM estrutura seu marketing e comercial de ponta a ponta
+                    para gerar demanda qualificada, aumentar suas vendas e transformar
+                    crescimento em algo previsível — não sorte.
                 </p>
             </div>
 
             <!-- Formulário direita -->
-            <div id="form" class="lg:col-span-5 v4-bg-light p-8 relative z-10 w-full shadow-2xl border-t-4 v4-border-red rounded-lg fade-up delay-2">
-                <h3 class="text-2xl font-black uppercase mb-2 leading-tight text-gray-900">Receba um diagnóstico<br>do seu negócio</h3>
-                <p class="text-sm text-gray-600 mb-6 font-semibold">Preencha para falar com um especialista GM.</p>
+            <div id="form" class="lg:col-span-5 bg-[#111] border border-gray-700 p-8 relative z-10 w-full shadow-2xl border-t-4 rounded-lg fade-up delay-2" style="border-top-color:#FF6B00;">
+                <h3 class="text-2xl font-black uppercase mb-2 leading-tight text-white">Receba um diagnóstico<br>do seu negócio</h3>
+                <p class="text-sm text-gray-400 mb-6 font-semibold">Preencha para falar com um especialista GM.</p>
 
-                <form id="lead-form" novalidate class="space-y-3">
+                <form id="lead-form" novalidate class="space-y-4">
+                    <!-- UTM hidden fields -->
+                    <input type="hidden" name="utm_source"   id="utm_source">
+                    <input type="hidden" name="utm_medium"   id="utm_medium">
+                    <input type="hidden" name="utm_campaign" id="utm_campaign">
+                    <input type="hidden" name="utm_content"  id="utm_content">
+                    <input type="hidden" name="utm_term"     id="utm_term">
+
                     <!-- Campo 1: Nome e Sobrenome -->
                     <div>
-                        <label for="nome" class="sr-only">Nome e Sobrenome</label>
                         <input type="text" id="nome" name="nome" placeholder="Qual é seu nome e sobrenome?"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-800 rounded text-sm"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="nome-error">Por favor, informe seu nome.</span>
                     </div>
 
                     <!-- Campo 2: Empresa -->
                     <div>
-                        <label for="empresa" class="sr-only">Nome da Empresa</label>
                         <input type="text" id="empresa" name="empresa" placeholder="Qual o nome da sua empresa?"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-800 rounded text-sm"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="empresa-error">Por favor, informe o nome da empresa.</span>
                     </div>
 
                     <!-- Campo 3: CNPJ -->
                     <div>
-                        <label for="cnpj" class="sr-only">CNPJ</label>
                         <input type="text" id="cnpj" name="cnpj" placeholder="Qual é seu CNPJ?" maxlength="18"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-800 rounded text-sm"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="cnpj-error">Informe um CNPJ válido.</span>
                     </div>
 
                     <!-- Campo 4: Telefone -->
                     <div>
-                        <label for="telefone" class="sr-only">Telefone</label>
                         <input type="tel" id="telefone" name="telefone" placeholder="Qual seu telefone?" maxlength="15"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-800 rounded text-sm"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="telefone-error">Informe um telefone válido.</span>
                     </div>
 
-                    <!-- Campo 5: Faturamento mensal (select) -->
+                    <!-- Campo 5: Faturamento mensal (radio) -->
                     <div>
-                        <label for="faturamento" class="sr-only">Faturamento mensal</label>
-                        <select id="faturamento" name="faturamento"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-700 rounded text-sm"
-                            required>
-                            <option value="" disabled selected>Faturamento mensal da empresa...</option>
-                            <option value="Até R$40 mil">Até R$40 mil</option>
-                            <option value="R$41 mil a R$150 mil">R$41 mil a R$150 mil</option>
-                            <option value="R$151 mil a R$300 mil">R$151 mil a R$300 mil</option>
-                            <option value="R$300 mil a R$1 milhão">R$300 mil a R$1 milhão</option>
-                            <option value="Acima de R$1 Milhão">Acima de R$1 Milhão</option>
-                        </select>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Faturamento mensal da empresa</p>
+                        <div class="space-y-2" id="faturamento-group">
+                            <label class="radio-opt"><input type="radio" name="faturamento" value="Até R$40 mil"><span>Até R$40 mil</span></label>
+                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$41 mil a R$150 mil"><span>R$41 mil a R$150 mil</span></label>
+                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$151 mil a R$300 mil"><span>R$151 mil a R$300 mil</span></label>
+                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$300 mil a R$1 milhão"><span>R$300 mil a R$1 milhão</span></label>
+                            <label class="radio-opt"><input type="radio" name="faturamento" value="Acima de R$1 Milhão"><span>Acima de R$1 Milhão</span></label>
+                        </div>
                         <span class="field-error" id="faturamento-error">Selecione o faturamento mensal.</span>
                     </div>
 
-                    <!-- Campo 6: Quando pretende estruturar (select) -->
+                    <!-- Campo 6: Quando pretende estruturar (radio) -->
                     <div>
-                        <label for="quando" class="sr-only">Quando pretende estruturar</label>
-                        <select id="quando" name="quando"
-                            class="w-full px-4 py-3 bg-white border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-gray-700 rounded text-sm"
-                            required>
-                            <option value="" disabled selected>Quando pretende estruturar seu crescimento?</option>
-                            <option value="Imediatamente">Imediatamente</option>
-                            <option value="Em até 3 meses">Em até 3 meses</option>
-                            <option value="Em até 6 meses">Em até 6 meses</option>
-                            <option value="Ainda estou analisando">Ainda estou analisando</option>
-                        </select>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Quando pretende estruturar seu crescimento?</p>
+                        <div class="space-y-2" id="quando-group">
+                            <label class="radio-opt"><input type="radio" name="quando" value="Imediatamente"><span>Imediatamente</span></label>
+                            <label class="radio-opt"><input type="radio" name="quando" value="Em até 3 meses"><span>Em até 3 meses</span></label>
+                            <label class="radio-opt"><input type="radio" name="quando" value="Em até 6 meses"><span>Em até 6 meses</span></label>
+                            <label class="radio-opt"><input type="radio" name="quando" value="Ainda estou analisando"><span>Ainda estou analisando</span></label>
+                        </div>
                         <span class="field-error" id="quando-error">Selecione quando pretende estruturar.</span>
                     </div>
 
@@ -382,8 +424,8 @@
                     <svg class="w-12 h-12 text-green-500 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <p class="text-green-600 font-black text-lg uppercase">Recebemos seu contato!</p>
-                    <p class="text-gray-500 text-sm mt-1">Abrindo WhatsApp em instantes…</p>
+                    <p class="text-green-400 font-black text-lg uppercase">Recebemos seu contato!</p>
+                    <p class="text-gray-400 text-sm mt-1">Abrindo WhatsApp em instantes…</p>
                 </div>
             </div>
         </div>
@@ -392,26 +434,22 @@
     <!-- ══ ESTATÍSTICAS ══ -->
     <section class="bg-[#0a0a0a] border-y border-gray-800 py-12">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-0 divide-x divide-gray-800 fade-up">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-gray-800 fade-up">
                 <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">350+</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Projetos entregues</div>
+                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">6 ANOS</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">De Experiência</div>
+                </div>
+                <div class="text-center px-6 py-4">
+                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1"><span id="counter-350" class="counter">0</span>+</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Projetos Nacionais<br>e Internacionais</div>
                 </div>
                 <div class="text-center px-6 py-4">
                     <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$89M</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Mídia gerenciada</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Mídia Gerenciada</div>
                 </div>
                 <div class="text-center px-6 py-4">
                     <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$237M</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Faturamento gerado</div>
-                </div>
-                <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">6 anos</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">De experiência</div>
-                </div>
-                <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">ROI Real</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Marketing com foco em vendas</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Faturamento Gerado</div>
                 </div>
             </div>
         </div>
@@ -419,21 +457,17 @@
 
     <!-- ══ NÚMEROS PARALLAX ══ -->
     <section id="numeros" style="background-color:#FF6B00;">
-        <div class="py-5 border-b border-white/15">
+        <div class="py-5">
             <div id="num-row-1" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white">
                 <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
                 <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
                 <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
                 <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
-                <span class="mx-12">• ROI REAL — MARKETING QUE VENDE</span>
-            </div>
-        </div>
-        <div class="py-5">
-            <div id="num-row-2" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white/50">
-                <span class="mx-12">• RESULTADOS QUE FALAM POR SI</span>
-                <span class="mx-12">• 16x ROI — UNIMAX</span>
-                <span class="mx-12">• 30x ROI — TOLDOS MUNDIAL</span>
-                <span class="mx-12">• 14x ROI — VINCITTA</span>
+                <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
+                <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
+                <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
+                <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
+                <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
                 <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
             </div>
         </div>
@@ -443,68 +477,108 @@
     <section class="py-12 bg-black border-y border-gray-800">
         <div class="max-w-6xl mx-auto px-4 text-center fade-up">
             <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-8">Metodologia validada por grandes marcas</p>
-            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">ÓTICAS DINIZ</span>
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">SORRIDENTS</span>
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">ICE CREAM ROLL</span>
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">LOPES IMÓVEIS</span>
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">UNIMAX</span>
-                <span class="client-logo cursor-default text-lg font-black tracking-tight">NÃO+PELO</span>
+        </div>
+        <div class="logos-marquee-wrap">
+            <div class="logos-marquee-track px-8">
+                <span class="client-logo">ÓTICAS DINIZ</span>
+                <span class="client-logo">SORRIDENTS</span>
+                <span class="client-logo">ICE CREAM ROLL</span>
+                <span class="client-logo">LOPES IMÓVEIS</span>
+                <span class="client-logo">UNIMAX</span>
+                <span class="client-logo">NÃO+PELO</span>
+                <!-- duplicate for seamless loop -->
+                <span class="client-logo">ÓTICAS DINIZ</span>
+                <span class="client-logo">SORRIDENTS</span>
+                <span class="client-logo">ICE CREAM ROLL</span>
+                <span class="client-logo">LOPES IMÓVEIS</span>
+                <span class="client-logo">UNIMAX</span>
+                <span class="client-logo">NÃO+PELO</span>
             </div>
         </div>
     </section>
 
-    <!-- ══ DORES / O PROBLEMA ══ -->
-    <section class="py-24 bg-[#0a0a0a]">
+    <!-- ══ QUEM SOMOS ══ -->
+    <section class="py-24 bg-[#111] border-y border-gray-800">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">O Marketing Tradicional <span class="gm-orange border-b-4 pb-1" style="border-color:#FF6B00;">Morreu.</span></h2>
-                <p class="text-gray-300 mt-4 max-w-3xl mx-auto text-lg">As agências antigas te vendem planilhas de curtidas e relatórios de vaidade. Enquanto você ganha seguidores, seu concorrente fatura milhões.</p>
+            <div class="text-center mb-14 fade-up">
+                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Quem Somos</span>
+                <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight">
+                    A GM Marketing é uma assessoria de <span class="gm-orange">crescimento previsível</span> —<br>
+                    não uma agência de anúncios.
+                </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-1">
-                    <div class="mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" style="color:#FF6B00">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <!-- Fotos placeholders -->
+                <div class="grid grid-cols-2 gap-4 fade-up">
+                    <!-- INSERIR FOTO DA EQUIPE -->
+                    <div class="photo-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Sem Previsibilidade</h3>
-                    <p class="text-sm text-gray-300">Você não sabe quanto vai vender amanhã. Depende de indicações e sorte no mercado.</p>
+                    <!-- INSERIR FOTO DA EQUIPE -->
+                    <div class="photo-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </div>
+                    <!-- INSERIR FOTO DA EQUIPE -->
+                    <div class="photo-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </div>
+                    <!-- INSERIR FOTO DA EQUIPE -->
+                    <div class="photo-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </div>
                 </div>
-                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-2">
-                    <div class="mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" style="color:#FF6B00">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75" />
-                        </svg>
+
+                <!-- Texto + certificações + CTA -->
+                <div class="fade-up delay-2 space-y-6">
+                    <div class="text-gray-300 text-base leading-relaxed space-y-4">
+                        <p>Fundada em 2019, a GM Marketing nasceu para resolver um problema real de empresas em crescimento: a falta de previsibilidade. Não adianta ter bom produto se você não sabe de onde virá o próximo cliente.</p>
+                        <p>Já gerenciamos mais de <strong class="text-white">R$89 milhões em mídia</strong>, entregamos mais de <strong class="text-white">350 projetos</strong> e ajudamos nossos clientes a faturar mais de <strong class="text-white">R$237 milhões</strong>. Somos parceiros de crescimento — não fornecedores de serviço.</p>
                     </div>
-                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Dinheiro Queimado</h3>
-                    <p class="text-sm text-gray-300">Anúncios no Facebook e Google que não geram contatos qualificados ou vendas reais.</p>
-                </div>
-                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-3">
-                    <div class="mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" style="color:#FF6B00">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                        </svg>
+
+                    <!-- INSERIR LOGOS DE CERTIFICAÇÃO -->
+                    <div class="pt-6 border-t border-gray-800">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Certificações Oficiais</p>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-xs font-bold text-gray-300">Google Ads</span>
+                            </div>
+                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-orange-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-xs font-bold text-gray-300">Google Analytics</span>
+                            </div>
+                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-xs font-bold text-gray-300">Meta Ads</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Time Comercial Parado</h3>
-                    <p class="text-sm text-gray-300">Sua equipe de vendas gasta tempo ligando para leads frios, curiosos ou desqualificados.</p>
-                </div>
-                <div class="bg-[#111] p-8 border border-gray-800 hover:border-gray-600 transition-colors rounded-lg fade-up delay-3">
-                    <div class="mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" style="color:#FF6B00">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold uppercase mb-2 text-white">Foco na Vaidade</h3>
-                    <p class="text-sm text-gray-300">A agência cobra resultados focando no tamanho da sua página, não no caixa da sua empresa.</p>
+
+                    <a href="#form" data-track="cta-about" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-8 rounded tracking-wider transition-colors cursor-pointer">
+                        Quero crescimento previsível
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ══ CASES DE SUCESSO ══ -->
-    <section class="py-24 bg-[#111] border-y border-gray-800 hero-pattern">
+    <!-- ══ DEPOIMENTOS / CASES DE SUCESSO ══ -->
+    <section class="py-24 bg-[#0a0a0a] border-y border-gray-800 hero-pattern">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16 fade-up">
                 <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Cases de Sucesso</span>
@@ -512,74 +586,82 @@
                 <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Resultados reais. Empresas que escalaram seus faturamentos com o Sistema GM.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 
-                <!-- Case 1: Unimax -->
-                <!-- Case 1: Unimax — video real -->
+                <!-- Case 1: Unimax — INSERIR THUMB E LINK DO VÍDEO -->
                 <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-1">
-                    <div style="position:relative;">
-                        <video controls controlsList="nodownload" preload="metadata"
-                               style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;background:#111;">
-                            <source src="video/IMG_7744.MP4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:15px;">16x ROI</span>
+                    <div class="case-thumb">
+                        <div class="case-thumb-inner flex-col gap-3">
+                            <div class="text-white/20 font-black text-2xl uppercase tracking-widest">UNIMAX</div>
+                            <div class="play-btn cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                            </div>
+                        </div>
+                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">16x ROI</span>
                     </div>
                     <div class="p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <div>
-                                <p class="font-black text-white text-base">Unimax</p>
-                                <p class="text-gray-400 text-xs">Grupo Empresarial</p>
-                            </div>
+                        <div class="flex items-center justify-between">
+                            <div><p class="font-black text-white text-base">Unimax</p><p class="text-gray-400 text-xs">Grupo Empresarial</p></div>
                             <span class="roi-badge">16x ROI</span>
                         </div>
-                        <p class="text-gray-300 text-sm leading-relaxed">Estruturação completa do funil de aquisição e comercial — resultado: 16x de retorno sobre o investimento em mídia.</p>
                     </div>
                 </div>
 
-                <!-- Case 2: Toldos Mundial — video real -->
+                <!-- Case 2: Toldos Mundial — INSERIR THUMB E LINK DO VÍDEO -->
                 <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-2">
-                    <div style="position:relative;">
-                        <video controls controlsList="nodownload" preload="metadata"
-                               style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;background:#111;">
-                            <source src="video/IMG_7745.MP4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:15px;">30x ROI</span>
+                    <div class="case-thumb">
+                        <div class="case-thumb-inner flex-col gap-3">
+                            <div class="text-white/20 font-black text-xl uppercase tracking-widest text-center px-4">TOLDOS MUNDIAL</div>
+                            <div class="play-btn cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                            </div>
+                        </div>
+                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">30x ROI</span>
                     </div>
                     <div class="p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <div>
-                                <p class="font-black text-white text-base">Toldos Mundial</p>
-                                <p class="text-gray-400 text-xs">Indústria e Varejo</p>
-                            </div>
+                        <div class="flex items-center justify-between">
+                            <div><p class="font-black text-white text-base">Toldos Mundial</p><p class="text-gray-400 text-xs">Indústria e Varejo</p></div>
                             <span class="roi-badge">30x ROI</span>
                         </div>
-                        <p class="text-gray-300 text-sm leading-relaxed">De campanhas sem rastreamento a um funil de alta performance. ROI de 30x consolidado em 90 dias.</p>
                     </div>
                 </div>
 
-                <!-- Case 3: Vincitta -->
+                <!-- Case 3: Vincitta — INSERIR THUMB E LINK DO VÍDEO -->
                 <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-3">
                     <div class="case-thumb">
                         <div class="case-thumb-inner flex-col gap-3">
-                            <div class="text-white/20 font-black text-3xl uppercase tracking-widest">VINCITTA</div>
-                            <div class="play-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1">
-                                    <path d="M8 5v14l11-7L8 5z"/>
-                                </svg>
+                            <div class="text-white/20 font-black text-2xl uppercase tracking-widest">VINCITTA</div>
+                            <div class="play-btn cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                            </div>
+                        </div>
+                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">14x ROI</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between">
+                            <div><p class="font-black text-white text-base">Vincitta</p><p class="text-gray-400 text-xs">Varejo &amp; E-commerce</p></div>
+                            <span class="roi-badge">14x ROI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 4: Placeholder — INSERIR THUMB E LINK DO VÍDEO -->
+                <div class="bg-black/70 border border-gray-800 border-dashed rounded-xl overflow-hidden fade-up delay-3">
+                    <div class="case-thumb" style="background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);">
+                        <div class="case-thumb-inner flex-col gap-3">
+                            <div class="text-white/15 font-black text-base uppercase tracking-widest text-center px-4">PRÓXIMO CASE</div>
+                            <div class="play-btn cursor-pointer" style="background:rgba(255,107,0,0.2);">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white/40 ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
                             </div>
                         </div>
                     </div>
                     <div class="p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <div>
-                                <p class="font-black text-white text-base">Vincitta</p>
-                                <p class="text-gray-400 text-xs">Varejo &amp; E-commerce</p>
-                            </div>
-                            <span class="roi-badge">14x ROI</span>
+                        <div class="flex items-center justify-between">
+                            <div><p class="font-black text-gray-600 text-base">Em breve</p><p class="text-gray-700 text-xs">Seu case aqui</p></div>
                         </div>
-                        <p class="text-gray-300 text-sm leading-relaxed">Implementação do Sistema GM de ponta a ponta — geração de demanda qualificada e conversão acelerada.</p>
                     </div>
                 </div>
+
             </div>
 
             <div class="mt-16 text-center fade-up">
@@ -590,52 +672,94 @@
         </div>
     </section>
 
-    <!-- ══ METODOLOGIA — O SISTEMA GM ══ -->
+    <!-- ══ METODOLOGIA — O SISTEMA GM (CARROSSEL) ══ -->
     <section class="py-24 bg-[#0a0a0a]">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-3xl mx-auto px-10">
             <div class="text-center mb-16 fade-up">
                 <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Metodologia</span>
                 <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">O Sistema GM de<br><span class="gm-orange">Crescimento Previsível</span></h2>
                 <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">O produto final é crescimento previsível, controlado e escalável.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div class="carousel-container fade-up" id="methodology-carousel">
+                <div class="carousel-track" id="carousel-track">
 
-                <!-- Pilar 1: Aquisição -->
-                <div class="pillar-card pillar-orange p-8 fade-up delay-1">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-white text-sm" style="background:#FF6B00;">01</div>
-                        <h3 class="text-lg font-black uppercase text-white">Aquisição Inteligente<br>de Demanda</h3>
+                    <!-- Slide 1 -->
+                    <div class="carousel-slide">
+                        <div class="pillar-card" style="background:#111; border-left:4px solid #FF6B00;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#FF6B00;">01</div>
+                                <h3 class="text-xl font-black uppercase text-white leading-tight">Aquisição Inteligente<br>de Demanda</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FF6B00" class="w-10 h-10 mb-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+                            </svg>
+                            <p class="text-gray-300 text-base leading-relaxed">Geração constante de leads qualificados alinhados ao seu cliente ideal. Campanhas estruturadas para atrair quem realmente compra.</p>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Geração constante de leads qualificados alinhados ao seu cliente ideal. Campanhas estruturadas para atrair quem realmente compra.</p>
+
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide">
+                        <div class="pillar-card" style="background:#111; border-left:4px solid #CC4A00;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#CC4A00;">02</div>
+                                <h3 class="text-xl font-black uppercase text-white leading-tight">Arquitetura de<br>Conversão</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC4A00" class="w-10 h-10 mb-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p class="text-gray-300 text-base leading-relaxed">Estruturação do funil e do comercial para transformar demanda em vendas. Do anúncio ao fechamento — com rastreamento milimétrico.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <div class="pillar-card" style="background:#111; border-left:4px solid #2196F3;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#2196F3;">03</div>
+                                <h3 class="text-xl font-black uppercase text-white leading-tight">Acompanhamento de Dados<br>e Decisão Estratégica</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2196F3" class="w-10 h-10 mb-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                            </svg>
+                            <p class="text-gray-300 text-base leading-relaxed">Integração entre marketing e comercial para decisões baseadas em performance. Você sabe exatamente onde está cada real investido.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="carousel-slide">
+                        <div class="pillar-card" style="background:#111; border-left:4px solid #555555;">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#555555;">04</div>
+                                <h3 class="text-xl font-black uppercase text-white leading-tight">Inteligência e Automação<br>de Crescimento</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#888" class="w-10 h-10 mb-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <p class="text-gray-300 text-base leading-relaxed">Automação dos processos para ganhar escala, velocidade e previsibilidade. Crescimento que não depende de mais esforço — depende de sistema.</p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Pilar 2: Arquitetura de Conversão -->
-                <div class="pillar-card pillar-orange-dark p-8 fade-up delay-2">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-white text-sm" style="background:#cc5500;">02</div>
-                        <h3 class="text-lg font-black uppercase text-white">Arquitetura de<br>Conversão</h3>
-                    </div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Estruturação do funil e do comercial para transformar demanda em vendas. Do anúncio ao fechamento — com rastreamento milimétrico.</p>
-                </div>
+                <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+                <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Próximo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </button>
+            </div>
 
-                <!-- Pilar 3: Dados e Decisão -->
-                <div class="pillar-card pillar-blue p-8 fade-up delay-3">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-white text-sm" style="background:#3b82f6;">03</div>
-                        <h3 class="text-lg font-black uppercase text-white">Acompanhamento de Dados<br>e Decisão Estratégica</h3>
-                    </div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Integração entre marketing e comercial para decisões baseadas em performance. Você sabe exatamente onde está cada real investido.</p>
-                </div>
-
-                <!-- Pilar 4: Inteligência e Automação -->
-                <div class="pillar-card pillar-gray p-8 fade-up delay-3">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-white text-sm" style="background:#6b7280;">04</div>
-                        <h3 class="text-lg font-black uppercase text-white">Inteligência e Automação<br>de Crescimento</h3>
-                    </div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Automação dos processos para ganhar escala, velocidade e previsibilidade. Crescimento que não depende de mais esforço — depende de sistema.</p>
-                </div>
+            <div class="carousel-dots" id="carousel-dots">
+                <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+                <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+                <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+                <button class="carousel-dot" data-index="3" aria-label="Slide 4"></button>
             </div>
 
             <div class="mt-12 text-center fade-up">
@@ -646,126 +770,7 @@
         </div>
     </section>
 
-    <!-- ══ QUEM SOMOS ══ -->
-    <section class="py-24 bg-[#111] border-y border-gray-800">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="fade-up">
-                    <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-6" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Quem Somos</span>
-                    <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight mb-6">
-                        A GM Marketing é uma assessoria de<br>
-                        <span class="gm-orange">crescimento previsível</span> —<br>
-                        não uma agência de anúncios.
-                    </h2>
-                    <div class="space-y-4 text-gray-300 text-base leading-relaxed">
-                        <p>Fundada em 2019, a GM Marketing nasceu para resolver um problema real de empresas em crescimento: a falta de previsibilidade. Não adianta ter bom produto se você não sabe de onde virá o próximo cliente.</p>
-                        <p>Já gerenciamos mais de <strong class="text-white">R$89 milhões em mídia</strong>, entregamos mais de <strong class="text-white">350 projetos</strong> e ajudamos nossos clientes a faturar mais de <strong class="text-white">R$237 milhões</strong>. Com certificações Google Ads, Google Analytics e Meta Ads, trabalhamos com empresas que faturam entre R$50 mil e R$100 milhões ao ano.</p>
-                        <p class="font-bold text-white">Somos parceiros de crescimento — não fornecedores de serviço.</p>
-                    </div>
-                    <div class="mt-8">
-                        <a href="#form" data-track="cta-about" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-8 rounded tracking-wider transition-colors cursor-pointer">
-                            Quero crescimento previsível
-                        </a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4 fade-up delay-2">
-                    <div class="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 text-center">
-                        <div class="text-4xl font-black gm-orange mb-2">350+</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Projetos<br>entregues</div>
-                    </div>
-                    <div class="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 text-center">
-                        <div class="text-4xl font-black gm-orange mb-2">R$89M</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Mídia<br>gerenciada</div>
-                    </div>
-                    <div class="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 text-center">
-                        <div class="text-4xl font-black gm-orange mb-2">R$237M</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Faturamento<br>gerado</div>
-                    </div>
-                    <div class="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 text-center">
-                        <div class="text-4xl font-black gm-orange mb-2">6 anos</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">De<br>experiência</div>
-                    </div>
-                    <div class="col-span-2 bg-[#0a0a0a] border rounded-xl p-6 text-center" style="border-color:#FF6B00;">
-                        <div class="flex justify-center gap-6 mb-3">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Google Ads</span>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Google Analytics</span>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Meta Ads</span>
-                        </div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wide">Certificações Oficiais</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ FAQ ══ -->
-    <section class="py-20 bg-[#0a0a0a]">
-        <div class="max-w-3xl mx-auto px-4">
-            <div class="text-center mb-12 fade-up">
-                <h2 class="text-3xl md:text-4xl font-black uppercase mb-4">Perguntas <span class="gm-orange">Frequentes</span></h2>
-                <p class="text-gray-300">Tire suas dúvidas antes de conversar com nosso time.</p>
-            </div>
-            <div class="space-y-3" id="faq-list">
-                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-1">
-                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                        <span class="font-bold text-white text-sm md:text-base">Quanto custa contratar a GM Marketing?</span>
-                        <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-                    <div class="faq-answer px-6">
-                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os valores variam conforme o escopo do projeto e o volume de investimento em mídia. Trabalhamos com empresas de diferentes portes. No diagnóstico gratuito apresentamos a proposta ideal para o seu momento.</p>
-                    </div>
-                </div>
-                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-2">
-                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                        <span class="font-bold text-white text-sm md:text-base">Em quanto tempo verei resultados?</span>
-                        <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-                    <div class="faq-answer px-6">
-                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os primeiros leads qualificados geralmente chegam nos primeiros 15 a 30 dias de campanha ativa. O ROAS positivo consolidado costuma se estabilizar entre 60 e 90 dias.</p>
-                    </div>
-                </div>
-                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-3">
-                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                        <span class="font-bold text-white text-sm md:text-base">Preciso ter um time de vendas para contratar?</span>
-                        <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-                    <div class="faq-answer px-6">
-                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Não necessariamente. Podemos trabalhar tanto com empresas que já têm equipe comercial estruturada quanto com negócios onde o próprio dono fecha as vendas. O processo é adaptado ao seu modelo.</p>
-                    </div>
-                </div>
-                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-1">
-                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                        <span class="font-bold text-white text-sm md:text-base">Qual o investimento mínimo em mídia?</span>
-                        <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-                    <div class="faq-answer px-6">
-                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">Recomendamos investimento mínimo de R$ 3.000/mês em mídia paga para gerar volume de dados suficiente para otimização. Abaixo disso, os resultados são imprevisíveis.</p>
-                    </div>
-                </div>
-                <div class="faq-item border border-gray-800 rounded-lg overflow-hidden fade-up delay-2">
-                    <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                        <span class="font-bold text-white text-sm md:text-base">Como funciona o diagnóstico gratuito?</span>
-                        <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-                    <div class="faq-answer px-6">
-                        <p class="text-gray-300 text-sm pb-4 leading-relaxed">É uma reunião de 30 a 45 minutos onde nosso especialista analisa seu negócio, canais atuais e potencial de crescimento. Ao final, você recebe um plano de ação com as principais alavancas para escalar seu faturamento — sem compromisso.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ FOOTER CTA FINAL ══ -->
+    <!-- ══ O SUCESSO DO SEU NEGÓCIO (MANTER) ══ -->
     <section class="py-20 relative overflow-hidden" style="background-color:#FF6B00;">
         <div class="absolute inset-0 bg-black/20"></div>
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 fade-up">
@@ -777,22 +782,98 @@
         </div>
     </section>
 
+    <!-- ══ FAQ ══ -->
+    <section class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+                <!-- Título esquerda (1/3) -->
+                <div class="lg:col-span-1 fade-up">
+                    <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight">
+                        <span class="gm-orange">Perguntas</span><br>
+                        <span class="text-white">Frequentes</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Tire suas dúvidas antes de conversar com nosso time.</p>
+                </div>
+
+                <!-- Accordion direita (2/3) -->
+                <div class="lg:col-span-2 space-y-3 fade-up delay-1" id="faq-list">
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Quanto custa contratar a GM Marketing?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os valores variam conforme o escopo do projeto e o volume de investimento em mídia. Trabalhamos com empresas de diferentes portes. No diagnóstico gratuito apresentamos a proposta ideal para o seu momento.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Em quanto tempo verei resultados?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os primeiros leads qualificados geralmente chegam nos primeiros 15 a 30 dias de campanha ativa. O ROAS positivo consolidado costuma se estabilizar entre 60 e 90 dias.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Preciso ter um time de vendas para contratar?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Não necessariamente. Podemos trabalhar tanto com empresas que já têm equipe comercial estruturada quanto com negócios onde o próprio dono fecha as vendas. O processo é adaptado ao seu modelo.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Qual o investimento mínimo em mídia?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Recomendamos investimento mínimo de R$ 3.000/mês em mídia paga para gerar volume de dados suficiente para otimização. Abaixo disso, os resultados são imprevisíveis.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Como funciona o diagnóstico gratuito?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">É uma reunião de 30 a 45 minutos onde nosso especialista analisa seu negócio, canais atuais e potencial de crescimento. Ao final, você recebe um plano de ação com as principais alavancas para escalar seu faturamento — sem compromisso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ══ FOOTER ══ -->
-    <footer class="bg-[#050505] py-10 text-center text-xs text-gray-600 uppercase tracking-wider font-bold">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-black text-xl tracking-tight text-white">GM <span class="gm-orange">MKT</span></div>
-            <p>&copy; 2026 GM Marketing — Assessoria de Crescimento Previsível.</p>
-            <div class="text-gray-500">Atendimento: 09:00h até 18:00h</div>
+    <footer class="bg-[#050505] py-10 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <img src="https://gmmkt.com.br/wp-content/uploads/2025/01/logobranco.png" alt="GM Marketing" class="h-8 w-auto">
+                <p class="text-xs text-gray-600 uppercase tracking-wider font-bold">&copy; 2026 GM Marketing — Assessoria de Crescimento Previsível.</p>
+                <div class="flex items-center gap-5">
+                    <a href="tel:11945356086" class="text-sm text-gray-400 font-bold hover:text-white transition-colors duration-200">(11) 94535-6086</a>
+                    <a href="https://instagram.com/gmmarketingbr" target="_blank" rel="noopener noreferrer" aria-label="Instagram GM Marketing"
+                       class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-orange-500 transition-colors duration-200 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 text-gray-400">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <!-- ══ WHATSAPP FLOAT ══ -->
     <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Vi+o+site+da+GM+Marketing+e+gostaria+de+um+diagn%C3%B3stico+gratuito."
-       id="whatsapp-float-btn"
-       data-track="whatsapp-float"
+       id="whatsapp-float-btn" data-track="whatsapp-float"
        target="_blank" rel="noopener noreferrer"
-       class="whatsapp-float"
-       aria-label="Falar no WhatsApp">
+       class="whatsapp-float" aria-label="Falar no WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 text-white">
             <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
         </svg>
@@ -802,31 +883,45 @@
     <script>
     /* ── Tracking Automático (GTM/Meta) ── */
     document.addEventListener('click', function(e) {
-        let el = e.target.closest('[data-track]');
-        if (el) {
-            let eventName = el.getAttribute('data-track');
-            if (window.dataLayer) {
-                window.dataLayer.push({
-                    'event': 'click_event',
-                    'click_type': eventName
-                });
-            }
+        var el = e.target.closest('[data-track]');
+        if (el && window.dataLayer) {
+            window.dataLayer.push({ 'event': 'click_event', 'click_type': el.getAttribute('data-track') });
         }
     });
 
     (function() {
 
-        /* ── Scroll animations (IntersectionObserver) ── */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
+        /* ── Scroll animations ── */
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
             });
         }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        /* ── Counter animation: 350 ── */
+        (function() {
+            var counterEl = document.getElementById('counter-350');
+            if (!counterEl) return;
+            var started = false;
+            var counterObs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (!e.isIntersecting || started) return;
+                    started = true;
+                    var start = performance.now();
+                    var target = 350, duration = 2000;
+                    function update(now) {
+                        var progress = Math.min((now - start) / duration, 1);
+                        var eased = 1 - Math.pow(1 - progress, 3);
+                        counterEl.textContent = Math.floor(eased * target);
+                        if (progress < 1) { requestAnimationFrame(update); }
+                        else { counterEl.textContent = target; counterEl.classList.add('counter-glow-active'); }
+                    }
+                    requestAnimationFrame(update);
+                });
+            }, { threshold: 0.3 });
+            counterObs.observe(counterEl);
+        })();
 
         /* ── Máscaras de input ── */
         function maskCNPJ(v) {
@@ -837,7 +932,6 @@
             else if (v.length > 2) v = v.replace(/^(\d{2})(\d{3}).*/, '$1.$2');
             return v;
         }
-
         function maskPhone(v) {
             v = v.replace(/\D/g, '').slice(0, 11);
             if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
@@ -845,244 +939,228 @@
             else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)/, '($1) $2');
             return v;
         }
+        document.getElementById('cnpj').addEventListener('input', function() { this.value = maskCNPJ(this.value); });
+        document.getElementById('telefone').addEventListener('input', function() { this.value = maskPhone(this.value); });
 
-        const cnpjInput = document.getElementById('cnpj');
-        cnpjInput.addEventListener('input', function() {
-            this.value = maskCNPJ(this.value);
-        });
-
-        const telInput = document.getElementById('telefone');
-        telInput.addEventListener('input', function() {
-            this.value = maskPhone(this.value);
-        });
+        /* ── Captura de UTMs ── */
+        (function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(utm) {
+                var val = urlParams.get(utm);
+                if (val) { var input = document.querySelector('input[name="' + utm + '"]'); if (input) input.value = val; }
+            });
+        })();
 
         /* ── Formulário: validação + envio ── */
-        const form = document.getElementById('lead-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const btnText = document.getElementById('btn-text');
-        const btnSpinner = document.getElementById('btn-spinner');
-        const formSuccess = document.getElementById('form-success');
+        var form        = document.getElementById('lead-form');
+        var submitBtn   = document.getElementById('submit-btn');
+        var btnText     = document.getElementById('btn-text');
+        var btnSpinner  = document.getElementById('btn-spinner');
+        var formSuccess = document.getElementById('form-success');
+
+        // INSERIR AQUI A URL DO WEBHOOK DO KOMMO
+        var KOMMO_WEBHOOK = 'INSERIR_URL_WEBHOOK_KOMMO';
 
         function validateField(id, condition, errorId) {
-            const input = document.getElementById(id);
-            const error = document.getElementById(errorId);
+            var input = document.getElementById(id);
+            var error = document.getElementById(errorId);
             if (!input) return true;
             if (!condition) {
-                input.classList.add('input-error');
-                input.classList.remove('input-valid');
+                input.classList.add('input-error'); input.classList.remove('input-valid');
                 if (error) error.classList.add('show');
                 return false;
             }
-            input.classList.remove('input-error');
-            input.classList.add('input-valid');
+            input.classList.remove('input-error'); input.classList.add('input-valid');
+            if (error) error.classList.remove('show');
+            return true;
+        }
+        function getRadioValue(name) {
+            var checked = document.querySelector('input[name="' + name + '"]:checked');
+            return checked ? checked.value : '';
+        }
+        function validateRadio(name, errorId) {
+            var error = document.getElementById(errorId);
+            if (!getRadioValue(name)) { if (error) error.classList.add('show'); return false; }
             if (error) error.classList.remove('show');
             return true;
         }
 
-        function getSelectValue(id) {
-            const el = document.getElementById(id);
-            return el ? el.value : '';
-        }
-
-        // Inline blur validation
-        ['nome', 'empresa', 'cnpj', 'telefone'].forEach(id => {
-            const el = document.getElementById(id);
+        ['nome','empresa','cnpj','telefone'].forEach(function(id) {
+            var el = document.getElementById(id);
             if (!el) return;
-            el.addEventListener('blur', () => {
-                if (id === 'nome') validateField('nome', el.value.trim().length > 1, 'nome-error');
-                if (id === 'empresa') validateField('empresa', el.value.trim().length > 1, 'empresa-error');
-                if (id === 'cnpj') validateField('cnpj', el.value.replace(/\D/g,'').length === 14, 'cnpj-error');
+            el.addEventListener('blur', function() {
+                if (id === 'nome')     validateField('nome',     el.value.trim().length > 1,              'nome-error');
+                if (id === 'empresa')  validateField('empresa',  el.value.trim().length > 1,              'empresa-error');
+                if (id === 'cnpj')     validateField('cnpj',     el.value.replace(/\D/g,'').length === 14,'cnpj-error');
                 if (id === 'telefone') validateField('telefone', el.value.replace(/\D/g,'').length >= 10, 'telefone-error');
             });
         });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            var nomeVal    = document.getElementById('nome').value.trim();
+            var empresaVal = document.getElementById('empresa').value.trim();
+            var cnpjVal    = document.getElementById('cnpj').value.replace(/\D/g,'');
+            var telVal     = document.getElementById('telefone').value.replace(/\D/g,'');
+            var fatVal     = getRadioValue('faturamento');
+            var quandoVal  = getRadioValue('quando');
 
-            const nomeVal     = document.getElementById('nome').value.trim();
-            const empresaVal  = document.getElementById('empresa').value.trim();
-            const cnpjVal     = document.getElementById('cnpj').value.replace(/\D/g, '');
-            const telVal      = document.getElementById('telefone').value.replace(/\D/g, '');
-            const fatVal      = getSelectValue('faturamento');
-            const quandoVal   = getSelectValue('quando');
-
-            const v1 = validateField('nome',        nomeVal.length > 1,    'nome-error');
-            const v2 = validateField('empresa',     empresaVal.length > 1, 'empresa-error');
-            const v3 = validateField('cnpj',        cnpjVal.length === 14, 'cnpj-error');
-            const v4 = validateField('telefone',    telVal.length >= 10,   'telefone-error');
-            const v5 = validateField('faturamento', fatVal !== '',          'faturamento-error');
-            const v6 = validateField('quando',      quandoVal !== '',       'quando-error');
-
+            var v1 = validateField('nome',     nomeVal.length > 1,    'nome-error');
+            var v2 = validateField('empresa',  empresaVal.length > 1, 'empresa-error');
+            var v3 = validateField('cnpj',     cnpjVal.length === 14, 'cnpj-error');
+            var v4 = validateField('telefone', telVal.length >= 10,   'telefone-error');
+            var v5 = validateRadio('faturamento', 'faturamento-error');
+            var v6 = validateRadio('quando',      'quando-error');
             if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) return;
 
-            // Loading state
             submitBtn.disabled = true;
             btnText.textContent = 'Enviando...';
             btnSpinner.classList.remove('hidden');
 
-            // Envio para Respondi
-            const formData = new FormData();
-            formData.append('nome',        nomeVal);
-            formData.append('empresa',     empresaVal);
-            formData.append('cnpj',        document.getElementById('cnpj').value);
-            formData.append('telefone',    document.getElementById('telefone').value);
-            formData.append('faturamento', fatVal);
-            formData.append('quando',      quandoVal);
+            var payload = {
+                nome:         nomeVal,
+                empresa:      empresaVal,
+                cnpj:         document.getElementById('cnpj').value,
+                telefone:     document.getElementById('telefone').value,
+                faturamento:  fatVal,
+                prazo:        quandoVal,
+                utm_source:   (document.getElementById('utm_source')   || {}).value || '',
+                utm_medium:   (document.getElementById('utm_medium')   || {}).value || '',
+                utm_campaign: (document.getElementById('utm_campaign') || {}).value || '',
+                utm_content:  (document.getElementById('utm_content')  || {}).value || '',
+                utm_term:     (document.getElementById('utm_term')     || {}).value || ''
+            };
 
-            fetch('https://form.respondi.app/Fp0qGEfm', {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).catch(() => {}).finally(() => {
+            var sendToKommo = KOMMO_WEBHOOK !== 'INSERIR_URL_WEBHOOK_KOMMO'
+                ? fetch(KOMMO_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload), mode:'no-cors' }).catch(function(){})
+                : Promise.resolve();
+
+            sendToKommo.finally(function() {
                 form.classList.add('hidden');
                 formSuccess.classList.remove('hidden');
-
-                // Disparo de evento de conversão pro GTM / Meta
-                if (window.dataLayer) {
-                    window.dataLayer.push({
-                        'event': 'lead_generated',
-                        'lead_faturamento': fatVal,
-                        'lead_quando': quandoVal
-                    });
-                }
-                if (typeof fbq !== 'undefined') {
-                    fbq('track', 'Lead');
-                }
-
-                const numero = '5511999999999'; // ⚠ Substituir pelo número real da GM
-                const msg = encodeURIComponent(
-                    `Olá! Vim pelo site da GM Marketing.\nNome: ${nomeVal}\nEmpresa: ${empresaVal}\nFaturamento: ${fatVal}\nQuando: ${quandoVal}`
-                );
-                setTimeout(() => window.open(`https://wa.me/${numero}?text=${msg}`, '_blank'), 1500);
+                if (window.dataLayer) { window.dataLayer.push({ event:'lead_generated', lead_faturamento:fatVal, lead_quando:quandoVal }); }
+                if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
+                var numero = '5511999999999'; // ⚠ Substituir pelo número real da GM
+                var msg = encodeURIComponent('Olá! Vim pelo site da GM Marketing.\nNome: ' + nomeVal + '\nEmpresa: ' + empresaVal + '\nFaturamento: ' + fatVal + '\nQuando: ' + quandoVal);
+                setTimeout(function() { window.open('https://wa.me/' + numero + '?text=' + msg, '_blank'); }, 1500);
             });
         });
 
         /* ── FAQ accordion ── */
-        document.querySelectorAll('.faq-trigger').forEach(btn => {
+        document.querySelectorAll('.faq-trigger').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                const item = this.closest('.faq-item');
-                const answer = item.querySelector('.faq-answer');
-                const isOpen = item.classList.contains('open');
-
-                document.querySelectorAll('.faq-item').forEach(i => {
+                var item   = this.closest('.faq-item');
+                var isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(function(i) {
                     i.classList.remove('open');
                     i.querySelector('.faq-answer').classList.remove('open');
                     i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
                 });
-
                 if (!isOpen) {
                     item.classList.add('open');
-                    answer.classList.add('open');
+                    item.querySelector('.faq-answer').classList.add('open');
                     btn.setAttribute('aria-expanded', 'true');
                 }
             });
         });
 
+        /* ── Methodology Carousel ── */
+        (function() {
+            var track   = document.getElementById('carousel-track');
+            var dots    = document.querySelectorAll('.carousel-dot');
+            var prevBtn = document.getElementById('carousel-prev');
+            var nextBtn = document.getElementById('carousel-next');
+            if (!track) return;
+            var current = 0, total = 4, autoplay = null;
+
+            function goTo(index) {
+                current = (index + total) % total;
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+                dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+            }
+            function startAutoplay() { autoplay = setInterval(function() { goTo(current + 1); }, 5000); }
+            function resetAutoplay() { clearInterval(autoplay); startAutoplay(); }
+
+            prevBtn.addEventListener('click', function() { goTo(current - 1); resetAutoplay(); });
+            nextBtn.addEventListener('click', function() { goTo(current + 1); resetAutoplay(); });
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function() { goTo(parseInt(dot.dataset.index)); resetAutoplay(); });
+            });
+            startAutoplay();
+
+            var touchStartX = 0;
+            track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', function(e) {
+                var diff = touchStartX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 50) { goTo(diff > 0 ? current + 1 : current - 1); resetAutoplay(); }
+            }, { passive: true });
+        })();
+
         /* ── Money particle explosion (scroll-driven) ── */
-        (function () {
+        (function() {
             var canvas = document.getElementById('money-canvas');
             var span   = document.getElementById('vendas-text');
             var hero   = document.getElementById('hero');
             if (!canvas || !span || !hero) return;
-
             var ctx = canvas.getContext('2d');
             var W, H;
-            function resize() {
-                W = canvas.width  = window.innerWidth;
-                H = canvas.height = window.innerHeight;
-            }
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
             resize();
             window.addEventListener('resize', resize, { passive: true });
-
             var textAbsTop, textAbsLeft, textW, textH;
             function captureTextPos() {
                 var r = span.getBoundingClientRect();
-                textAbsTop  = r.top  + window.scrollY;
-                textAbsLeft = r.left + window.scrollX;
-                textW = r.width;
-                textH = r.height;
+                textAbsTop = r.top + window.scrollY; textAbsLeft = r.left + window.scrollX;
+                textW = r.width; textH = r.height;
             }
             requestAnimationFrame(captureTextPos);
-
-            var SYMBOLS = ['$', 'R$', '$', '$', 'R$', '$'];
-            var N = 70;
-            var pts = [];
+            var SYMBOLS = ['$','R$','$','$','R$','$'];
+            var N = 70, pts = [];
             function buildParticles() {
                 pts = [];
                 for (var i = 0; i < N; i++) {
-                    pts.push({
-                        ox:    textAbsLeft + Math.random() * textW,
-                        oy:    textAbsTop  + Math.random() * textH,
-                        vx:   (Math.random() - 0.5) * 160,
-                        vy0:   Math.random() * 30 + 10,
-                        sym:   SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)],
-                        size:  Math.random() * 14 + 10,
-                        alpha: Math.random() * 0.6 + 0.3,
-                        color: Math.random() > 0.5 ? '#FF6B00' : '#fff'
-                    });
+                    pts.push({ ox: textAbsLeft + Math.random()*textW, oy: textAbsTop + Math.random()*textH,
+                        vx: (Math.random()-0.5)*160, vy0: Math.random()*30+10,
+                        sym: SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)],
+                        size: Math.random()*14+10, alpha: Math.random()*0.6+0.3,
+                        color: Math.random()>0.5 ? '#FF6B00' : '#fff' });
                 }
             }
-
             var heroBottom = 0;
-            function updateHeroBottom() {
-                var r = hero.getBoundingClientRect();
-                heroBottom = r.bottom + window.scrollY;
-            }
+            function updateHeroBottom() { var r = hero.getBoundingClientRect(); heroBottom = r.bottom + window.scrollY; }
             requestAnimationFrame(updateHeroBottom);
             window.addEventListener('resize', updateHeroBottom, { passive: true });
-
-            var lastScrollY = -1;
-            var raf = null;
-
+            var lastScrollY = -1, raf = null;
             function draw(scrollY) {
                 ctx.clearRect(0, 0, W, H);
                 if (scrollY > heroBottom) return;
-
                 var progress = Math.min(scrollY / (heroBottom * 0.6), 1);
                 if (progress <= 0) return;
-
                 if (pts.length === 0) buildParticles();
-
                 for (var i = 0; i < N; i++) {
-                    var p = pts[i];
-                    var t = progress;
-                    var x = p.ox + p.vx * t;
-                    var y = p.oy - (p.vy0 * 60) * t + 120 * t * t;
-                    var a = p.alpha * (1 - t * 0.8);
-                    ctx.save();
-                    ctx.globalAlpha = a;
-                    ctx.fillStyle   = p.color;
-                    ctx.font        = 'bold ' + p.size + 'px Montserrat, sans-serif';
-                    ctx.fillText(p.sym, x, y);
+                    var p = pts[i], t = progress;
+                    ctx.save(); ctx.globalAlpha = p.alpha*(1-t*0.8); ctx.fillStyle = p.color;
+                    ctx.font = 'bold ' + p.size + 'px Montserrat, sans-serif';
+                    ctx.fillText(p.sym, p.ox + p.vx*t, p.oy - (p.vy0*60)*t + 120*t*t);
                     ctx.restore();
                 }
             }
-
-            function onScroll() {
+            window.addEventListener('scroll', function() {
                 var sy = window.scrollY;
-                if (sy === lastScrollY) return;
-                lastScrollY = sy;
+                if (sy === lastScrollY) return; lastScrollY = sy;
                 if (raf) cancelAnimationFrame(raf);
                 raf = requestAnimationFrame(function() { draw(sy); });
-            }
-
-            window.addEventListener('scroll', onScroll, { passive: true });
+            }, { passive: true });
             draw(window.scrollY);
         })();
 
-        /* ── Parallax numbers — scroll-driven ── */
-        (function () {
+        /* ── Parallax numbers ── */
+        (function() {
             var row1 = document.getElementById('num-row-1');
-            var row2 = document.getElementById('num-row-2');
-            if (!row1 || !row2) return;
-
-            function update() {
-                var sy = window.scrollY;
-                row1.style.transform = 'translateX(-' + (sy * 0.18) + 'px)';
-                row2.style.transform = 'translateX(' + (sy * 0.12) + 'px)';
-            }
-            window.addEventListener('scroll', update, { passive: true });
-            update();
+            if (!row1) return;
+            window.addEventListener('scroll', function() {
+                row1.style.transform = 'translateX(-' + (window.scrollY * 0.18) + 'px)';
+            }, { passive: true });
         })();
 
     })();
