@@ -65,14 +65,29 @@
         /* ── Hero pattern ── */
         .hero-pattern { background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px; }
 
-        /* ── Barra exclusiva dentro do header ── */
+        /* ── Barra exclusiva topo ── */
         .exclusive-bar {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            color: #FF6B00;
+            width: 100%;
+            background: #FF6000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
             text-align: center;
-            margin-top: 4px;
+            padding: 9px 16px;
+            text-transform: uppercase;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+        }
+        .exclusive-bar span {
+            display: inline-block;
+            animation: bar-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes bar-pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.82; }
         }
 
         /* ── Case card thumbnail ── */
@@ -308,20 +323,23 @@
     <!-- Canvas de partículas de dinheiro -->
     <canvas id="money-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
 
+    <!-- ══ BARRA EXCLUSIVA TOPO ══ -->
+    <div class="exclusive-bar">
+        <span>&#10022; Exclusivo para empresas que faturam acima de R$50 mil ao mês &#10022;</span>
+    </div>
+
     <!-- ══ HEADER NAV ══ -->
-    <header class="w-full fixed z-40 py-3 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top:0;">
+    <header class="w-full fixed z-40 py-3 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top:37px;">
         <div class="max-w-6xl mx-auto">
             <div class="flex justify-between items-center">
                 <img src="https://gmmkt.com.br/wp-content/uploads/2025/01/logobranco.png" alt="GM Marketing" class="h-10 w-auto">
                 <a href="#form" data-track="cta-header" class="text-sm font-bold uppercase tracking-wider text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200 cursor-pointer">Falar com Consultor</a>
             </div>
-            <!-- Barra exclusiva abaixo da logo -->
-            <div class="exclusive-bar">&#10022; Exclusivo para empresas que faturam acima de R$50 mil ao mês &#10022;</div>
         </div>
     </header>
 
     <!-- ══ HERO SECTION ══ -->
-    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-44 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
+    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-52 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
         <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             <!-- Copy esquerda -->
@@ -586,78 +604,75 @@
                 <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Resultados reais. Empresas que escalaram seus faturamentos com o Sistema GM.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="flex flex-col gap-6 max-w-4xl mx-auto">
 
-                <!-- Case 1: Unimax — INSERIR THUMB E LINK DO VÍDEO -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-1">
-                    <div class="case-thumb">
-                        <div class="case-thumb-inner flex-col gap-3">
-                            <div class="text-white/20 font-black text-2xl uppercase tracking-widest">UNIMAX</div>
+                <!-- Case 1: Unimax -->
+                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-1">
+                    <div class="relative flex-shrink-0 bg-black" style="width:160px;">
+                        <video src="video/IMG_7744.MP4" controls playsinline preload="metadata" class="w-full object-cover" style="height:280px;"></video>
+                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">16x ROI</span>
+                    </div>
+                    <div class="flex flex-col justify-center p-6 gap-3">
+                        <div>
+                            <p class="font-black text-white text-xl">Unimax</p>
+                            <p class="text-gray-400 text-sm">Grupo Empresarial</p>
+                        </div>
+                        <span class="roi-badge" style="width:fit-content;">16x ROI</span>
+                        <p class="text-gray-300 text-sm leading-relaxed">De uma estrutura comercial travada para um sistema que gera demanda qualificada todo mês.</p>
+                    </div>
+                </div>
+
+                <!-- Case 2: Toldos Mundial -->
+                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-2">
+                    <div class="relative flex-shrink-0 bg-black" style="width:160px;">
+                        <video src="video/IMG_7745.MP4" controls playsinline preload="metadata" class="w-full object-cover" style="height:280px;"></video>
+                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">30x ROI</span>
+                    </div>
+                    <div class="flex flex-col justify-center p-6 gap-3">
+                        <div>
+                            <p class="font-black text-white text-xl">Toldos Mundial</p>
+                            <p class="text-gray-400 text-sm">Indústria e Varejo</p>
+                        </div>
+                        <span class="roi-badge" style="width:fit-content;">30x ROI</span>
+                        <p class="text-gray-300 text-sm leading-relaxed">Crescimento previsível e escala sustentável com o Sistema GM de Aquisição de Demanda.</p>
+                    </div>
+                </div>
+
+                <!-- Case 3: Vincitta -->
+                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-3">
+                    <div class="relative flex-shrink-0 flex items-center justify-center" style="width:160px; height:280px; background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);">
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="text-white/20 font-black text-base uppercase tracking-widest text-center px-2">VINCITTA</div>
                             <div class="play-btn cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
                             </div>
                         </div>
-                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">16x ROI</span>
+                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">14x ROI</span>
                     </div>
-                    <div class="p-5">
-                        <div class="flex items-center justify-between">
-                            <div><p class="font-black text-white text-base">Unimax</p><p class="text-gray-400 text-xs">Grupo Empresarial</p></div>
-                            <span class="roi-badge">16x ROI</span>
+                    <div class="flex flex-col justify-center p-6 gap-3">
+                        <div>
+                            <p class="font-black text-white text-xl">Vincitta</p>
+                            <p class="text-gray-400 text-sm">Varejo &amp; E-commerce</p>
                         </div>
+                        <span class="roi-badge" style="width:fit-content;">14x ROI</span>
+                        <p class="text-gray-300 text-sm leading-relaxed">Estrutura de marketing e comercial implementada do zero, com resultados desde o primeiro mês.</p>
                     </div>
                 </div>
 
-                <!-- Case 2: Toldos Mundial — INSERIR THUMB E LINK DO VÍDEO -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-2">
-                    <div class="case-thumb">
-                        <div class="case-thumb-inner flex-col gap-3">
-                            <div class="text-white/20 font-black text-xl uppercase tracking-widest text-center px-4">TOLDOS MUNDIAL</div>
-                            <div class="play-btn cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
-                            </div>
-                        </div>
-                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">30x ROI</span>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center justify-between">
-                            <div><p class="font-black text-white text-base">Toldos Mundial</p><p class="text-gray-400 text-xs">Indústria e Varejo</p></div>
-                            <span class="roi-badge">30x ROI</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case 3: Vincitta — INSERIR THUMB E LINK DO VÍDEO -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden fade-up delay-3">
-                    <div class="case-thumb">
-                        <div class="case-thumb-inner flex-col gap-3">
-                            <div class="text-white/20 font-black text-2xl uppercase tracking-widest">VINCITTA</div>
-                            <div class="play-btn cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
-                            </div>
-                        </div>
-                        <span class="roi-badge" style="position:absolute;top:10px;right:10px;font-size:14px;">14x ROI</span>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center justify-between">
-                            <div><p class="font-black text-white text-base">Vincitta</p><p class="text-gray-400 text-xs">Varejo &amp; E-commerce</p></div>
-                            <span class="roi-badge">14x ROI</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case 4: Placeholder — INSERIR THUMB E LINK DO VÍDEO -->
-                <div class="bg-black/70 border border-gray-800 border-dashed rounded-xl overflow-hidden fade-up delay-3">
-                    <div class="case-thumb" style="background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);">
-                        <div class="case-thumb-inner flex-col gap-3">
-                            <div class="text-white/15 font-black text-base uppercase tracking-widest text-center px-4">PRÓXIMO CASE</div>
+                <!-- Case 4: Placeholder -->
+                <div class="bg-black/70 border border-gray-800 border-dashed rounded-xl overflow-hidden flex fade-up delay-3">
+                    <div class="relative flex-shrink-0 flex items-center justify-center" style="width:160px; height:280px; background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);">
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="text-white/15 font-black text-sm uppercase tracking-widest text-center px-3">PRÓXIMO CASE</div>
                             <div class="play-btn cursor-pointer" style="background:rgba(255,107,0,0.2);">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white/40 ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
                             </div>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="flex items-center justify-between">
-                            <div><p class="font-black text-gray-600 text-base">Em breve</p><p class="text-gray-700 text-xs">Seu case aqui</p></div>
+                    <div class="flex flex-col justify-center p-6 gap-3">
+                        <div>
+                            <p class="font-black text-gray-600 text-xl">Em breve</p>
+                            <p class="text-gray-700 text-sm">Seu case aqui</p>
                         </div>
                     </div>
                 </div>
