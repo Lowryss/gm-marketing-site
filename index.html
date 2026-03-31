@@ -77,9 +77,9 @@
             padding: 9px 16px;
             text-transform: uppercase;
             position: fixed;
-            top: 0;
+            top: 64px;
             left: 0;
-            z-index: 50;
+            z-index: 39;
         }
         .exclusive-bar span {
             display: inline-block;
@@ -115,6 +115,12 @@
         }
         .case-thumb:hover .play-btn { transform: scale(1.1); background: #FF6B00; }
 
+        /* ── Services Carousel image columns ── */
+        #svc-track .grid { align-items: stretch; }
+        #svc-track .grid > div { height: 100%; }
+        #svc-track .grid > div img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #svc-track .grid > div.relative { position: relative; min-height: 400px; }
+
         /* ── ROI Badge ── */
         .roi-badge {
             display: inline-block;
@@ -144,23 +150,28 @@
         .field-error { display: none; color: #f87171; font-size: 0.75rem; margin-top: 2px; }
         .field-error.show { display: block; }
 
-        /* ── Radio custom (dark theme) ── */
-        .radio-opt {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border: 1px solid #374151;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: border-color 0.15s, background 0.15s;
-            font-size: 13px;
-            color: #d1d5db;
+        /* ── Select dark theme ── */
+        .gm-select {
+            width: 100%;
+            padding: 12px 16px;
             background: #1a1a1a;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            color: #9ca3af;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
         }
-        .radio-opt:hover { border-color: #FF6B00; }
-        .radio-opt input[type="radio"] { accent-color: #FF6B00; }
-        .radio-opt:has(input:checked) { border-color: #FF6B00; background: rgba(255,107,0,0.1); color: #FF6B00; font-weight: 700; }
+        .gm-select:focus { border-color: #FF6B00; }
+        .gm-select option { background: #1a1a1a; color: #fff; }
+        .gm-select.selected { color: #fff; }
 
         /* ── WhatsApp float ── */
         .whatsapp-float {
@@ -243,53 +254,82 @@
             aspect-ratio: 4/3;
         }
 
-        /* ── Methodology carousel ── */
-        .carousel-container { position: relative; overflow: hidden; }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+        /* ── GM Diagram (Metodologia) ── */
+        .gm-dia-grid {
+            display: grid;
+            grid-template-columns: 1fr 420px 1fr;
+            gap: 32px;
+            align-items: center;
         }
-        .carousel-slide { min-width: 100%; padding: 0 4px; }
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 44px; height: 44px;
-            background: rgba(255,107,0,0.12);
-            border: 1px solid rgba(255,107,0,0.35);
+        .gm-dia-col-left  { display: flex; flex-direction: column; gap: 22px; align-items: flex-end; }
+        .gm-dia-col-right { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+        .gm-dia-svg-wrap  { width: 100%; }
+        .gm-dia-card {
+            padding: 18px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            cursor: pointer;
+            transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s, background 0.22s;
+            width: 100%;
+            max-width: 290px;
+        }
+        .gm-dia-card--orange {
+            background: rgba(255,107,0,0.09);
+            border: 1px solid rgba(255,107,0,0.32);
+        }
+        .gm-dia-card--dark {
+            background: #131313;
+            border: 1px solid #252525;
+        }
+        .gm-dia-card--orange:hover, .gm-dia-card--orange.active {
+            background: rgba(255,107,0,0.18);
+            border-color: #FF6B00;
+            transform: scale(1.03);
+            box-shadow: 0 6px 28px rgba(255,107,0,0.18);
+        }
+        .gm-dia-card--dark:hover, .gm-dia-card--dark.active {
+            background: #1d1d1d;
+            border-color: rgba(255,107,0,0.5);
+            transform: scale(1.03);
+            box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+        }
+        .gm-dia-badge {
+            min-width: 36px; width: 36px; height: 36px;
+            background: #FF6B00;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-            z-index: 10;
+            font-size: 11px; font-weight: 900; color: #fff;
+            flex-shrink: 0;
         }
-        .carousel-btn:hover { background: rgba(255,107,0,0.3); border-color: #FF6B00; }
-        .carousel-btn-prev { left: -22px; }
-        .carousel-btn-next { right: -22px; }
-        @media (max-width: 768px) {
-            .carousel-btn-prev { left: 4px; }
-            .carousel-btn-next { right: 4px; }
+        .gm-dia-badge--dark {
+            background: #222;
+            border: 1.5px solid rgba(255,107,0,0.45);
+            color: #FF6B00;
         }
-        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
-        .carousel-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: #444;
-            cursor: pointer;
-            border: none;
-            transition: background 0.2s, transform 0.2s;
+        .gm-dia-title {
+            font-size: 12px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 0.07em;
+            color: #fff; margin-bottom: 5px;
         }
-        .carousel-dot.active { background: #FF6B00; transform: scale(1.35); }
-
-        /* ── Pillar card ── */
-        .pillar-card {
-            border-left: 4px solid transparent;
-            border-radius: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            padding: 40px;
-            min-height: 280px;
+        .gm-dia-desc { font-size: 12px; color: #9ca3af; line-height: 1.55; }
+        .gm-seg { transition: transform 0.25s ease, filter 0.25s ease; }
+        .gm-seg:hover, .gm-seg.active {
+            filter: brightness(1.18) drop-shadow(0 0 8px rgba(255,107,0,0.55));
+            transform: scale(1.04);
         }
-        .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+        @media (max-width: 900px) {
+            .gm-dia-grid { grid-template-columns: 1fr 340px 1fr; gap: 20px; }
+            .gm-dia-card { max-width: 230px; }
+        }
+        @media (max-width: 700px) {
+            .gm-dia-grid { display: flex; flex-direction: column; align-items: center; gap: 0; }
+            .gm-dia-col-left  { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 12px; width: 100%; order: 2; margin-top: 20px; }
+            .gm-dia-col-right { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 12px; width: 100%; order: 3; }
+            .gm-dia-svg-wrap  { max-width: 320px; width: 100%; order: 1; }
+            .gm-dia-card { max-width: calc(50% - 6px); flex: 1 1 140px; }
+        }
 
         /* ── FAQ accordion ── */
         .faq-answer {
@@ -329,7 +369,7 @@
     </div>
 
     <!-- ══ HEADER NAV ══ -->
-    <header class="w-full fixed z-40 py-3 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top:37px;">
+    <header class="w-full fixed z-40 py-3 px-6 border-b border-gray-800 bg-black/90 backdrop-blur-md" style="top:0;">
         <div class="max-w-6xl mx-auto">
             <div class="flex justify-between items-center">
                 <img src="https://gmmkt.com.br/wp-content/uploads/2025/01/logobranco.png" alt="GM Marketing" class="h-10 w-auto">
@@ -339,7 +379,7 @@
     </header>
 
     <!-- ══ HERO SECTION ══ -->
-    <section id="hero" class="v4-bg-dark min-h-screen flex flex-col justify-center pt-52 pb-12 px-4 sm:px-6 lg:px-8 relative hero-pattern">
+    <section id="hero" class="v4-bg-dark pt-32 pb-10 px-4 sm:px-6 lg:px-8 relative hero-pattern">
         <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             <!-- Copy esquerda -->
@@ -370,61 +410,61 @@
                     <input type="hidden" name="utm_content"  id="utm_content">
                     <input type="hidden" name="utm_term"     id="utm_term">
 
-                    <!-- Campo 1: Nome e Sobrenome -->
+                    <!-- Campo 1: Empresa -->
                     <div>
-                        <input type="text" id="nome" name="nome" placeholder="Qual é seu nome e sobrenome?"
-                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
-                            required>
-                        <span class="field-error" id="nome-error">Por favor, informe seu nome.</span>
-                    </div>
-
-                    <!-- Campo 2: Empresa -->
-                    <div>
-                        <input type="text" id="empresa" name="empresa" placeholder="Qual o nome da sua empresa?"
+                        <input type="text" id="empresa" name="empresa" placeholder="Qual é o nome da sua empresa?"
                             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="empresa-error">Por favor, informe o nome da empresa.</span>
                     </div>
 
-                    <!-- Campo 3: CNPJ -->
+                    <!-- Campo 2: Telefone -->
                     <div>
-                        <input type="text" id="cnpj" name="cnpj" placeholder="Qual é seu CNPJ?" maxlength="18"
-                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
-                            required>
-                        <span class="field-error" id="cnpj-error">Informe um CNPJ válido.</span>
-                    </div>
-
-                    <!-- Campo 4: Telefone -->
-                    <div>
-                        <input type="tel" id="telefone" name="telefone" placeholder="Qual seu telefone?" maxlength="15"
+                        <input type="tel" id="telefone" name="telefone" placeholder="Qual é o número da empresa?" maxlength="15"
                             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="telefone-error">Informe um telefone válido.</span>
                     </div>
 
-                    <!-- Campo 5: Faturamento mensal (radio) -->
+                    <!-- Campo 3: CNPJ -->
                     <div>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Faturamento mensal da empresa</p>
-                        <div class="space-y-2" id="faturamento-group">
-                            <label class="radio-opt"><input type="radio" name="faturamento" value="Até R$40 mil"><span>Até R$40 mil</span></label>
-                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$41 mil a R$150 mil"><span>R$41 mil a R$150 mil</span></label>
-                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$151 mil a R$300 mil"><span>R$151 mil a R$300 mil</span></label>
-                            <label class="radio-opt"><input type="radio" name="faturamento" value="R$300 mil a R$1 milhão"><span>R$300 mil a R$1 milhão</span></label>
-                            <label class="radio-opt"><input type="radio" name="faturamento" value="Acima de R$1 Milhão"><span>Acima de R$1 Milhão</span></label>
-                        </div>
+                        <input type="text" id="cnpj" name="cnpj" placeholder="Qual é o seu CNPJ?" maxlength="18"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
+                            required>
+                        <span class="field-error" id="cnpj-error">Informe um CNPJ válido.</span>
+                    </div>
+
+                    <!-- Campo 4: Objetivo -->
+                    <div>
+                        <input type="text" id="objetivo" name="objetivo" placeholder="Qual é o seu objetivo?"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
+                            required>
+                        <span class="field-error" id="objetivo-error">Por favor, informe seu objetivo.</span>
+                    </div>
+
+                    <!-- Campo 5: Faturamento mensal (select) -->
+                    <div>
+                        <select id="faturamento" name="faturamento" class="gm-select" required>
+                            <option value="" disabled selected>Faturamento mensal da empresa</option>
+                            <option value="Até R$40 mil">Até R$40 mil</option>
+                            <option value="R$41 mil a R$150 mil">R$41 mil a R$150 mil</option>
+                            <option value="R$151 mil a R$300 mil">R$151 mil a R$300 mil</option>
+                            <option value="R$300 mil a R$1 milhão">R$300 mil a R$1 milhão</option>
+                            <option value="Acima de R$1 Milhão">Acima de R$1 Milhão</option>
+                        </select>
                         <span class="field-error" id="faturamento-error">Selecione o faturamento mensal.</span>
                     </div>
 
-                    <!-- Campo 6: Quando pretende estruturar (radio) -->
+                    <!-- Campo 6: Quando pretende estruturar (select) -->
                     <div>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Quando pretende estruturar seu crescimento?</p>
-                        <div class="space-y-2" id="quando-group">
-                            <label class="radio-opt"><input type="radio" name="quando" value="Imediatamente"><span>Imediatamente</span></label>
-                            <label class="radio-opt"><input type="radio" name="quando" value="Em até 3 meses"><span>Em até 3 meses</span></label>
-                            <label class="radio-opt"><input type="radio" name="quando" value="Em até 6 meses"><span>Em até 6 meses</span></label>
-                            <label class="radio-opt"><input type="radio" name="quando" value="Ainda estou analisando"><span>Ainda estou analisando</span></label>
-                        </div>
-                        <span class="field-error" id="quando-error">Selecione quando pretende estruturar.</span>
+                        <select id="quando" name="quando" class="gm-select" required>
+                            <option value="" disabled selected>Quando pretende iniciar o seu crescimento?</option>
+                            <option value="Imediatamente">Imediatamente</option>
+                            <option value="Em até 3 meses">Em até 3 meses</option>
+                            <option value="Em até 6 meses">Em até 6 meses</option>
+                            <option value="Ainda estou analisando">Ainda estou analisando</option>
+                        </select>
+                        <span class="field-error" id="quando-error">Selecione quando pretende iniciar.</span>
                     </div>
 
                     <button type="submit" id="submit-btn" data-track="btn-submit-form"
@@ -454,7 +494,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-gray-800 fade-up">
                 <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">6 ANOS</div>
+                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1"><span id="counter-6">0</span> ANOS</div>
                     <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">De Experiência</div>
                 </div>
                 <div class="text-center px-6 py-4">
@@ -462,11 +502,11 @@
                     <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Projetos Nacionais<br>e Internacionais</div>
                 </div>
                 <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$89M</div>
+                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$<span id="counter-89">0</span>M</div>
                     <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Mídia Gerenciada</div>
                 </div>
                 <div class="text-center px-6 py-4">
-                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$237M</div>
+                    <div class="text-3xl md:text-4xl font-black gm-orange mb-1">R$<span id="counter-237">0</span>M</div>
                     <div class="text-xs text-gray-400 uppercase tracking-wide font-bold">Faturamento Gerado</div>
                 </div>
             </div>
@@ -520,38 +560,27 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-14 fade-up">
                 <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Quem Somos</span>
-                <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight">
-                    A GM Marketing é uma assessoria de <span class="gm-orange">crescimento previsível</span> —<br>
-                    não uma agência de anúncios.
+                <h2 class="font-black uppercase leading-tight">
+                    <span class="text-2xl md:text-3xl text-gray-400 font-bold normal-case tracking-wide block mb-2">A GM Marketing é uma assessoria de</span>
+                    <span class="text-4xl md:text-6xl gm-orange block">Crescimento Previsível</span>
+                    <span class="text-xl md:text-2xl text-gray-500 font-semibold normal-case tracking-normal block mt-3">— não uma agência de anúncios.</span>
                 </h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                <!-- Fotos placeholders -->
+                <!-- Fotos escritório -->
                 <div class="grid grid-cols-2 gap-4 fade-up">
-                    <!-- INSERIR FOTO DA EQUIPE -->
-                    <div class="photo-placeholder">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
+                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Escritório GM Marketing" class="w-full h-full object-cover">
                     </div>
-                    <!-- INSERIR FOTO DA EQUIPE -->
-                    <div class="photo-placeholder">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
+                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Equipe GM Marketing" class="w-full h-full object-cover">
                     </div>
-                    <!-- INSERIR FOTO DA EQUIPE -->
-                    <div class="photo-placeholder">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
+                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
+                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" alt="Ambiente de trabalho GM Marketing" class="w-full h-full object-cover">
                     </div>
-                    <!-- INSERIR FOTO DA EQUIPE -->
-                    <div class="photo-placeholder">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
+                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Reunião de estratégia GM Marketing" class="w-full h-full object-cover">
                     </div>
                 </div>
 
@@ -562,28 +591,58 @@
                         <p>Já gerenciamos mais de <strong class="text-white">R$89 milhões em mídia</strong>, entregamos mais de <strong class="text-white">350 projetos</strong> e ajudamos nossos clientes a faturar mais de <strong class="text-white">R$237 milhões</strong>. Somos parceiros de crescimento — não fornecedores de serviço.</p>
                     </div>
 
-                    <!-- INSERIR LOGOS DE CERTIFICAÇÃO -->
+                    <!-- LOGOS DE CERTIFICAÇÃO -->
                     <div class="pt-6 border-t border-gray-800">
                         <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Certificações Oficiais</p>
                         <div class="flex flex-wrap gap-3">
-                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+
+                            <!-- Google Partner -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6 flex-shrink-0">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.37-.76-2.83-.76-4.59s.27-3.22.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                                 </svg>
-                                <span class="text-xs font-bold text-gray-300">Google Ads</span>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Google</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Partner</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-orange-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+
+                            <!-- Google Analytics -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 flex-shrink-0">
+                                    <rect x="1" y="13" width="5" height="10" rx="1.5" fill="#F9AB00"/>
+                                    <rect x="9.5" y="7" width="5" height="16" rx="1.5" fill="#F9AB00"/>
+                                    <rect x="18" y="1" width="5" height="22" rx="1.5" fill="#E37400"/>
                                 </svg>
-                                <span class="text-xs font-bold text-gray-300">Google Analytics</span>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Google Analytics</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Certificado</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+
+                            <!-- Meta Business Partner -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-7 h-4 flex-shrink-0">
+                                    <defs>
+                                        <linearGradient id="meta-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#0064E0"/>
+                                            <stop offset="40%" stop-color="#0082FB"/>
+                                            <stop offset="100%" stop-color="#00B4FF"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M12 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l1.5 2.5L26.5 10C28.5 6.5 30 5 32 5c3.5 0 6 5 6 10s-2.5 10-6 10c-2 0-3.5-1.5-5.5-5L25 17.5 23.5 20C21.5 23.5 20 25 18 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
+                                    <path d="M38 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l.5.8V19l-.5.8C47.5 23.5 46 25 44 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
                                 </svg>
-                                <span class="text-xs font-bold text-gray-300">Meta Ads</span>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Meta</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Business Partner</p>
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
 
@@ -604,82 +663,99 @@
                 <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Resultados reais. Empresas que escalaram seus faturamentos com o Sistema GM.</p>
             </div>
 
-            <div class="flex flex-col gap-6 max-w-4xl mx-auto">
+            <!-- Carrossel -->
+            <div class="relative fade-up">
+                <!-- Botão anterior -->
+                <button id="cases-prev" onclick="casesScroll(-1)" class="hidden md:flex absolute -left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-gray-800 hover:bg-gm rounded-full items-center justify-center transition-colors cursor-pointer shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
 
-                <!-- Case 1: Unimax -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-1">
-                    <div class="relative flex-shrink-0 bg-black" style="width:160px;">
-                        <video src="video/IMG_7744.MP4" controls playsinline preload="metadata" class="w-full object-cover" style="height:280px;"></video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">16x ROI</span>
-                    </div>
-                    <div class="flex flex-col justify-center p-6 gap-3">
-                        <div>
-                            <p class="font-black text-white text-xl">Unimax</p>
-                            <p class="text-gray-400 text-sm">Grupo Empresarial</p>
+                <!-- Track -->
+                <div id="cases-track" class="flex gap-5 overflow-x-auto pb-4" style="scroll-snap-type:x mandatory; scrollbar-width:none; -ms-overflow-style:none;">
+
+                    <!-- Case 1: M4 Capital (vídeo) -->
+                    <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
+                        <div class="relative" style="aspect-ratio:9/16;">
+                            <video class="w-full h-full object-cover" controls preload="metadata">
+                                <source src="video/IMG_7744.MP4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">25x ROI</span>
                         </div>
-                        <span class="roi-badge" style="width:fit-content;">16x ROI</span>
-                        <p class="text-gray-300 text-sm leading-relaxed">De uma estrutura comercial travada para um sistema que gera demanda qualificada todo mês.</p>
-                    </div>
-                </div>
-
-                <!-- Case 2: Toldos Mundial -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-2">
-                    <div class="relative flex-shrink-0 bg-black" style="width:160px;">
-                        <video src="video/IMG_7745.MP4" controls playsinline preload="metadata" class="w-full object-cover" style="height:280px;"></video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">30x ROI</span>
-                    </div>
-                    <div class="flex flex-col justify-center p-6 gap-3">
-                        <div>
-                            <p class="font-black text-white text-xl">Toldos Mundial</p>
-                            <p class="text-gray-400 text-sm">Indústria e Varejo</p>
+                        <div class="p-4 space-y-2">
+                            <p class="font-black text-white text-base">M4 Capital</p>
+                            <p class="text-gray-400 text-xs">Grupo Empresarial</p>
+                            <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 60 dias.</p>
                         </div>
-                        <span class="roi-badge" style="width:fit-content;">30x ROI</span>
-                        <p class="text-gray-300 text-sm leading-relaxed">Crescimento previsível e escala sustentável com o Sistema GM de Aquisição de Demanda.</p>
                     </div>
-                </div>
 
-                <!-- Case 3: Vincitta -->
-                <div class="bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden flex fade-up delay-3">
-                    <div class="relative flex-shrink-0 flex items-center justify-center" style="width:160px; height:280px; background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);">
-                        <div class="flex flex-col items-center gap-3">
-                            <div class="text-white/20 font-black text-base uppercase tracking-widest text-center px-2">VINCITTA</div>
-                            <div class="play-btn cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                    <!-- Case 2: Via Certa (vídeo) -->
+                    <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
+                        <div class="relative" style="aspect-ratio:9/16;">
+                            <video class="w-full h-full object-cover" controls preload="metadata">
+                                <source src="video/IMG_7745.MP4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">12x ROI</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="font-black text-white text-base">Via Certa</p>
+                            <p class="text-gray-400 text-xs">Cursos Profissionalizantes</p>
+                            <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 45 dias.</p>
+                        </div>
+                    </div>
+
+                    <!-- Case 3: Vincitta -->
+                    <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
+                        <div class="relative flex items-center justify-center" style="aspect-ratio:9/16; background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);">
+                            <div class="flex flex-col items-center gap-3">
+                                <div class="text-white/20 font-black text-base uppercase tracking-widest text-center px-3">VINCITTA</div>
+                                <div class="play-btn cursor-pointer" style="background:rgba(255,107,0,0.2);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white/40 ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                                </div>
                             </div>
+                            <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">50x ROI</span>
                         </div>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">14x ROI</span>
-                    </div>
-                    <div class="flex flex-col justify-center p-6 gap-3">
-                        <div>
-                            <p class="font-black text-white text-xl">Vincitta</p>
-                            <p class="text-gray-400 text-sm">Varejo &amp; E-commerce</p>
+                        <div class="p-4 space-y-2">
+                            <p class="font-black text-white text-base">Vincitta</p>
+                            <p class="text-gray-400 text-xs">Móveis Planejados</p>
+                            <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 60 dias.</p>
                         </div>
-                        <span class="roi-badge" style="width:fit-content;">14x ROI</span>
-                        <p class="text-gray-300 text-sm leading-relaxed">Estrutura de marketing e comercial implementada do zero, com resultados desde o primeiro mês.</p>
                     </div>
-                </div>
 
-                <!-- Case 4: Placeholder -->
-                <div class="bg-black/70 border border-gray-800 border-dashed rounded-xl overflow-hidden flex fade-up delay-3">
-                    <div class="relative flex-shrink-0 flex items-center justify-center" style="width:160px; height:280px; background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);">
-                        <div class="flex flex-col items-center gap-3">
-                            <div class="text-white/15 font-black text-sm uppercase tracking-widest text-center px-3">PRÓXIMO CASE</div>
-                            <div class="play-btn cursor-pointer" style="background:rgba(255,107,0,0.2);">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white/40 ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                    <!-- Case 4: Ora Conceito -->
+                    <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
+                        <div class="relative flex items-center justify-center" style="aspect-ratio:9/16; background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);">
+                            <div class="flex flex-col items-center gap-3">
+                                <div class="text-white/20 font-black text-base uppercase tracking-widest text-center px-3">ORA CONCEITO</div>
+                                <div class="play-btn cursor-pointer" style="background:rgba(255,107,0,0.2);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white/40 ml-1"><path d="M8 5v14l11-7L8 5z"/></svg>
+                                </div>
                             </div>
+                            <span class="roi-badge" style="position:absolute;top:10px;left:10px;font-size:12px;">13x ROI</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="font-black text-white text-base">Ora Conceito</p>
+                            <p class="text-gray-400 text-xs">Varejo &amp; E-commerce</p>
+                            <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 42 dias.</p>
                         </div>
                     </div>
-                    <div class="flex flex-col justify-center p-6 gap-3">
-                        <div>
-                            <p class="font-black text-gray-600 text-xl">Em breve</p>
-                            <p class="text-gray-700 text-sm">Seu case aqui</p>
-                        </div>
-                    </div>
+
                 </div>
 
+                <!-- Botão próximo -->
+                <button id="cases-next" onclick="casesScroll(1)" class="hidden md:flex absolute -right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-gray-800 hover:bg-gm rounded-full items-center justify-center transition-colors cursor-pointer shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
             </div>
 
-            <div class="mt-16 text-center fade-up">
+            <!-- Dots -->
+            <div class="flex justify-center gap-2 mt-6">
+                <button onclick="casesGoTo(0)" class="cases-dot w-2 h-2 rounded-full bg-gm transition-all cursor-pointer"></button>
+                <button onclick="casesGoTo(1)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
+                <button onclick="casesGoTo(2)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
+                <button onclick="casesGoTo(3)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
+            </div>
+
+            <div class="mt-12 text-center fade-up">
                 <a href="#form" data-track="cta-cases" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-10 transition-colors tracking-wider text-xl rounded cursor-pointer shadow-[0_0_20px_rgba(255,107,0,0.3)]">
                     Quero Ser o Próximo Case
                 </a>
@@ -687,100 +763,447 @@
         </div>
     </section>
 
-    <!-- ══ METODOLOGIA — O SISTEMA GM (CARROSSEL) ══ -->
-    <section class="py-24 bg-[#0a0a0a]">
-        <div class="max-w-3xl mx-auto px-10">
-            <div class="text-center mb-16 fade-up">
-                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Metodologia</span>
-                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">O Sistema GM de<br><span class="gm-orange">Crescimento Previsível</span></h2>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">O produto final é crescimento previsível, controlado e escalável.</p>
+    <script>
+        (function(){
+            var track = document.getElementById('cases-track');
+            var dots = document.querySelectorAll('.cases-dot');
+            var cardWidth = 240 + 20; // width + gap
+
+            function updateDots(){
+                var idx = Math.round(track.scrollLeft / cardWidth);
+                dots.forEach(function(d, i){ d.style.background = i === idx ? '#FF6B00' : '#374151'; });
+            }
+
+            window.casesScroll = function(dir){
+                track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+            };
+            window.casesGoTo = function(idx){
+                track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+            };
+
+            track.addEventListener('scroll', updateDots);
+        })();
+    </script>
+
+    <!-- ══ METODOLOGIA — O SISTEMA GM (DIAGRAMA CIRCULAR) ══ -->
+    <section class="py-24 bg-[#0a0a0a]" id="metodologia">
+        <div class="max-w-6xl mx-auto px-4">
+
+            <div class="text-center mb-14 fade-up">
+                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00;border:1px solid #FF6B00;border-radius:4px;">Metodologia</span>
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-2">O Sistema GM de<br><span class="gm-orange">Crescimento Previsível</span></h2>
             </div>
 
-            <div class="carousel-container fade-up" id="methodology-carousel">
-                <div class="carousel-track" id="carousel-track">
+            <!-- Diagram grid -->
+            <div class="gm-dia-grid fade-up">
 
-                    <!-- Slide 1 -->
-                    <div class="carousel-slide">
-                        <div class="pillar-card" style="background:#111; border-left:4px solid #FF6B00;">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#FF6B00;">01</div>
-                                <h3 class="text-xl font-black uppercase text-white leading-tight">Aquisição Inteligente<br>de Demanda</h3>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FF6B00" class="w-10 h-10 mb-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
-                            </svg>
-                            <p class="text-gray-300 text-base leading-relaxed">Geração constante de leads qualificados alinhados ao seu cliente ideal. Campanhas estruturadas para atrair quem realmente compra.</p>
+                <!-- LEFT COLUMN: AQUISIÇÃO + COMERCIAL -->
+                <div class="gm-dia-col-left">
+                    <div class="gm-dia-card gm-dia-card--orange" data-seg="0" id="gm-card-0">
+                        <div class="gm-dia-badge">01</div>
+                        <div>
+                            <p class="gm-dia-title">Aquisição</p>
+                            <p class="gm-dia-desc">Geração de demanda qualificada e constante, alinhada ao perfil ideal de cliente. Campanhas para atrair quem realmente compra.</p>
                         </div>
                     </div>
-
-                    <!-- Slide 2 -->
-                    <div class="carousel-slide">
-                        <div class="pillar-card" style="background:#111; border-left:4px solid #CC4A00;">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#CC4A00;">02</div>
-                                <h3 class="text-xl font-black uppercase text-white leading-tight">Arquitetura de<br>Conversão</h3>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC4A00" class="w-10 h-10 mb-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <p class="text-gray-300 text-base leading-relaxed">Estruturação do funil e do comercial para transformar demanda em vendas. Do anúncio ao fechamento — com rastreamento milimétrico.</p>
+                    <div class="gm-dia-card gm-dia-card--dark" data-seg="3" id="gm-card-3">
+                        <div class="gm-dia-badge gm-dia-badge--dark">04</div>
+                        <div>
+                            <p class="gm-dia-title">Comercial & Retenção</p>
+                            <p class="gm-dia-desc">Alinhamos marketing e vendas para maximizar conversões, aumentar ticket e reduzir churn.</p>
                         </div>
                     </div>
-
-                    <!-- Slide 3 -->
-                    <div class="carousel-slide">
-                        <div class="pillar-card" style="background:#111; border-left:4px solid #2196F3;">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#2196F3;">03</div>
-                                <h3 class="text-xl font-black uppercase text-white leading-tight">Acompanhamento de Dados<br>e Decisão Estratégica</h3>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2196F3" class="w-10 h-10 mb-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                            </svg>
-                            <p class="text-gray-300 text-base leading-relaxed">Integração entre marketing e comercial para decisões baseadas em performance. Você sabe exatamente onde está cada real investido.</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide 4 -->
-                    <div class="carousel-slide">
-                        <div class="pillar-card" style="background:#111; border-left:4px solid #555555;">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center font-black text-white text-sm flex-shrink-0" style="background:#555555;">04</div>
-                                <h3 class="text-xl font-black uppercase text-white leading-tight">Inteligência e Automação<br>de Crescimento</h3>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#888" class="w-10 h-10 mb-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <p class="text-gray-300 text-base leading-relaxed">Automação dos processos para ganhar escala, velocidade e previsibilidade. Crescimento que não depende de mais esforço — depende de sistema.</p>
-                        </div>
-                    </div>
-
                 </div>
 
-                <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Anterior">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                </button>
-                <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Próximo">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
-            </div>
+                <!-- CENTER: SVG Pie Diagram -->
+                <div class="gm-dia-svg-wrap">
+                    <svg id="gm-pie" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;overflow:visible;">
 
-            <div class="carousel-dots" id="carousel-dots">
-                <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-                <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-                <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
-                <button class="carousel-dot" data-index="3" aria-label="Slide 4"></button>
-            </div>
+                        <!-- Quadrant: top-left = AQUISIÇÃO -->
+                        <path class="gm-seg" id="gm-seg-0" data-card="0"
+                            d="M 200,200 L 13,200 A 187,187 0 0,1 200,13 Z"
+                            fill="#FF6B00" stroke="#0a0a0a" stroke-width="8" style="cursor:pointer;transform-origin:200px 200px;"/>
 
-            <div class="mt-12 text-center fade-up">
+                        <!-- Quadrant: top-right = FUNIL & CONVERSÃO -->
+                        <path class="gm-seg" id="gm-seg-1" data-card="1"
+                            d="M 200,200 L 200,13 A 187,187 0 0,1 387,200 Z"
+                            fill="#1c1c1c" stroke="#0a0a0a" stroke-width="8" style="cursor:pointer;transform-origin:200px 200px;"/>
+
+                        <!-- Quadrant: bottom-right = AUTOMAÇÃO -->
+                        <path class="gm-seg" id="gm-seg-2" data-card="2"
+                            d="M 200,200 L 387,200 A 187,187 0 0,1 200,387 Z"
+                            fill="#FF6B00" stroke="#0a0a0a" stroke-width="8" style="cursor:pointer;transform-origin:200px 200px;"/>
+
+                        <!-- Quadrant: bottom-left = COMERCIAL -->
+                        <path class="gm-seg" id="gm-seg-3" data-card="3"
+                            d="M 200,200 L 200,387 A 187,187 0 0,1 13,200 Z"
+                            fill="#1c1c1c" stroke="#0a0a0a" stroke-width="8" style="cursor:pointer;transform-origin:200px 200px;"/>
+
+                        <!-- Subtle orange arc outline on dark segments -->
+                        <path d="M 200,13 A 187,187 0 0,1 387,200" fill="none" stroke="#FF6B00" stroke-width="1.5" opacity="0.4" pointer-events="none"/>
+                        <path d="M 200,387 A 187,187 0 0,1 13,200"  fill="none" stroke="#FF6B00" stroke-width="1.5" opacity="0.4" pointer-events="none"/>
+
+                        <!-- Center circle -->
+                        <circle cx="200" cy="200" r="76" fill="#FF6B00" stroke="#0a0a0a" stroke-width="8" pointer-events="none"/>
+
+                        <!-- Center: bar chart icon -->
+                        <rect x="185" y="181" width="8" height="22" rx="2" fill="white" opacity="0.92" pointer-events="none"/>
+                        <rect x="196" y="172" width="8" height="31" rx="2" fill="white" opacity="0.92" pointer-events="none"/>
+                        <rect x="207" y="177" width="8" height="26" rx="2" fill="white" opacity="0.92" pointer-events="none"/>
+
+                        <!-- Center text -->
+                        <text x="200" y="219" text-anchor="middle" fill="white" font-family="Montserrat,sans-serif" font-size="8" font-weight="900" letter-spacing="1" pointer-events="none">DADOS, DECISÃO</text>
+                        <text x="200" y="230" text-anchor="middle" fill="white" font-family="Montserrat,sans-serif" font-size="8" font-weight="900" letter-spacing="1" pointer-events="none">& ESCALA</text>
+
+                        <!-- AQUISIÇÃO icon: target (top-left centroid ~120,120) -->
+                        <circle cx="120" cy="120" r="20" fill="none" stroke="white" stroke-width="1.8" opacity="0.85" pointer-events="none"/>
+                        <circle cx="120" cy="120" r="12" fill="none" stroke="white" stroke-width="1.8" opacity="0.7" pointer-events="none"/>
+                        <circle cx="120" cy="120" r="4.5" fill="white" opacity="0.9" pointer-events="none"/>
+                        <line x1="120" y1="96"  x2="120" y2="105" stroke="white" stroke-width="1.5" opacity="0.6" pointer-events="none"/>
+                        <line x1="120" y1="135" x2="120" y2="144" stroke="white" stroke-width="1.5" opacity="0.6" pointer-events="none"/>
+                        <line x1="96"  y1="120" x2="105" y2="120" stroke="white" stroke-width="1.5" opacity="0.6" pointer-events="none"/>
+                        <line x1="135" y1="120" x2="144" y2="120" stroke="white" stroke-width="1.5" opacity="0.6" pointer-events="none"/>
+
+                        <!-- FUNIL icon: funnel shape (top-right centroid ~280,120) -->
+                        <polygon points="265,107 295,107 284,122 284,138 276,138 276,122" fill="none" stroke="white" stroke-width="1.8" opacity="0.7" stroke-linejoin="round" pointer-events="none"/>
+
+                        <!-- AUTOMAÇÃO icon: gear (bottom-right centroid ~280,280) -->
+                        <circle cx="280" cy="280" r="11" fill="none" stroke="white" stroke-width="2" opacity="0.85" pointer-events="none"/>
+                        <circle cx="280" cy="280" r="5"  fill="white" opacity="0.6" pointer-events="none"/>
+                        <line x1="280" y1="261" x2="280" y2="267" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.85" pointer-events="none"/>
+                        <line x1="280" y1="293" x2="280" y2="299" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.85" pointer-events="none"/>
+                        <line x1="261" y1="280" x2="267" y2="280" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.85" pointer-events="none"/>
+                        <line x1="293" y1="280" x2="299" y2="280" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.85" pointer-events="none"/>
+                        <line x1="267" y1="267" x2="272" y2="272" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7" pointer-events="none"/>
+                        <line x1="288" y1="288" x2="293" y2="293" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7" pointer-events="none"/>
+                        <line x1="293" y1="267" x2="288" y2="272" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7" pointer-events="none"/>
+                        <line x1="272" y1="288" x2="267" y2="293" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7" pointer-events="none"/>
+
+                        <!-- COMERCIAL icon: two people (bottom-left centroid ~120,280) -->
+                        <circle cx="113" cy="269" r="8"  fill="none" stroke="white" stroke-width="1.8" opacity="0.7" pointer-events="none"/>
+                        <circle cx="129" cy="269" r="8"  fill="none" stroke="white" stroke-width="1.8" opacity="0.7" pointer-events="none"/>
+                        <path d="M 100,291 C 105,283 113,279 121,280 C 129,279 137,283 142,291" fill="none" stroke="white" stroke-width="1.8" opacity="0.7" pointer-events="none"/>
+
+                    </svg>
+                </div>
+
+                <!-- RIGHT COLUMN: FUNIL + AUTOMAÇÃO -->
+                <div class="gm-dia-col-right">
+                    <div class="gm-dia-card gm-dia-card--dark" data-seg="1" id="gm-card-1">
+                        <div class="gm-dia-badge gm-dia-badge--dark">02</div>
+                        <div>
+                            <p class="gm-dia-title">Funil & Conversão</p>
+                            <p class="gm-dia-desc">Estruturação do funil para transformar demanda em oportunidades reais de venda. Do anúncio ao fechamento.</p>
+                        </div>
+                    </div>
+                    <div class="gm-dia-card gm-dia-card--orange" data-seg="2" id="gm-card-2">
+                        <div class="gm-dia-badge">03</div>
+                        <div>
+                            <p class="gm-dia-title">Automação & IA</p>
+                            <p class="gm-dia-desc">IA e automação aplicadas ao comercial para ganho de eficiência, velocidade e escala previsível.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /gm-dia-grid -->
+
+            <p class="text-center text-gray-500 mt-12 text-sm tracking-wide fade-up">O produto final é crescimento previsível, controlado e escalável.</p>
+
+            <div class="mt-10 text-center fade-up">
                 <a href="#form" data-track="cta-methodology" class="inline-block border-2 border-gm text-gm hover:bg-gm hover:text-white font-black uppercase py-3 px-8 transition-colors tracking-wider rounded cursor-pointer">
                     Falar com um Especialista
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ O QUE FAZEMOS ══ -->
+    <section class="py-24 bg-[#0d0d0d] border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+
+            <!-- Header -->
+            <div class="text-center mb-16 fade-up">
+                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">O Que Fazemos</span>
+                <h2 class="text-3xl md:text-5xl font-black uppercase leading-tight">
+                    A GM Marketing estrutura o seu marketing<br class="hidden md:block">
+                    com base na sua <span class="gm-orange">necessidade</span>
+                </h2>
+            </div>
+
+            <!-- Carousel wrapper -->
+            <div class="relative fade-up">
+                <div class="overflow-hidden rounded-2xl" id="svc-overflow">
+                    <div class="flex" id="svc-track" style="transition:transform .5s cubic-bezier(.25,.46,.45,.94);">
+
+                        <!-- Slide 1: Aquisição — foto ESQUERDA, tópicos DIREITA -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-2" style="min-height:520px;">
+                                <div class="hidden lg:block relative overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Aquisição" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(13,13,13,0) 0%,rgba(17,17,17,.7) 100%);"></div>
+                                    <div class="absolute bottom-8 left-8">
+                                        <span class="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded" style="background:rgba(255,107,0,0.15);color:#FF6B00;border:1px solid rgba(255,107,0,0.3);">Etapa 1 de 4</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col justify-center px-10 py-10" style="background:#111111;">
+                                    <div class="lg:hidden mb-5 rounded-xl overflow-hidden" style="aspect-ratio:16/6;"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Aquisição" class="w-full h-full object-cover"></div>
+                                    <span class="text-xs font-black tracking-[0.2em] uppercase mb-2" style="color:#FF6B00;">Etapa 1</span>
+                                    <h3 class="text-xl md:text-2xl font-black uppercase text-white leading-tight mb-1">Aquisição Inteligente <span style="color:#FF6B00;">de Demanda</span></h3>
+                                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-5">Geramos demanda qualificada de forma previsível</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Estratégia de aquisição personalizada <strong class="text-white">(ICP + oferta)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Gestão de tráfego pago <strong class="text-white">(Meta Ads, Google Ads)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Planejamento e execução</strong> de campanhas</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Copywriting</strong> focado em conversão</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Produção criativa <strong class="text-white">(Designer + Vídeo Maker)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Social Media estratégico <strong class="text-white">(autoridade + demanda)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Desenvolvimento e otimização de <strong class="text-white">Landing Pages</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Testes constantes de <strong class="text-white">criativos e ofertas</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Segmentação e <strong class="text-white">remarketing avançado</strong></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Arquitetura de Conversão — tópicos ESQUERDA, foto DIREITA -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-2" style="min-height:520px;">
+                                <div class="flex flex-col justify-center px-10 py-10 order-2 lg:order-1" style="background:#111111;">
+                                    <span class="text-xs font-black tracking-[0.2em] uppercase mb-2" style="color:#FF6B00;">Etapa 2</span>
+                                    <h3 class="text-xl md:text-2xl font-black uppercase text-white leading-tight mb-1">Arquitetura <span style="color:#FF6B00;">de Conversão</span></h3>
+                                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-5">Transformamos demanda em vendas reais</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Estruturação completa</strong> do processo comercial</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Implementação ou <strong class="text-white">otimização de CRM</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Definição de funil de vendas <strong class="text-white">(etapas + métricas)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Criação de <strong class="text-white">scripts</strong> de atendimento e follow-up</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Treinamento</strong> da equipe comercial</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Padronização</strong> de atendimento e abordagem</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Acompanhamento de <strong class="text-white">conversão e gargalos</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Gestão de pipeline e <strong class="text-white">previsibilidade comercial</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Integração entre <strong class="text-white">marketing e time de vendas</strong></span></div>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block relative overflow-hidden order-1 lg:order-2">
+                                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" alt="Conversão" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0" style="background:linear-gradient(to left,rgba(13,13,13,0) 0%,rgba(17,17,17,.7) 100%);"></div>
+                                    <div class="absolute bottom-8 right-8">
+                                        <span class="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded" style="background:rgba(255,107,0,0.15);color:#FF6B00;border:1px solid rgba(255,107,0,0.3);">Etapa 2 de 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Dados e Decisão — foto ESQUERDA, tópicos DIREITA -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-2" style="min-height:520px;">
+                                <div class="hidden lg:block relative overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Dados" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(13,13,13,0) 0%,rgba(17,17,17,.7) 100%);"></div>
+                                    <div class="absolute bottom-8 left-8">
+                                        <span class="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded" style="background:rgba(255,107,0,0.15);color:#FF6B00;border:1px solid rgba(255,107,0,0.3);">Etapa 3 de 4</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col justify-center px-10 py-10" style="background:#111111;">
+                                    <div class="lg:hidden mb-5 rounded-xl overflow-hidden" style="aspect-ratio:16/6;"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Dados" class="w-full h-full object-cover"></div>
+                                    <span class="text-xs font-black tracking-[0.2em] uppercase mb-2" style="color:#FF6B00;">Etapa 3</span>
+                                    <h3 class="text-xl md:text-2xl font-black uppercase text-white leading-tight mb-1">Acompanhamento de Dados e <span style="color:#FF6B00;">Decisão Estratégica</span></h3>
+                                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-5">Decisões baseadas em números, não em achismo</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Análise diária de performance <strong class="text-white">(marketing + vendas)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Dashboard personalizado</strong> em tempo real</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Integração de dados <strong class="text-white">(tráfego + CRM + comercial)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Mapeamento completo do funil <strong class="text-white">(lead + venda)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Identificação de <strong class="text-white">gargalos e oportunidades</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Reuniões estratégicas</strong> de otimização</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Testes e <strong class="text-white">validações contínuas</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Relatórios executivos</strong> de resultado</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Tomada de decisão baseada em <strong class="text-white">dados reais</strong></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Automação — tópicos ESQUERDA, foto DIREITA -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-2" style="min-height:520px;">
+                                <div class="flex flex-col justify-center px-10 py-10 order-2 lg:order-1" style="background:#111111;">
+                                    <span class="text-xs font-black tracking-[0.2em] uppercase mb-2" style="color:#FF6B00;">Etapa 4</span>
+                                    <h3 class="text-xl md:text-2xl font-black uppercase text-white leading-tight mb-1">Inteligência e Automação <span style="color:#FF6B00;">de Crescimento</span></h3>
+                                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-5">Escalamos o que funciona com eficiência</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Implementação de <strong class="text-white">IA</strong> para atendimento e qualificação</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Chatbots e <strong class="text-white">fluxos automatizados</strong> de resposta</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Automação de <strong class="text-white">follow-ups</strong> e recuperação de leads</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Automação de <strong class="text-white">processos comerciais</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Automação operacional <strong class="text-white">(redução de custo e tempo)</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><strong class="text-white">Nutrição automática</strong> de leads</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Escala estruturada <strong class="text-white">sem aumento proporcional de equipe</strong></span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Integração de <strong class="text-white">ferramentas e sistemas</strong> de gestão</span></div>
+                                        <div class="flex items-start gap-2 text-gray-300 text-xs leading-snug"><svg class="flex-shrink-0 mt-0.5 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF6B00"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Monitoramento e <strong class="text-white">otimização contínua</strong> de processos</span></div>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block relative overflow-hidden order-1 lg:order-2">
+                                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Automação" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0" style="background:linear-gradient(to left,rgba(13,13,13,0) 0%,rgba(17,17,17,.7) 100%);"></div>
+                                    <div class="absolute bottom-8 right-8">
+                                        <span class="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded" style="background:rgba(255,107,0,0.15);color:#FF6B00;border:1px solid rgba(255,107,0,0.3);">Etapa 4 de 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /svc-track -->
+                </div><!-- /svc-overflow -->
+
+                <!-- Setas de navegação -->
+                <button id="svc-prev" aria-label="Anterior" class="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center border transition-colors cursor-pointer" style="background:rgba(26,26,26,.95);border-color:#444;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+                </button>
+                <button id="svc-next" aria-label="Próximo" class="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center border transition-colors cursor-pointer" style="background:rgba(26,26,26,.95);border-color:#444;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                </button>
+            </div><!-- /relative -->
+
+            <!-- Dots -->
+            <div class="flex justify-center gap-2 mt-6" id="svc-dots">
+                <button class="svc-dot w-2 h-2 rounded-full transition-all cursor-pointer" data-si="0" aria-label="Etapa 1"></button>
+                <button class="svc-dot w-2 h-2 rounded-full transition-all cursor-pointer" data-si="1" aria-label="Etapa 2"></button>
+                <button class="svc-dot w-2 h-2 rounded-full transition-all cursor-pointer" data-si="2" aria-label="Etapa 3"></button>
+                <button class="svc-dot w-2 h-2 rounded-full transition-all cursor-pointer" data-si="3" aria-label="Etapa 4"></button>
+            </div>
+
+        </div><!-- /max-w -->
+    </section>
+
+    <script>
+        /* ── Services Carousel (O Que Fazemos) ── */
+        (function() {
+            var track = document.getElementById('svc-track');
+            var dots  = document.querySelectorAll('.svc-dot');
+            var prev  = document.getElementById('svc-prev');
+            var next  = document.getElementById('svc-next');
+            if (!track) return;
+            var current = 0, total = 4, timer = null;
+
+            function updateDots() {
+                dots.forEach(function(d, i) {
+                    d.style.background  = i === current ? '#FF6B00' : '#555';
+                    d.style.transform   = i === current ? 'scale(1.35)' : 'scale(1)';
+                });
+            }
+            function goTo(n) {
+                current = (n + total) % total;
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+                updateDots();
+            }
+            function resetTimer() { clearInterval(timer); timer = setInterval(function(){ goTo(current + 1); }, 6000); }
+
+            prev.addEventListener('click', function(){ goTo(current - 1); resetTimer(); });
+            next.addEventListener('click', function(){ goTo(current + 1); resetTimer(); });
+            dots.forEach(function(d) {
+                d.addEventListener('click', function(){ goTo(parseInt(d.dataset.si)); resetTimer(); });
+            });
+
+            /* touch/swipe */
+            var tx = 0;
+            track.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend',   function(e){ var dx = tx - e.changedTouches[0].clientX; if (Math.abs(dx) > 50) { goTo(dx > 0 ? current + 1 : current - 1); resetTimer(); } }, { passive: true });
+
+            updateDots();
+            resetTimer();
+        })();
+    </script>
+
+    <!-- ══ PLANOS PERSONALIZADOS ══ -->
+    <section class="py-24 bg-[#0d0d0d] relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Texto esquerda -->
+                <div class="fade-up">
+                    <span class="text-xs font-black tracking-[0.25em] uppercase block mb-5" style="color:#FF6B00;">Planos Personalizados</span>
+                    <h2 class="text-4xl md:text-5xl font-black uppercase leading-tight text-white mb-6">
+                        VOCÊ ESCOLHE A<br>
+                        <span style="color:#FF6B00;">SOLUÇÃO CERTA</span><br>
+                        PARA O MOMENTO<br>
+                        DO SEU NEGÓCIO.
+                    </h2>
+                    <p class="text-gray-400 text-base leading-relaxed mb-8 max-w-md">
+                        Planos estruturados por nível de maturidade do negócio. O que muda é a profundidade estratégica, automação e escala.
+                    </p>
+                    <a href="#form" data-track="cta-planos" class="inline-flex items-center gap-3 text-white font-black uppercase py-4 px-8 transition-colors tracking-widest text-sm rounded-sm cursor-pointer shadow-xl" style="background-color:#FF6B00;">
+                        Quero meu diagnóstico gratuito
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Visual direita -->
+                <div class="fade-up delay-1">
+                    <div class="rounded-2xl p-8 relative overflow-hidden" style="background-color:#111111; border:1px solid rgba(255,255,255,0.06);">
+
+                        <!-- Ícone topo -->
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background-color:rgba(255,107,0,0.12); border:1px solid rgba(255,107,0,0.25);">
+                                <svg class="w-5 h-5" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
+                                </svg>
+                            </div>
+                            <span class="text-white font-bold text-sm tracking-wide">Crescimento por Fase</span>
+                        </div>
+
+                        <!-- Gráfico wave / mountain -->
+                        <div class="relative mb-6">
+                            <svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" class="w-full" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="plansWaveGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.55"/>
+                                        <stop offset="75%" stop-color="#FF6B00" stop-opacity="0.08"/>
+                                        <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="plansWaveGrad2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#cc5500" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="#cc5500" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Área preenchida secundária (profundidade) -->
+                                <path d="M0,185 L0,155 C40,148 70,168 105,148 C138,130 158,118 192,96 C218,78 238,62 268,44 C292,28 308,22 336,30 C360,38 385,62 420,72 L420,185 Z" fill="url(#plansWaveGrad2)"/>
+                                <!-- Área preenchida principal -->
+                                <path d="M0,185 L0,162 C40,156 65,172 100,154 C132,137 152,124 186,102 C212,84 232,68 262,50 C286,35 302,29 330,36 C356,43 381,66 420,76 L420,185 Z" fill="url(#plansWaveGrad)"/>
+                                <!-- Linha principal -->
+                                <path d="M0,162 C40,156 65,172 100,154 C132,137 152,124 186,102 C212,84 232,68 262,50 C286,35 302,29 330,36 C356,43 381,66 420,76" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Pico -->
+                                <circle cx="302" cy="29" r="5" fill="#FF6B00"/>
+                                <circle cx="302" cy="29" r="12" fill="#FF6B00" fill-opacity="0.18"/>
+                                <!-- Tooltip no pico -->
+                                <rect x="138" y="4" width="156" height="34" rx="4" fill="#FF6B00"/>
+                                <text x="216" y="18" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="11" fill="white">Escala com</text>
+                                <text x="216" y="32" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="11" fill="white">Previsibilidade</text>
+                            </svg>
+                        </div>
+
+                        <!-- Fases -->
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="rounded-lg px-3 py-3" style="background-color:rgba(255,255,255,0.04);">
+                                <div class="text-xs font-black tracking-[0.15em] uppercase mb-1" style="color:rgba(255,107,0,0.6);">Fase 1</div>
+                                <div class="text-sm font-black text-white leading-tight">Estruturação</div>
+                                <div class="text-xs text-gray-500 mt-1 leading-tight">& Validação</div>
+                            </div>
+                            <div class="rounded-lg px-3 py-3" style="background-color:rgba(255,255,255,0.04);">
+                                <div class="text-xs font-black tracking-[0.15em] uppercase mb-1" style="color:rgba(255,107,0,0.8);">Fase 2</div>
+                                <div class="text-sm font-black text-white leading-tight">Crescimento</div>
+                                <div class="text-xs text-gray-500 mt-1 leading-tight">& Consolidação</div>
+                            </div>
+                            <div class="rounded-lg px-3 py-3" style="background-color:rgba(255,107,0,0.1); border:1px solid rgba(255,107,0,0.25);">
+                                <div class="text-xs font-black tracking-[0.15em] uppercase mb-1" style="color:#FF6B00;">Fase 3</div>
+                                <div class="text-sm font-black text-white leading-tight">Escala</div>
+                                <div class="text-xs text-gray-500 mt-1 leading-tight">& Domínio de Mercado</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -803,7 +1226,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
                 <!-- Título esquerda (1/3) -->
-                <div class="lg:col-span-1 fade-up">
+                <div class="lg:col-span-1 fade-up flex flex-col justify-center">
                     <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight">
                         <span class="gm-orange">Perguntas</span><br>
                         <span class="text-white">Frequentes</span>
@@ -914,28 +1337,33 @@
         }, { threshold: 0.12 });
         document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
 
-        /* ── Counter animation: 350 ── */
+        /* ── Counter animations ── */
         (function() {
-            var counterEl = document.getElementById('counter-350');
-            if (!counterEl) return;
-            var started = false;
-            var counterObs = new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) {
-                    if (!e.isIntersecting || started) return;
-                    started = true;
-                    var start = performance.now();
-                    var target = 350, duration = 2000;
-                    function update(now) {
-                        var progress = Math.min((now - start) / duration, 1);
-                        var eased = 1 - Math.pow(1 - progress, 3);
-                        counterEl.textContent = Math.floor(eased * target);
-                        if (progress < 1) { requestAnimationFrame(update); }
-                        else { counterEl.textContent = target; counterEl.classList.add('counter-glow-active'); }
-                    }
-                    requestAnimationFrame(update);
-                });
-            }, { threshold: 0.3 });
-            counterObs.observe(counterEl);
+            function animateCounter(id, target, duration) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                var started = false;
+                var obs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(e) {
+                        if (!e.isIntersecting || started) return;
+                        started = true;
+                        var start = performance.now();
+                        function update(now) {
+                            var progress = Math.min((now - start) / duration, 1);
+                            var eased = 1 - Math.pow(1 - progress, 3);
+                            el.textContent = Math.floor(eased * target);
+                            if (progress < 1) { requestAnimationFrame(update); }
+                            else { el.textContent = target; }
+                        }
+                        requestAnimationFrame(update);
+                    });
+                }, { threshold: 0.3 });
+                obs.observe(el);
+            }
+            animateCounter('counter-350', 350, 2000);
+            animateCounter('counter-6',   6,   1200);
+            animateCounter('counter-89',  89,  1800);
+            animateCounter('counter-237', 237, 2000);
         })();
 
         /* ── Máscaras de input ── */
@@ -956,6 +1384,15 @@
         }
         document.getElementById('cnpj').addEventListener('input', function() { this.value = maskCNPJ(this.value); });
         document.getElementById('telefone').addEventListener('input', function() { this.value = maskPhone(this.value); });
+        // Select: apply .selected class when value chosen
+        ['faturamento','quando'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('change', function() {
+                if (this.value) this.classList.add('selected');
+                else this.classList.remove('selected');
+            });
+        });
 
         /* ── Captura de UTMs ── */
         (function() {
@@ -989,43 +1426,45 @@
             if (error) error.classList.remove('show');
             return true;
         }
-        function getRadioValue(name) {
-            var checked = document.querySelector('input[name="' + name + '"]:checked');
-            return checked ? checked.value : '';
-        }
-        function validateRadio(name, errorId) {
+        function validateSelect(id, errorId) {
+            var el    = document.getElementById(id);
             var error = document.getElementById(errorId);
-            if (!getRadioValue(name)) { if (error) error.classList.add('show'); return false; }
+            if (!el || !el.value) {
+                if (el)    { el.classList.add('input-error'); el.classList.remove('input-valid'); }
+                if (error) error.classList.add('show');
+                return false;
+            }
+            el.classList.remove('input-error'); el.classList.add('input-valid');
             if (error) error.classList.remove('show');
             return true;
         }
 
-        ['nome','empresa','cnpj','telefone'].forEach(function(id) {
+        ['empresa','cnpj','telefone','objetivo'].forEach(function(id) {
             var el = document.getElementById(id);
             if (!el) return;
             el.addEventListener('blur', function() {
-                if (id === 'nome')     validateField('nome',     el.value.trim().length > 1,              'nome-error');
                 if (id === 'empresa')  validateField('empresa',  el.value.trim().length > 1,              'empresa-error');
                 if (id === 'cnpj')     validateField('cnpj',     el.value.replace(/\D/g,'').length === 14,'cnpj-error');
                 if (id === 'telefone') validateField('telefone', el.value.replace(/\D/g,'').length >= 10, 'telefone-error');
+                if (id === 'objetivo') validateField('objetivo', el.value.trim().length > 1,              'objetivo-error');
             });
         });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            var nomeVal    = document.getElementById('nome').value.trim();
-            var empresaVal = document.getElementById('empresa').value.trim();
-            var cnpjVal    = document.getElementById('cnpj').value.replace(/\D/g,'');
-            var telVal     = document.getElementById('telefone').value.replace(/\D/g,'');
-            var fatVal     = getRadioValue('faturamento');
-            var quandoVal  = getRadioValue('quando');
+            var empresaVal  = document.getElementById('empresa').value.trim();
+            var cnpjVal     = document.getElementById('cnpj').value.replace(/\D/g,'');
+            var telVal      = document.getElementById('telefone').value.replace(/\D/g,'');
+            var objetivoVal = document.getElementById('objetivo').value.trim();
+            var fatVal      = document.getElementById('faturamento').value;
+            var quandoVal   = document.getElementById('quando').value;
 
-            var v1 = validateField('nome',     nomeVal.length > 1,    'nome-error');
-            var v2 = validateField('empresa',  empresaVal.length > 1, 'empresa-error');
-            var v3 = validateField('cnpj',     cnpjVal.length === 14, 'cnpj-error');
-            var v4 = validateField('telefone', telVal.length >= 10,   'telefone-error');
-            var v5 = validateRadio('faturamento', 'faturamento-error');
-            var v6 = validateRadio('quando',      'quando-error');
+            var v1 = validateField('empresa',  empresaVal.length > 1,  'empresa-error');
+            var v2 = validateField('telefone', telVal.length >= 10,    'telefone-error');
+            var v3 = validateField('cnpj',     cnpjVal.length === 14,  'cnpj-error');
+            var v4 = validateField('objetivo', objetivoVal.length > 1, 'objetivo-error');
+            var v5 = validateSelect('faturamento', 'faturamento-error');
+            var v6 = validateSelect('quando',      'quando-error');
             if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) return;
 
             submitBtn.disabled = true;
@@ -1033,10 +1472,10 @@
             btnSpinner.classList.remove('hidden');
 
             var payload = {
-                nome:         nomeVal,
                 empresa:      empresaVal,
-                cnpj:         document.getElementById('cnpj').value,
                 telefone:     document.getElementById('telefone').value,
+                cnpj:         document.getElementById('cnpj').value,
+                objetivo:     objetivoVal,
                 faturamento:  fatVal,
                 prazo:        quandoVal,
                 utm_source:   (document.getElementById('utm_source')   || {}).value || '',
@@ -1056,7 +1495,7 @@
                 if (window.dataLayer) { window.dataLayer.push({ event:'lead_generated', lead_faturamento:fatVal, lead_quando:quandoVal }); }
                 if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
                 var numero = '5511999999999'; // ⚠ Substituir pelo número real da GM
-                var msg = encodeURIComponent('Olá! Vim pelo site da GM Marketing.\nNome: ' + nomeVal + '\nEmpresa: ' + empresaVal + '\nFaturamento: ' + fatVal + '\nQuando: ' + quandoVal);
+                var msg = encodeURIComponent('Olá! Vim pelo site da GM Marketing.\nEmpresa: ' + empresaVal + '\nFaturamento: ' + fatVal + '\nObjetivo: ' + objetivoVal + '\nQuando: ' + quandoVal);
                 setTimeout(function() { window.open('https://wa.me/' + numero + '?text=' + msg, '_blank'); }, 1500);
             });
         });
@@ -1079,36 +1518,60 @@
             });
         });
 
-        /* ── Methodology Carousel ── */
+        /* ── GM Diagram Interactivity ── */
         (function() {
-            var track   = document.getElementById('carousel-track');
-            var dots    = document.querySelectorAll('.carousel-dot');
-            var prevBtn = document.getElementById('carousel-prev');
-            var nextBtn = document.getElementById('carousel-next');
-            if (!track) return;
-            var current = 0, total = 4, autoplay = null;
+            var segs  = document.querySelectorAll('.gm-seg');
+            var cards = document.querySelectorAll('.gm-dia-card');
+            var activeIdx = -1;
 
-            function goTo(index) {
-                current = (index + total) % total;
-                track.style.transform = 'translateX(-' + (current * 100) + '%)';
-                dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+            function clearAll() {
+                segs.forEach(function(s) { s.classList.remove('active'); s.style.transform = ''; s.style.filter = ''; });
+                cards.forEach(function(c) { c.classList.remove('active'); });
             }
-            function startAutoplay() { autoplay = setInterval(function() { goTo(current + 1); }, 5000); }
-            function resetAutoplay() { clearInterval(autoplay); startAutoplay(); }
+            function activate(idx) {
+                if (activeIdx === idx) { clearAll(); activeIdx = -1; return; }
+                clearAll();
+                activeIdx = idx;
+                var seg  = document.getElementById('gm-seg-' + idx);
+                var card = document.getElementById('gm-card-' + idx);
+                if (seg)  { seg.classList.add('active');  seg.style.transform = 'scale(1.05)'; seg.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(255,107,0,0.6))'; }
+                if (card) { card.classList.add('active'); }
+            }
 
-            prevBtn.addEventListener('click', function() { goTo(current - 1); resetAutoplay(); });
-            nextBtn.addEventListener('click', function() { goTo(current + 1); resetAutoplay(); });
-            dots.forEach(function(dot) {
-                dot.addEventListener('click', function() { goTo(parseInt(dot.dataset.index)); resetAutoplay(); });
+            /* Segment click & hover */
+            segs.forEach(function(seg) {
+                seg.addEventListener('click', function() { activate(parseInt(seg.dataset.card)); });
+                seg.addEventListener('mouseenter', function() {
+                    if (activeIdx >= 0) return;
+                    seg.style.transform = 'scale(1.04)';
+                    seg.style.filter = 'brightness(1.15) drop-shadow(0 0 8px rgba(255,107,0,0.5))';
+                    var c = document.getElementById('gm-card-' + seg.dataset.card);
+                    if (c) c.classList.add('active');
+                });
+                seg.addEventListener('mouseleave', function() {
+                    if (activeIdx >= 0) return;
+                    seg.style.transform = ''; seg.style.filter = '';
+                    var c = document.getElementById('gm-card-' + seg.dataset.card);
+                    if (c) c.classList.remove('active');
+                });
             });
-            startAutoplay();
 
-            var touchStartX = 0;
-            track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-            track.addEventListener('touchend', function(e) {
-                var diff = touchStartX - e.changedTouches[0].clientX;
-                if (Math.abs(diff) > 50) { goTo(diff > 0 ? current + 1 : current - 1); resetAutoplay(); }
-            }, { passive: true });
+            /* Card click & hover */
+            cards.forEach(function(card) {
+                card.addEventListener('click', function() { activate(parseInt(card.dataset.seg)); });
+                card.addEventListener('mouseenter', function() {
+                    if (activeIdx >= 0) return;
+                    var s = document.getElementById('gm-seg-' + card.dataset.seg);
+                    if (s) { s.style.transform = 'scale(1.04)'; s.style.filter = 'brightness(1.15) drop-shadow(0 0 8px rgba(255,107,0,0.5))'; }
+                    card.classList.add('active');
+                });
+                card.addEventListener('mouseleave', function() {
+                    if (activeIdx >= 0) return;
+                    var s = document.getElementById('gm-seg-' + card.dataset.seg);
+                    if (s) { s.style.transform = ''; s.style.filter = ''; }
+                    card.classList.remove('active');
+                });
+            });
         })();
 
         /* ── Money particle explosion (scroll-driven) ── */
