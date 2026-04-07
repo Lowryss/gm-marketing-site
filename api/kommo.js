@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       console.error('Kommo API Error:', data);
-      return res.status(400).json({ status: 'error', details: JSON.stringify(data) });
+      return res.status(400).json({ status: 'error', debug_subdomain: SUBDOMAIN, details: JSON.stringify(data) });
     }
 
     return res.status(200).json({ status: 'ok' });
