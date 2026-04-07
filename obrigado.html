@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado! | GM Marketing</title>
+    <!-- Google Fonts: Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS (via CDN para rapidez) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #000; color: #fff; }
+        .bg-gradient-gm { background: radial-gradient(circle at top right, #1a1a1a, #000); }
+        .text-orange-gm { color: #FF6B00; }
+        .bg-orange-gm { background-color: #FF6B00; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="bg-gradient-gm min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl w-full glass p-12 rounded-3xl text-center shadow-2xl relative overflow-hidden">
+        <!-- Detalhe de luz -->
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-orange-gm/20 blur-3xl rounded-full"></div>
+        
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
+                SOLICITAÇÃO <span class="text-orange-gm">RECEBIDA!</span>
+            </h1>
+            <p class="text-gray-400 text-lg leading-relaxed">
+                Excelente escolha. Nossos especialistas já foram notificados sobre o seu interesse e entrarão em contato em breve para o seu diagnóstico.
+            </p>
+        </div>
+
+        <div class="space-y-6">
+            <div class="inline-block p-1 rounded-full bg-orange-gm/10 text-orange-gm font-bold px-6 py-2 border border-orange-gm/20">
+                Aguarde o nosso contato estratégico.
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center mt-12">
+                <a href="index.html" class="px-8 py-4 border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold">
+                    VOLTAR PARA O SITE
+                </a>
+                <a href="https://wa.me/5511913619572" class="px-8 py-4 bg-orange-gm text-white rounded-xl hover:scale-105 transition-all font-bold shadow-lg shadow-orange-gm/20">
+                    FALAR NO WHATSAPP AGORA
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

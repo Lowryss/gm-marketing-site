@@ -17,7 +17,7 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    })(window,document,'script','dataLayer','GTM-KZ8WN8S');</script>
     <!-- End Google Tag Manager -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -356,7 +356,7 @@
 </head>
 <body class="antialiased">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZ8WN8S"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
@@ -1410,8 +1410,11 @@
         var btnSpinner  = document.getElementById('btn-spinner');
         var formSuccess = document.getElementById('form-success');
 
-        // INSERIR AQUI A URL DO WEBHOOK DO KOMMO
-        var KOMMO_WEBHOOK = 'INSERIR_URL_WEBHOOK_KOMMO';
+        /**
+         * INTEGRAÇÃO KOMMO (CRM)
+         * O envio agora é feito via api/kommo (Vercel Serverless Function)
+         */
+        var KOMMO_ENDPOINT = 'api/kommo';
 
         function validateField(id, condition, errorId) {
             var input = document.getElementById(id);
@@ -1471,34 +1474,44 @@
             btnText.textContent = 'Enviando...';
             btnSpinner.classList.remove('hidden');
 
+            // Estrutura de dados simplificada para o novo manipulador da API
             var payload = {
-                empresa:      empresaVal,
-                telefone:     document.getElementById('telefone').value,
-                cnpj:         document.getElementById('cnpj').value,
-                objetivo:     objetivoVal,
-                faturamento:  fatVal,
-                prazo:        quandoVal,
-                utm_source:   (document.getElementById('utm_source')   || {}).value || '',
-                utm_medium:   (document.getElementById('utm_medium')   || {}).value || '',
-                utm_campaign: (document.getElementById('utm_campaign') || {}).value || '',
-                utm_content:  (document.getElementById('utm_content')  || {}).value || '',
-                utm_term:     (document.getElementById('utm_term')     || {}).value || ''
+                empresa:     empresaVal,
+                telefone:    document.getElementById('telefone').value,
+                cnpj:         cnpjVal,
+                objetivo:    objetivoVal,
+                faturamento: fatVal,
+                quando:      quandoVal
             };
 
-            var sendToKommo = KOMMO_WEBHOOK !== 'INSERIR_URL_WEBHOOK_KOMMO'
-                ? fetch(KOMMO_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload), mode:'no-cors' }).catch(function(){})
-                : Promise.resolve();
+            var sendProcess = fetch(KOMMO_ENDPOINT, { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload) 
+            });
 
-            sendToKommo.finally(function() {
-                form.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
+            // Timer de segurança de 8 segundos para não ficar carregando infinito
+            var timeoutTimer = setTimeout(function() {
+                console.warn('Timeout na integração - Redirecionando por segurança');
+                window.location.href = 'obrigado.html'; 
+            }, 8000);
+
+            sendProcess.then(function(response) {
+                clearTimeout(timeoutTimer);
+                console.log('Lead processado. Redirecionando...');
+                
                 if (window.dataLayer) { window.dataLayer.push({ event:'lead_generated', lead_faturamento:fatVal, lead_quando:quandoVal }); }
                 if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
-                var numero = '5511999999999'; // ⚠ Substituir pelo número real da GM
-                var msg = encodeURIComponent('Olá! Vim pelo site da GM Marketing.\nEmpresa: ' + empresaVal + '\nFaturamento: ' + fatVal + '\nObjetivo: ' + objetivoVal + '\nQuando: ' + quandoVal);
-                setTimeout(function() { window.open('https://wa.me/' + numero + '?text=' + msg, '_blank'); }, 1500);
+                
+                window.location.href = 'obrigado.html';
+            }).catch(function(err) {
+                clearTimeout(timeoutTimer);
+                console.error('Erro no envio:', err);
+                // Mesmo com erro, redirecionamos para não travar o usuário
+                window.location.href = 'obrigado.html';
             });
         });
+
 
         /* ── FAQ accordion ── */
         document.querySelectorAll('.faq-trigger').forEach(function(btn) {

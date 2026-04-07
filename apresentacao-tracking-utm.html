@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GM Marketing — Estrutura de Rastreamento e UTM</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  :root {
+    --orange: #FF6B00;
+    --orange-light: #FF8C35;
+    --dark: #0d0d0d;
+    --gray-100: #f5f5f5;
+    --gray-200: #e8e8e8;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── PÁGINAS ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 0;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .no-print { display: none; }
+  }
+
+  /* ── CAPA ── */
+  .cover {
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 297mm;
+  }
+
+  .cover-top {
+    padding: 40px 48px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .logo-text span { color: var(--orange); }
+
+  .cover-tag {
+    background: var(--orange);
+    color: white;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .cover-body {
+    padding: 48px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cover-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-size: 42px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .cover-title span { color: var(--orange); }
+
+  .cover-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    max-width: 380px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--orange);
+    margin-bottom: 32px;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 40px;
+  }
+
+  .cover-stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .cover-stat-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* Decorative circles */
+  .cover-deco {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,0,0.15);
+  }
+  .cover-deco-2 {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,0,0.25);
+  }
+  .cover-deco-fill {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,107,0,0.08);
+    border: 1px solid rgba(255,107,0,0.3);
+  }
+
+  .cover-footer {
+    padding: 24px 48px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-footer-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .cover-footer-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  /* ── PÁGINAS INTERNAS ── */
+  .inner { padding: 0; }
+
+  .inner-header {
+    background: var(--dark);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .inner-header-logo {
+    font-size: 13px;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .inner-header-logo span { color: var(--orange); }
+
+  .inner-header-page {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .inner-body { padding: 40px 48px 32px; }
+
+  .section-eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .section-lead {
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+
+  .orange-line {
+    width: 40px;
+    height: 3px;
+    background: var(--orange);
+    margin-bottom: 28px;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .flow-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+  }
+
+  .flow-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .flow-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .flow-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--orange), rgba(255,107,0,0.2));
+    min-height: 24px;
+  }
+
+  .flow-content {
+    padding-bottom: 28px;
+    flex: 1;
+  }
+
+  .flow-title {
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .flow-desc {
+    font-size: 11.5px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .flow-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .tag-orange { background: rgba(255,107,0,0.12); color: var(--orange); }
+  .tag-dark { background: var(--gray-100); color: var(--gray-700); }
+  .tag-green { background: rgba(16,185,129,0.1); color: #065f46; }
+  .tag-blue { background: rgba(59,130,246,0.1); color: #1e40af; }
+
+  /* ── UTM TABLE ── */
+  .utm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .utm-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px 18px;
+    background: var(--white);
+    border-left: 3px solid var(--orange);
+  }
+
+  .utm-param {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--orange);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    background: rgba(255,107,0,0.06);
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .utm-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+
+  .utm-desc {
+    font-size: 11px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .utm-example {
+    font-size: 10px;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+
+  .utm-example strong { color: var(--dark); font-style: normal; }
+
+  /* ── PLATFORMS ── */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .platform-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: var(--white);
+  }
+
+  .platform-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .platform-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .platform-name {
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--dark);
+    letter-spacing: 0.05em;
+  }
+
+  .platform-subtitle {
+    font-size: 10px;
+    color: var(--gray-500);
+  }
+
+  .platform-list {
+    list-style: none;
+  }
+
+  .platform-list li {
+    font-size: 11px;
+    color: var(--gray-700);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .platform-list li:last-child { border-bottom: none; }
+
+  .list-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-100);
+  }
+
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--orange);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .check-sub {
+    font-size: 10px;
+    color: var(--gray-500);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* ── URL EXAMPLE ── */
+  .url-box {
+    background: var(--dark);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .url-box-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  .url-text {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: white;
+    line-height: 2;
+    word-break: break-all;
+  }
+
+  .url-text .url-base { color: rgba(255,255,255,0.5); }
+  .url-text .url-param-key { color: #93c5fd; }
+  .url-text .url-param-val { color: var(--orange); }
+  .url-text .url-sep { color: rgba(255,255,255,0.3); }
+
+  /* ── INNER FOOTER ── */
+  .inner-footer {
+    padding: 16px 48px;
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+  }
+
+  .footer-brand {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+  }
+  .footer-brand span { color: var(--orange); }
+
+  .footer-page {
+    font-size: 10px;
+    color: var(--gray-500);
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: rgba(255,107,0,0.06);
+    border: 1px solid rgba(255,107,0,0.2);
+    border-left: 4px solid var(--orange);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+
+  .highlight-box p {
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.65;
+  }
+
+  .highlight-box strong { color: var(--dark); }
+
+  /* ── INTEGRATION DIAGRAM ── */
+  .diagram {
+    background: var(--dark);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 16px 0;
+  }
+
+  .diagram-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .diagram-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .diagram-box.highlight {
+    background: rgba(255,107,0,0.15);
+    border-color: rgba(255,107,0,0.4);
+  }
+
+  .diagram-box-title {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.08em;
+  }
+
+  .diagram-box-sub {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  .diagram-arrow {
+    color: var(--orange);
+    font-size: 16px;
+    padding: 0 8px;
+    font-weight: 700;
+  }
+
+  .diagram-center {
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .diagram-center-box {
+    background: var(--orange);
+    border-radius: 8px;
+    padding: 12px 28px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .diagram-center-title {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.1em;
+  }
+
+  .diagram-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    color: rgba(255,255,255,0.2);
+    font-size: 18px;
+  }
+
+  .diagram-outputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 4px;
+  }
+
+  .diagram-output {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 8px 14px;
+    text-align: center;
+  }
+
+  .diagram-output-title {
+    font-size: 10px;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .diagram-output-sub {
+    font-size: 9px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+  }
+
+  /* ── PRINT BUTTON ── */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(255,107,0,0.4);
+    z-index: 999;
+  }
+  .print-btn:hover { background: #cc5500; }
+</style>
+</head>
+<body>
+
+<!-- ══ BOTÃO IMPRIMIR ══ -->
+<button class="print-btn no-print" onclick="window.print()">Salvar como PDF</button>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PÁGINA 1 — CAPA                        -->
+<!-- ══════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-deco"></div>
+  <div class="cover-deco-2"></div>
+  <div class="cover-deco-fill"></div>
+
+  <div class="cover-top">
+    <div class="logo-text">GM <span>Marketing</span></div>
+    <div class="cover-tag">Confidencial</div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-eyebrow">Documento Técnico — Campanhas Digitais</div>
+    <h1 class="cover-title">
+      Estrutura de<br>
+      <span>Rastreamento</span><br>
+      e UTM
+    </h1>
+    <div class="cover-divider"></div>
+    <p class="cover-subtitle">
+      Como conectamos suas campanhas ao site para medir cada lead, cada clique e cada real investido em anúncios.
+    </p>
+    <div class="cover-stats">
+      <div>
+        <div class="cover-stat-num">100%</div>
+        <div class="cover-stat-label">dos leads rastreados</div>
+      </div>
+      <div>
+        <div class="cover-stat-num">3</div>
+        <div class="cover-stat-label">plataformas integradas</div>
+      </div>
+      <div>
+        <div class="cover-stat-num">5+</div>
+        <div class="cover-stat-label">pontos de medição</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span class="cover-footer-text">gmmkt.com.br</span>
+    <div class="cover-footer-dot"></div>
+    <span class="cover-footer-text">2026</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- PÁGINA 2 — O FLUXO COMPLETO            -->
+<!-- ══════════════════════════════════════ -->
+<div class="page inner" style="padding-bottom: 60px;">
+  <div class="inner-header">
+    <div class="inner-header-logo">GM <span>Marketing</span></div>
+    <div class="inner-header-page">Como funciona</div>
+  </div>
+  <div class="inner-body">
+    <div class="section-eyebrow">Visão Geral</div>
+    <h2 class="section-title">O Fluxo Completo</h2>
+    <div class="orange-line"></div>
+    <p class="section-lead">Desde o clique no anúncio até o lead entrar no CRM — cada etapa registrada e mensurável.</p>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Anúncio no Google ou Meta</div>
+          <div class="flow-desc">O cliente vê o anúncio e clica. A URL do anúncio já carrega parâmetros UTM que identificam de onde ele veio, qual campanha, qual criativo.</div>
+          <div class="flow-tags">
+            <span class="tag tag-orange">Google Ads</span>
+            <span class="tag tag-orange">Meta Ads</span>
+            <span class="tag tag-dark">Parâmetros UTM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Chegada no Site</div>
+          <div class="flow-desc">O site captura automaticamente todos os parâmetros UTM da URL. O Google Tag Manager registra a visita e dispara os pixels do Google e do Meta.</div>
+          <div class="flow-tags">
+            <span class="tag tag-dark">Google Tag Manager</span>
+            <span class="tag tag-blue">GA4 — Visita registrada</span>
+            <span class="tag tag-blue">Meta Pixel — PageView</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Preenchimento do Formulário</div>
+          <div class="flow-desc">O cliente preenche os dados. Junto com nome, telefone e CNPJ, o formulário também captura os UTMs invisíveis em campos ocultos.</div>
+          <div class="flow-tags">
+            <span class="tag tag-dark">Campos ocultos UTM</span>
+            <span class="tag tag-dark">Validação automática</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Envio e Conversão</div>
+          <div class="flow-desc">Ao submeter o formulário, três coisas acontecem ao mesmo tempo: o lead entra no CRM com a origem registrada, o Google Ads registra uma conversão, e o Meta Pixel dispara o evento Lead.</div>
+          <div class="flow-tags">
+            <span class="tag tag-orange">Kommo CRM + UTMs</span>
+            <span class="tag tag-green">Google Ads — Conversão</span>
+            <span class="tag tag-blue">Meta Pixel — Lead</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">5</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">WhatsApp Automático</div>
+          <div class="flow-desc">1,5 segundos após o envio, o site abre automaticamente o WhatsApp com uma mensagem pré-preenchida contendo os dados do lead para agilizar o atendimento.</div>
+          <div class="flow-tags">
+            <span class="tag tag-green">WhatsApp Business</span>
+            <span class="tag tag-dark">Mensagem automática</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="inner-footer">
+    <span class="footer-brand">GM <span>Marketing</span></span>
+    <span class="footer-page">02 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- PÁGINA 3 — OS PARÂMETROS UTM           -->
+<!-- ══════════════════════════════════════ -->
+<div class="page inner" style="padding-bottom: 60px;">
+  <div class="inner-header">
+    <div class="inner-header-logo">GM <span>Marketing</span></div>
+    <div class="inner-header-page">Parâmetros UTM</div>
+  </div>
+  <div class="inner-body">
+    <div class="section-eyebrow">Rastreamento por Campanha</div>
+    <h2 class="section-title">O que são UTMs<br>e para que servem</h2>
+    <div class="orange-line"></div>
+    <p class="section-lead">UTM são etiquetas invisíveis que colocamos nas URLs dos anúncios. Quando alguém clica, o site lê essas etiquetas e sabe exatamente de onde o lead veio.</p>
+
+    <div class="utm-grid">
+      <div class="utm-card">
+        <div class="utm-param">utm_source</div>
+        <div class="utm-name">Fonte</div>
+        <div class="utm-desc">De qual plataforma o clique veio.</div>
+        <div class="utm-example">Ex: <strong>google</strong>, <strong>facebook</strong>, <strong>instagram</strong></div>
+      </div>
+      <div class="utm-card">
+        <div class="utm-param">utm_medium</div>
+        <div class="utm-name">Meio</div>
+        <div class="utm-desc">Qual o tipo de mídia utilizado.</div>
+        <div class="utm-example">Ex: <strong>cpc</strong> (pago), <strong>paid_social</strong>, <strong>email</strong></div>
+      </div>
+      <div class="utm-card">
+        <div class="utm-param">utm_campaign</div>
+        <div class="utm-name">Campanha</div>
+        <div class="utm-desc">Nome da campanha que gerou o lead.</div>
+        <div class="utm-example">Ex: <strong>captacao-leads-abril</strong></div>
+      </div>
+      <div class="utm-card">
+        <div class="utm-param">utm_content</div>
+        <div class="utm-name">Criativo</div>
+        <div class="utm-desc">Qual anúncio específico foi clicado.</div>
+        <div class="utm-example">Ex: <strong>video-depoimento</strong>, <strong>banner-oferta</strong></div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Por que isso importa para você?</strong> Você saberá exatamente qual campanha gerou qual lead, qual criativo converte mais e quanto custou cada lead por canal — em vez de adivinhar onde colocar mais verba.</p>
+    </div>
+
+    <div class="url-box">
+      <div class="url-box-label">Exemplo de URL com UTM — Google Ads</div>
+      <div class="url-text">
+        <span class="url-base">https://gmmkt.com.br</span><br>
+        <span class="url-sep">?</span><span class="url-param-key">utm_source</span><span class="url-sep">=</span><span class="url-param-val">google</span><br>
+        <span class="url-sep">&amp;</span><span class="url-param-key">utm_medium</span><span class="url-sep">=</span><span class="url-param-val">cpc</span><br>
+        <span class="url-sep">&amp;</span><span class="url-param-key">utm_campaign</span><span class="url-sep">=</span><span class="url-param-val">captacao-leads-abril</span><br>
+        <span class="url-sep">&amp;</span><span class="url-param-key">utm_content</span><span class="url-sep">=</span><span class="url-param-val">video-depoimento-cliente</span>
+      </div>
+    </div>
+  </div>
+  <div class="inner-footer">
+    <span class="footer-brand">GM <span>Marketing</span></span>
+    <span class="footer-page">03 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- PÁGINA 4 — PLATAFORMAS INTEGRADAS      -->
+<!-- ══════════════════════════════════════ -->
+<div class="page inner" style="padding-bottom: 60px;">
+  <div class="inner-header">
+    <div class="inner-header-logo">GM <span>Marketing</span></div>
+    <div class="inner-header-page">Plataformas</div>
+  </div>
+  <div class="inner-body">
+    <div class="section-eyebrow">Ecossistema de Dados</div>
+    <h2 class="section-title">O que você vê<br>em cada plataforma</h2>
+    <div class="orange-line"></div>
+
+    <div class="diagram">
+      <div class="diagram-row">
+        <div class="diagram-box"><div class="diagram-box-title">Google Ads</div><div class="diagram-box-sub">Campanha</div></div>
+        <div class="diagram-arrow">→</div>
+        <div class="diagram-box highlight"><div class="diagram-box-title">Site + GTM</div><div class="diagram-box-sub">Captura UTMs</div></div>
+        <div class="diagram-arrow">←</div>
+        <div class="diagram-box"><div class="diagram-box-title">Meta Ads</div><div class="diagram-box-sub">Campanha</div></div>
+      </div>
+      <div class="diagram-divider">↓</div>
+      <div class="diagram-center">
+        <div class="diagram-center-box">
+          <div class="diagram-center-title">Lead preenche o formulário</div>
+        </div>
+      </div>
+      <div class="diagram-divider">↓</div>
+      <div class="diagram-outputs">
+        <div class="diagram-output"><div class="diagram-output-title">GA4</div><div class="diagram-output-sub">Visitas + Conversões</div></div>
+        <div class="diagram-output"><div class="diagram-output-title">Google Ads</div><div class="diagram-output-sub">CPL + ROAS</div></div>
+        <div class="diagram-output"><div class="diagram-output-title">Meta Pixel</div><div class="diagram-output-sub">Leads + Criativos</div></div>
+        <div class="diagram-output"><div class="diagram-output-title">Kommo CRM</div><div class="diagram-output-sub">Lead + Origem</div></div>
+        <div class="diagram-output"><div class="diagram-output-title">WhatsApp</div><div class="diagram-output-sub">Notificação</div></div>
+      </div>
+    </div>
+
+    <div class="platforms-grid" style="margin-top: 20px;">
+      <div class="platform-card">
+        <div class="platform-header">
+          <div class="platform-icon" style="background: rgba(66,133,244,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <div>
+            <div class="platform-name">Google Analytics 4</div>
+            <div class="platform-subtitle">Comportamento e jornada</div>
+          </div>
+        </div>
+        <ul class="platform-list">
+          <li><div class="list-dot"></div>Quantas visitas cada campanha trouxe</li>
+          <li><div class="list-dot"></div>Taxa de conversão por origem</li>
+          <li><div class="list-dot"></div>Tempo no site e páginas visitadas</li>
+          <li><div class="list-dot"></div>Quais UTMs geram mais leads</li>
+        </ul>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-header">
+          <div class="platform-icon" style="background: rgba(59,130,246,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <div>
+            <div class="platform-name">Meta Ads</div>
+            <div class="platform-subtitle">Facebook e Instagram</div>
+          </div>
+        </div>
+        <ul class="platform-list">
+          <li><div class="list-dot"></div>Leads gerados por anúncio</li>
+          <li><div class="list-dot"></div>Qual criativo converte mais</li>
+          <li><div class="list-dot"></div>Custo por lead por conjunto</li>
+          <li><div class="list-dot"></div>Públicos que mais convertem</li>
+        </ul>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-header">
+          <div class="platform-icon" style="background: rgba(255,107,0,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="platform-name">Google Ads</div>
+            <div class="platform-subtitle">Busca e Performance Max</div>
+          </div>
+        </div>
+        <ul class="platform-list">
+          <li><div class="list-dot"></div>Custo por lead (CPL) por campanha</li>
+          <li><div class="list-dot"></div>Palavras-chave que mais convertem</li>
+          <li><div class="list-dot"></div>ROAS — retorno sobre o investimento</li>
+          <li><div class="list-dot"></div>Impressões, cliques e conversões</li>
+        </ul>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-header">
+          <div class="platform-icon" style="background: rgba(16,185,129,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM12 12h.01M8 12h.01M16 12h.01"/></svg>
+          </div>
+          <div>
+            <div class="platform-name">Kommo CRM</div>
+            <div class="platform-subtitle">Gestão de leads</div>
+          </div>
+        </div>
+        <ul class="platform-list">
+          <li><div class="list-dot"></div>Todo lead entra com origem registrada</li>
+          <li><div class="list-dot"></div>Qual campanha gerou qual cliente</li>
+          <li><div class="list-dot"></div>Histórico de atendimento completo</li>
+          <li><div class="list-dot"></div>Cálculo de receita por canal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="inner-footer">
+    <span class="footer-brand">GM <span>Marketing</span></span>
+    <span class="footer-page">04 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- PÁGINA 5 — O QUE PRECISAMOS DE VOCÊ   -->
+<!-- ══════════════════════════════════════ -->
+<div class="page inner" style="padding-bottom: 60px;">
+  <div class="inner-header">
+    <div class="inner-header-logo">GM <span>Marketing</span></div>
+    <div class="inner-header-page">Próximos Passos</div>
+  </div>
+  <div class="inner-body">
+    <div class="section-eyebrow">Ativação do Sistema</div>
+    <h2 class="section-title">O que precisamos<br>de você para ativar</h2>
+    <div class="orange-line"></div>
+    <p class="section-lead">Para ligar todo o sistema de rastreamento, precisamos que você nos forneça os acessos e IDs abaixo. São informações simples de encontrar — podemos te ajudar a localizar qualquer uma delas.</p>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">ID do Google Tag Manager</div>
+          <div class="check-sub">Começa com GTM- (ex: GTM-ABC123X)</div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">ID do Google Analytics 4</div>
+          <div class="check-sub">Começa com G- (ex: G-XXXXXXXXXX)</div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">Acesso ao Google Ads</div>
+          <div class="check-sub">Adicionar como gerente ou administrador</div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">ID do Pixel do Meta</div>
+          <div class="check-sub">15 dígitos, em Gerenciador de Eventos</div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">Conta Kommo CRM</div>
+          <div class="check-sub">Subdomínio: suaempresa.kommo.com</div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="check-label">Número do WhatsApp</div>
+          <div class="check-sub">DDD + número que recebe os leads</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Não tem alguma dessas ferramentas?</strong> Sem problema. Podemos criar o Google Tag Manager, o GA4 e o Pixel do Meta do zero para você. Basta confirmar quais você já tem e quais precisam ser criados.</p>
+    </div>
+
+    <div style="margin-top: 28px; padding: 20px 24px; background: var(--dark); border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); margin-bottom: 4px;">Precisa de ajuda para localizar?</div>
+        <div style="font-size: 16px; font-weight: 900; color: white;">Fale com a GM Marketing</div>
+      </div>
+      <div style="background: var(--orange); padding: 10px 20px; border-radius: 6px;">
+        <div style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: white;">gmmkt.com.br</div>
+      </div>
+    </div>
+  </div>
+  <div class="inner-footer">
+    <span class="footer-brand">GM <span>Marketing</span></span>
+    <span class="footer-page">05 / 05</span>
+  </div>
+</div>
+
+</body>
+</html>
