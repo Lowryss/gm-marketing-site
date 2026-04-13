@@ -32,177 +32,244 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
 
-    <!-- Google Fonts: Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS (via CDN para rapidez) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #000; color: #fff; }
-        .bg-gradient-gm { background: radial-gradient(circle at top right, #1a1a1a, #000); }
-        .text-orange-gm { color: #FF6B00; }
-        .bg-orange-gm { background-color: #FF6B00; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .roi-badge { background: #FF6B00; color: #fff; font-weight: 900; font-size: 11px; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em; }
+        * { font-family: 'Montserrat', sans-serif; }
+        body { background: #000; color: #fff; margin: 0; padding: 0; }
+        .roi-badge { background: #FF6B00; color: #fff; font-weight: 900; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
         #cases-track::-webkit-scrollbar { display: none; }
         #cases-track { -ms-overflow-style: none; scrollbar-width: none; }
+        .step-card {
+            background: #FF6B00;
+            border-radius: 16px;
+            padding: 24px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .step-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
-<body class="bg-gradient-gm min-h-screen p-4">
+<body>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZ8WN8S"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Card de confirmação -->
-    <div class="max-w-2xl w-full glass p-12 rounded-3xl text-center shadow-2xl relative overflow-hidden mx-auto mt-8 mb-12">
-        <!-- Detalhe de luz -->
-        <div class="absolute -top-24 -right-24 w-48 h-48 bg-orange-gm/20 blur-3xl rounded-full"></div>
+    <!-- ══ SEÇÃO 1: HERO ══ -->
+    <section style="background:#000; padding: 40px 20px 20px;">
+        <div style="max-width:520px; margin:0 auto; text-align:center;">
 
-        <div class="mb-8">
-            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
-                SOLICITAÇÃO <span class="text-orange-gm">RECEBIDA!</span>
+            <!-- Logo -->
+            <p style="font-size:13px; font-weight:800; letter-spacing:0.2em; color:#FF6B00; text-transform:uppercase; margin-bottom:32px;">GM MARKETING</p>
+
+            <!-- Headline -->
+            <h1 style="font-size:clamp(28px,7vw,42px); font-weight:900; line-height:1.1; text-transform:uppercase; margin-bottom:16px;">
+                <span style="color:#FF6B00;">PRONTO!</span> RECEBEMOS SUA SOLICITAÇÃO.
             </h1>
-            <p class="text-gray-400 text-lg leading-relaxed">
-                Excelente escolha. Nossos especialistas já foram notificados sobre o seu interesse e entrarão em contato em breve para o seu diagnóstico.
+
+            <p style="color:#aaa; font-size:15px; line-height:1.6; margin-bottom:40px;">
+                Dentro de 12h, entraremos em contato com você através do número cadastrado.
             </p>
-        </div>
 
-        <div class="space-y-6">
-            <div class="inline-block p-1 rounded-full bg-orange-gm/10 text-orange-gm font-bold px-6 py-2 border border-orange-gm/20">
-                Aguarde o nosso contato estratégico.
+            <!-- Depoimentos (no lugar da foto) -->
+            <div style="position:relative;">
+                <!-- Seta esquerda -->
+                <button onclick="casesScroll(-1)" style="display:none;" id="btn-prev"
+                    class="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-colors"
+                    style="background:#1a1a1a; border:1px solid #333;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+
+                <div id="cases-track" style="display:flex; gap:16px; overflow-x:auto; padding-bottom:12px; scroll-snap-type:x mandatory;">
+
+                    <!-- Case 1: Ora Conceito -->
+                    <div style="flex-shrink:0; width:200px; scroll-snap-align:start; background:#111; border:1px solid #222; border-radius:12px; overflow:hidden;">
+                        <div style="position:relative; aspect-ratio:9/16;">
+                            <video style="width:100%;height:100%;object-fit:cover;" controls preload="metadata">
+                                <source src="video/Ora Conceito.mp4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:8px;left:8px;">13x ROI</span>
+                        </div>
+                        <div style="padding:12px;">
+                            <p style="font-weight:900; font-size:13px; margin:0 0 2px;">Ora Conceito</p>
+                            <p style="color:#888; font-size:11px; margin:0 0 6px;">Varejo &amp; E-commerce</p>
+                            <p style="color:#ccc; font-size:11px; line-height:1.4; margin:0;">Resultado em apenas 42 dias.</p>
+                        </div>
+                    </div>
+
+                    <!-- Case 2: Via Certa -->
+                    <div style="flex-shrink:0; width:200px; scroll-snap-align:start; background:#111; border:1px solid #222; border-radius:12px; overflow:hidden;">
+                        <div style="position:relative; aspect-ratio:9/16;">
+                            <video style="width:100%;height:100%;object-fit:cover;" controls preload="metadata">
+                                <source src="video/IMG_7745.MP4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:8px;left:8px;">12x ROI</span>
+                        </div>
+                        <div style="padding:12px;">
+                            <p style="font-weight:900; font-size:13px; margin:0 0 2px;">Via Certa</p>
+                            <p style="color:#888; font-size:11px; margin:0 0 6px;">Cursos Profissionalizantes</p>
+                            <p style="color:#ccc; font-size:11px; line-height:1.4; margin:0;">Resultado em apenas 45 dias.</p>
+                        </div>
+                    </div>
+
+                    <!-- Case 3: Nunes Parilla -->
+                    <div style="flex-shrink:0; width:200px; scroll-snap-align:start; background:#111; border:1px solid #222; border-radius:12px; overflow:hidden;">
+                        <div style="position:relative; aspect-ratio:9/16;">
+                            <video style="width:100%;height:100%;object-fit:cover;" controls preload="metadata">
+                                <source src="video/Nunes Parilla.mp4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:8px;left:8px;">ROI</span>
+                        </div>
+                        <div style="padding:12px;">
+                            <p style="font-weight:900; font-size:13px; margin:0 0 2px;">Nunes Parilla</p>
+                            <p style="color:#888; font-size:11px; margin:0 0 6px;">Restaurante</p>
+                            <p style="color:#ccc; font-size:11px; line-height:1.4; margin:0;">Resultado com a GM Marketing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Case 4: Vincitta -->
+                    <div style="flex-shrink:0; width:200px; scroll-snap-align:start; background:#111; border:1px solid #222; border-radius:12px; overflow:hidden;">
+                        <div style="position:relative; aspect-ratio:9/16;">
+                            <video style="width:100%;height:100%;object-fit:cover;" controls preload="metadata">
+                                <source src="video/Vincitta.mp4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:8px;left:8px;">50x ROI</span>
+                        </div>
+                        <div style="padding:12px;">
+                            <p style="font-weight:900; font-size:13px; margin:0 0 2px;">Vincitta</p>
+                            <p style="color:#888; font-size:11px; margin:0 0 6px;">Móveis Planejados</p>
+                            <p style="color:#ccc; font-size:11px; line-height:1.4; margin:0;">Resultado em apenas 60 dias.</p>
+                        </div>
+                    </div>
+
+                    <!-- Case 5: M4 Capital -->
+                    <div style="flex-shrink:0; width:200px; scroll-snap-align:start; background:#111; border:1px solid #222; border-radius:12px; overflow:hidden;">
+                        <div style="position:relative; aspect-ratio:9/16;">
+                            <video style="width:100%;height:100%;object-fit:cover;" controls preload="metadata">
+                                <source src="video/IMG_7744.MP4" type="video/mp4">
+                            </video>
+                            <span class="roi-badge" style="position:absolute;top:8px;left:8px;">25x ROI</span>
+                        </div>
+                        <div style="padding:12px;">
+                            <p style="font-weight:900; font-size:13px; margin:0 0 2px;">M4 Capital</p>
+                            <p style="color:#888; font-size:11px; margin:0 0 6px;">Grupo Empresarial</p>
+                            <p style="color:#ccc; font-size:11px; line-height:1.4; margin:0;">Resultado em apenas 60 dias.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Dots -->
+                <div style="display:flex; justify-content:center; gap:8px; margin-top:12px;">
+                    <button onclick="casesGoTo(0)" class="cases-dot" style="width:8px;height:8px;border-radius:50%;background:#FF6B00;border:none;cursor:pointer;transition:background .2s;padding:0;"></button>
+                    <button onclick="casesGoTo(1)" class="cases-dot" style="width:8px;height:8px;border-radius:50%;background:#333;border:none;cursor:pointer;transition:background .2s;padding:0;"></button>
+                    <button onclick="casesGoTo(2)" class="cases-dot" style="width:8px;height:8px;border-radius:50%;background:#333;border:none;cursor:pointer;transition:background .2s;padding:0;"></button>
+                    <button onclick="casesGoTo(3)" class="cases-dot" style="width:8px;height:8px;border-radius:50%;background:#333;border:none;cursor:pointer;transition:background .2s;padding:0;"></button>
+                    <button onclick="casesGoTo(4)" class="cases-dot" style="width:8px;height:8px;border-radius:50%;background:#333;border:none;cursor:pointer;transition:background .2s;padding:0;"></button>
+                </div>
             </div>
-
-            <div class="flex flex-col md:flex-row gap-4 justify-center mt-12">
-                <a href="index.html" class="px-8 py-4 border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold">
-                    VOLTAR PARA O SITE
-                </a>
-                <a href="https://wa.me/5511913619572" class="px-8 py-4 bg-orange-gm text-white rounded-xl hover:scale-105 transition-all font-bold shadow-lg shadow-orange-gm/20">
-                    FALAR NO WHATSAPP AGORA
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Depoimentos -->
-    <section class="py-12 max-w-4xl mx-auto px-4">
-        <div class="text-center mb-10">
-            <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Cases de Sucesso</span>
-            <h2 class="text-2xl md:text-4xl font-black uppercase mb-2">Quem já <span class="text-orange-gm">transformou</span> seus resultados</h2>
-            <p class="text-gray-400 mt-3 text-base">Você está em boa companhia. Veja quem escalou com o Sistema GM.</p>
-        </div>
-
-        <!-- Carrossel -->
-        <div class="relative">
-            <!-- Botão anterior -->
-            <button onclick="casesScroll(-1)" class="hidden md:flex absolute -left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-gray-800 hover:bg-orange-500 rounded-full items-center justify-center transition-colors cursor-pointer shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-
-            <div id="cases-track" class="flex gap-5 overflow-x-auto pb-4" style="scroll-snap-type:x mandatory;">
-
-                <!-- Case 1: Ora Conceito -->
-                <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
-                    <div class="relative" style="aspect-ratio:9/16;">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="video/Ora Conceito.mp4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;">13x ROI</span>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <p class="font-black text-white text-base">Ora Conceito</p>
-                        <p class="text-gray-400 text-xs">Varejo &amp; E-commerce</p>
-                        <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 42 dias.</p>
-                    </div>
-                </div>
-
-                <!-- Case 2: Via Certa -->
-                <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
-                    <div class="relative" style="aspect-ratio:9/16;">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="video/IMG_7745.MP4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;">12x ROI</span>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <p class="font-black text-white text-base">Via Certa</p>
-                        <p class="text-gray-400 text-xs">Cursos Profissionalizantes</p>
-                        <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 45 dias.</p>
-                    </div>
-                </div>
-
-                <!-- Case 3: Nunes Parilla -->
-                <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
-                    <div class="relative" style="aspect-ratio:9/16;">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="video/Nunes Parilla.mp4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;">ROI</span>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <p class="font-black text-white text-base">Nunes Parilla</p>
-                        <p class="text-gray-400 text-xs">Restaurante</p>
-                        <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado com a GM Marketing.</p>
-                    </div>
-                </div>
-
-                <!-- Case 4: Vincitta -->
-                <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
-                    <div class="relative" style="aspect-ratio:9/16;">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="video/Vincitta.mp4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;">50x ROI</span>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <p class="font-black text-white text-base">Vincitta</p>
-                        <p class="text-gray-400 text-xs">Móveis Planejados</p>
-                        <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 60 dias.</p>
-                    </div>
-                </div>
-
-                <!-- Case 5: M4 Capital -->
-                <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
-                    <div class="relative" style="aspect-ratio:9/16;">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="video/IMG_7744.MP4" type="video/mp4">
-                        </video>
-                        <span class="roi-badge" style="position:absolute;top:10px;left:10px;">25x ROI</span>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <p class="font-black text-white text-base">M4 Capital</p>
-                        <p class="text-gray-400 text-xs">Grupo Empresarial</p>
-                        <p class="text-gray-300 text-xs leading-relaxed">Alcançou o resultado desejado em apenas 60 dias.</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Botão próximo -->
-            <button onclick="casesScroll(1)" class="hidden md:flex absolute -right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-gray-800 hover:bg-orange-500 rounded-full items-center justify-center transition-colors cursor-pointer shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-            </button>
-        </div>
-
-        <!-- Dots -->
-        <div class="flex justify-center gap-2 mt-6">
-            <button onclick="casesGoTo(0)" class="cases-dot w-2 h-2 rounded-full transition-all cursor-pointer" style="background:#FF6B00;"></button>
-            <button onclick="casesGoTo(1)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
-            <button onclick="casesGoTo(2)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
-            <button onclick="casesGoTo(3)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
-            <button onclick="casesGoTo(4)" class="cases-dot w-2 h-2 rounded-full bg-gray-700 transition-all cursor-pointer"></button>
         </div>
     </section>
+
+    <!-- ══ SEÇÃO 2: TEXTO CENTRAL ══ -->
+    <section style="background:#111; padding:48px 24px;">
+        <div style="max-width:520px; margin:0 auto; text-align:center;">
+            <h2 style="font-size:clamp(20px,5vw,28px); font-weight:900; color:#fff; line-height:1.2; margin-bottom:16px;">
+                Trabalhamos todos os dias da semana para te atender o mais rápido possível.
+            </h2>
+            <p style="color:#888; font-size:14px; line-height:1.7; margin:0;">
+                Após nosso primeiro contato, agendaremos uma reunião com um de nossos especialistas em crescimento previsível para conversarmos melhor sobre o atual momento da sua empresa.
+            </p>
+        </div>
+    </section>
+
+    <!-- ══ SEÇÃO 3: PASSOS ══ -->
+    <section style="background:#000; padding:40px 24px;">
+        <div style="max-width:520px; margin:0 auto;">
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:18px;height:18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <p style="font-weight:900; font-size:16px; margin:0 0 4px; color:#fff;">1º Passo</p>
+                    <p style="font-size:13px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5;">Solicitação recebida com sucesso</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:18px;height:18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <p style="font-weight:900; font-size:16px; margin:0 0 4px; color:#fff;">2º Passo</p>
+                    <p style="font-size:13px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5;">Dentro de 12h, você receberá uma ligação do nosso time de especialistas</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:18px;height:18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <p style="font-weight:900; font-size:16px; margin:0 0 4px; color:#fff;">3º Passo</p>
+                    <p style="font-size:13px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5;">Agendamento do diagnóstico de crescimento</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══ SEÇÃO 4: CTA WHATSAPP ══ -->
+    <section style="background:#111; padding:48px 24px;">
+        <div style="max-width:520px; margin:0 auto; text-align:center;">
+            <h2 style="font-size:clamp(18px,5vw,24px); font-weight:900; color:#fff; line-height:1.3; margin-bottom:28px;">
+                Caso você queira agilizar o seu contato e conversar neste exato momento com nosso time, clique no botão abaixo!
+            </h2>
+
+            <a href="https://wa.me/5511913619572"
+               style="display:inline-block; background:#25D366; color:#fff; font-weight:900; font-size:15px; letter-spacing:0.05em; text-transform:uppercase; padding:18px 40px; border-radius:8px; text-decoration:none; transition:opacity .2s;"
+               onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                CONVERSAR NO WHATSAPP
+            </a>
+
+            <p style="color:#666; font-size:13px; margin-top:24px; line-height:1.6;">
+                Estamos aqui para te ajudar.<br>Seja muito bem-vindo à GM Marketing.
+            </p>
+        </div>
+    </section>
+
+    <!-- ══ FOOTER DISCLAIMER ══ -->
+    <footer style="background:#000; border-top:1px solid #1a1a1a; padding:20px 24px; text-align:center;">
+        <p style="color:#444; font-size:10px; line-height:1.6; max-width:520px; margin:0 auto;">
+            Este site não faz parte do site do Facebook ou Facebook Inc. Além disso, este site NÃO é endossado pelo Facebook de forma alguma. FACEBOOK é uma marca comercial da FACEBOOK, Inc.
+        </p>
+    </footer>
 
     <script>
         (function(){
             var track = document.getElementById('cases-track');
             var dots = document.querySelectorAll('.cases-dot');
-            var cardWidth = 240 + 20;
+            var cardWidth = 200 + 16;
 
             function updateDots(){
                 var idx = Math.round(track.scrollLeft / cardWidth);
-                dots.forEach(function(d, i){ d.style.background = i === idx ? '#FF6B00' : '#374151'; });
+                dots.forEach(function(d, i){
+                    d.style.background = i === idx ? '#FF6B00' : '#333';
+                });
             }
 
             window.casesScroll = function(dir){
