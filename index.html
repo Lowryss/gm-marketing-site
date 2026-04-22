@@ -697,7 +697,7 @@
                         </div>
                     </div>
 
-                    <!-- Case 4: Vincitta -->
+                    <!-- Case 3: Vincitta -->
                     <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
                         <div class="relative" style="aspect-ratio:9/16;">
                             <video class="w-full h-full object-cover" controls preload="metadata">
@@ -712,7 +712,7 @@
                         </div>
                     </div>
 
-                    <!-- Case 4: M4 Capital (vídeo) -->
+                    <!-- Case 4: M4 Capital -->
                     <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
                         <div class="relative" style="aspect-ratio:9/16;">
                             <video class="w-full h-full object-cover" controls preload="metadata">
@@ -727,7 +727,7 @@
                         </div>
                     </div>
 
-                    <!-- Case 5: Via Certa (vídeo) -->
+                    <!-- Case 5: Via Certa -->
                     <div class="flex-shrink-0 bg-black/70 border border-gray-800 hover:border-orange-500/50 transition-colors rounded-xl overflow-hidden" style="width:240px; scroll-snap-align:start;">
                         <div class="relative" style="aspect-ratio:9/16;">
                             <video class="w-full h-full object-cover" controls preload="metadata">
@@ -771,7 +771,7 @@
         (function(){
             var track = document.getElementById('cases-track');
             var dots = document.querySelectorAll('.cases-dot');
-            var cardWidth = 240 + 20; // width + gap
+            var cardWidth = 240 + 20;
 
             function updateDots(){
                 var idx = Math.round(track.scrollLeft / cardWidth);
@@ -1402,11 +1402,40 @@
 
         /* ── Captura de UTMs ── */
         (function() {
+            var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
             var urlParams = new URLSearchParams(window.location.search);
-            ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(utm) {
-                var val = urlParams.get(utm);
-                if (val) { var input = document.querySelector('input[name="' + utm + '"]'); if (input) input.value = val; }
+            var utms = {};
+
+            utmKeys.forEach(function(key) {
+                var val = urlParams.get(key);
+                if (val) {
+                    utms[key] = val;
+                    sessionStorage.setItem(key, val);
+                    var input = document.querySelector('input[name="' + key + '"]');
+                    if (input) input.value = val;
+                }
             });
+
+            // Envia para o dataLayer do GTM
+            if (Object.keys(utms).length > 0) {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'utm_data',
+                    utm_source:   utms.utm_source   || '',
+                    utm_medium:   utms.utm_medium   || '',
+                    utm_campaign: utms.utm_campaign || '',
+                    utm_term:     utms.utm_term     || '',
+                    utm_content:  utms.utm_content  || ''
+                });
+            }
+
+            // Expõe helper para uso no redirect
+            window._getUtmQuery = function() {
+                return utmKeys
+                    .map(function(k) { return sessionStorage.getItem(k) ? k + '=' + encodeURIComponent(sessionStorage.getItem(k)) : ''; })
+                    .filter(Boolean)
+                    .join('&');
+            };
         })();
 
         /* ── Formulário: validação + envio ── */
@@ -1418,9 +1447,9 @@
 
         /**
          * INTEGRAÇÃO KOMMO (CRM)
-         * O envio agora é feito via api/kommo (Vercel Serverless Function)
+         * O envio agora é feito via api/kommo.php (HostGator PHP)
          */
-        var KOMMO_ENDPOINT = 'api/kommo';
+        var KOMMO_ENDPOINT = 'api/kommo.php';
 
         function validateField(id, condition, errorId) {
             var input = document.getElementById(id);
@@ -1478,15 +1507,24 @@
             btnSpinner.classList.remove('hidden');
 
             // Estrutura de dados simplificada para o novo manipulador da API
+            var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+            var utmData = {};
+            utmKeys.forEach(function(k) {
+                var v = document.getElementById(k) ? document.getElementById(k).value : '';
+                if (!v) v = sessionStorage.getItem(k) || '';
+                if (v) utmData[k] = v;
+            });
+
             var payload = {
                 empresa:     empresaVal,
                 telefone:    document.getElementById('telefone').value,
-                cnpj:         cnpjVal,
+                cnpj:        cnpjVal,
                 faturamento: fatVal,
-                quando:      quandoVal
+                quando:      quandoVal,
+                utms:        utmData
             };
 
-            var sendProcess = fetch(KOMMO_ENDPOINT, { 
+            var sendProcess = fetch(KOMMO_ENDPOINT, {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' }, 
                 body: JSON.stringify(payload) 
@@ -1495,22 +1533,25 @@
             // Timer de segurança de 8 segundos para não ficar carregando infinito
             var timeoutTimer = setTimeout(function() {
                 console.warn('Timeout na integração - Redirecionando por segurança');
-                window.location.href = 'obrigado.html'; 
+                var utmQ = window._getUtmQuery ? window._getUtmQuery() : '';
+                window.location.href = 'obrigado.html' + (utmQ ? '?' + utmQ : '');
             }, 8000);
 
             sendProcess.then(function(response) {
                 clearTimeout(timeoutTimer);
                 console.log('Lead processado. Redirecionando...');
-                
+
                 if (window.dataLayer) { window.dataLayer.push({ event:'lead_generated', lead_faturamento:fatVal, lead_quando:quandoVal }); }
                 if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
-                
-                window.location.href = 'obrigado.html';
+
+                var utmQ = window._getUtmQuery ? window._getUtmQuery() : '';
+                window.location.href = 'obrigado.html' + (utmQ ? '?' + utmQ : '');
             }).catch(function(err) {
                 clearTimeout(timeoutTimer);
                 console.error('Erro no envio:', err);
                 // Mesmo com erro, redirecionamos para não travar o usuário
-                window.location.href = 'obrigado.html';
+                var utmQ = window._getUtmQuery ? window._getUtmQuery() : '';
+                window.location.href = 'obrigado.html' + (utmQ ? '?' + utmQ : '');
             });
         });
 
