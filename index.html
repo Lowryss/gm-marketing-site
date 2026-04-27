@@ -399,7 +399,7 @@
 
             <!-- Formulário direita -->
             <div id="form" class="lg:col-span-5 bg-[#111] border border-gray-700 p-8 relative z-10 w-full shadow-2xl border-t-4 rounded-lg fade-up delay-2" style="border-top-color:#FF6B00;">
-                <h3 class="text-2xl font-black uppercase mb-2 leading-tight text-white">Receba um diagnóstico<br>do seu negócio</h3>
+                <h3 class="text-2xl font-black uppercase mb-2 leading-tight text-white">Consultoria gratuita<br>de 30 minutos</h3>
                 <p class="text-sm text-gray-400 mb-6 font-semibold">Preencha para falar com um especialista GM.</p>
 
                 <form id="lead-form" novalidate class="space-y-4">
@@ -426,12 +426,12 @@
                         <span class="field-error" id="telefone-error">Informe um telefone válido.</span>
                     </div>
 
-                    <!-- Campo 3: CNPJ -->
+                    <!-- Campo 3: Email -->
                     <div>
-                        <input type="text" id="cnpj" name="cnpj" placeholder="Qual é o seu CNPJ?" maxlength="18"
+                        <input type="email" id="email" name="email" placeholder="Qual é o seu e-mail?"
                             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
-                        <span class="field-error" id="cnpj-error">Informe um CNPJ válido.</span>
+                        <span class="field-error" id="email-error">Informe um e-mail válido.</span>
                     </div>
 
 
@@ -439,7 +439,7 @@
                     <!-- Campo 5: Faturamento mensal (select) -->
                     <div>
                         <select id="faturamento" name="faturamento" class="gm-select" required>
-                            <option value="" disabled selected>Faturamento mensal da empresa</option>
+                            <option value="" disabled selected>Qual seu faturamento médio mensal?</option>
                             <option value="Até R$40 mil">Até R$40 mil</option>
                             <option value="R$41 mil a R$150 mil">R$41 mil a R$150 mil</option>
                             <option value="R$151 mil a R$300 mil">R$151 mil a R$300 mil</option>
@@ -452,7 +452,7 @@
                     <!-- Campo 6: Quando pretende estruturar (select) -->
                     <div>
                         <select id="quando" name="quando" class="gm-select" required>
-                            <option value="" disabled selected>Quando pretende iniciar o seu crescimento?</option>
+                            <option value="" disabled selected>Qual o nível de urgência para solucionar vendas?</option>
                             <option value="Imediatamente">Imediatamente</option>
                             <option value="Em até 3 meses">Em até 3 meses</option>
                             <option value="Em até 6 meses">Em até 6 meses</option>
@@ -463,7 +463,7 @@
 
                     <button type="submit" id="submit-btn" data-track="btn-submit-form"
                         class="w-full bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 mt-2 transition-colors tracking-wider text-base rounded shadow-[0_0_15px_rgba(255,107,0,0.4)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)] cursor-pointer flex items-center justify-center gap-2">
-                        <span id="btn-text">Quero Crescimento Previsível</span>
+                        <span id="btn-text">Quero a consultoria</span>
                         <svg id="btn-spinner" class="hidden animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
@@ -479,6 +479,24 @@
                     <p class="text-green-400 font-black text-lg uppercase">Recebemos seu contato!</p>
                     <p class="text-gray-400 text-sm mt-1">Abrindo WhatsApp em instantes…</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ NÚMEROS PARALLAX ══ -->
+    <section id="numeros" style="background-color:#FF6B00;">
+        <div class="py-5">
+            <div id="num-row-1" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white">
+                <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
+                <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
+                <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
+                <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
+                <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
+                <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
+                <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
+                <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
+                <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
+                <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
             </div>
         </div>
     </section>
@@ -507,154 +525,13 @@
         </div>
     </section>
 
-    <!-- ══ NÚMEROS PARALLAX ══ -->
-    <section id="numeros" style="background-color:#FF6B00;">
-        <div class="py-5">
-            <div id="num-row-1" class="num-row font-black text-2xl md:text-3xl uppercase tracking-widest text-white">
-                <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
-                <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
-                <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
-                <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
-                <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
-                <span class="mx-12">• 350+ PROJETOS ENTREGUES</span>
-                <span class="mx-12">• R$89M EM MÍDIA GERENCIADA</span>
-                <span class="mx-12">• R$237M FATURADOS PELOS CLIENTES</span>
-                <span class="mx-12">• 6 ANOS DE EXPERIÊNCIA</span>
-                <span class="mx-12">• CRESCIMENTO PREVISÍVEL</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ LOGOS CLIENTES ══ -->
-    <section class="py-12 bg-black border-y border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 text-center fade-up">
-            <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-8">Metodologia validada por grandes marcas</p>
-        </div>
-        <div class="logos-marquee-wrap">
-            <div class="logos-marquee-track px-8">
-                <span class="client-logo">ÓTICAS DINIZ</span>
-                <span class="client-logo">SORRIDENTS</span>
-                <span class="client-logo">ICE CREAM ROLL</span>
-                <span class="client-logo">LOPES IMÓVEIS</span>
-                <span class="client-logo">UNIMAX</span>
-                <span class="client-logo">NÃO+PELO</span>
-                <!-- duplicate for seamless loop -->
-                <span class="client-logo">ÓTICAS DINIZ</span>
-                <span class="client-logo">SORRIDENTS</span>
-                <span class="client-logo">ICE CREAM ROLL</span>
-                <span class="client-logo">LOPES IMÓVEIS</span>
-                <span class="client-logo">UNIMAX</span>
-                <span class="client-logo">NÃO+PELO</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ QUEM SOMOS ══ -->
-    <section class="py-24 bg-[#111] border-y border-gray-800">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-14 fade-up">
-                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Quem Somos</span>
-                <h2 class="font-black uppercase leading-tight">
-                    <span class="text-2xl md:text-3xl text-gray-400 font-bold normal-case tracking-wide block mb-2">A GM Marketing é uma assessoria de</span>
-                    <span class="text-4xl md:text-6xl gm-orange block">Crescimento Previsível</span>
-                    <span class="text-xl md:text-2xl text-gray-500 font-semibold normal-case tracking-normal block mt-3">— não uma agência de anúncios.</span>
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                <!-- Fotos escritório -->
-                <div class="grid grid-cols-2 gap-4 fade-up">
-                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Escritório GM Marketing" class="w-full h-full object-cover">
-                    </div>
-                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Equipe GM Marketing" class="w-full h-full object-cover">
-                    </div>
-                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
-                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" alt="Ambiente de trabalho GM Marketing" class="w-full h-full object-cover">
-                    </div>
-                    <div class="rounded-xl overflow-hidden" style="aspect-ratio:4/3;">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Reunião de estratégia GM Marketing" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- Texto + certificações + CTA -->
-                <div class="fade-up delay-2 space-y-6">
-                    <div class="text-gray-300 text-base leading-relaxed space-y-4">
-                        <p>Fundada em 2019, a GM Marketing nasceu para resolver um problema real de empresas em crescimento: a falta de previsibilidade. Não adianta ter bom produto se você não sabe de onde virá o próximo cliente.</p>
-                        <p>Já gerenciamos mais de <strong class="text-white">R$89 milhões em mídia</strong>, entregamos mais de <strong class="text-white">350 projetos</strong> e ajudamos nossos clientes a faturar mais de <strong class="text-white">R$237 milhões</strong>. Somos parceiros de crescimento — não fornecedores de serviço.</p>
-                    </div>
-
-                    <!-- LOGOS DE CERTIFICAÇÃO -->
-                    <div class="pt-6 border-t border-gray-800">
-                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Certificações Oficiais</p>
-                        <div class="flex flex-wrap gap-3">
-
-                            <!-- Google Partner -->
-                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6 flex-shrink-0">
-                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.37-.76-2.83-.76-4.59s.27-3.22.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                                </svg>
-                                <div class="leading-tight">
-                                    <p class="text-[11px] font-black text-white">Google</p>
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Partner</p>
-                                </div>
-                            </div>
-
-                            <!-- Google Analytics -->
-                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 flex-shrink-0">
-                                    <rect x="1" y="13" width="5" height="10" rx="1.5" fill="#F9AB00"/>
-                                    <rect x="9.5" y="7" width="5" height="16" rx="1.5" fill="#F9AB00"/>
-                                    <rect x="18" y="1" width="5" height="22" rx="1.5" fill="#E37400"/>
-                                </svg>
-                                <div class="leading-tight">
-                                    <p class="text-[11px] font-black text-white">Google Analytics</p>
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Certificado</p>
-                                </div>
-                            </div>
-
-                            <!-- Meta Business Partner -->
-                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-7 h-4 flex-shrink-0">
-                                    <defs>
-                                        <linearGradient id="meta-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stop-color="#0064E0"/>
-                                            <stop offset="40%" stop-color="#0082FB"/>
-                                            <stop offset="100%" stop-color="#00B4FF"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M12 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l1.5 2.5L26.5 10C28.5 6.5 30 5 32 5c3.5 0 6 5 6 10s-2.5 10-6 10c-2 0-3.5-1.5-5.5-5L25 17.5 23.5 20C21.5 23.5 20 25 18 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
-                                    <path d="M38 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l.5.8V19l-.5.8C47.5 23.5 46 25 44 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
-                                </svg>
-                                <div class="leading-tight">
-                                    <p class="text-[11px] font-black text-white">Meta</p>
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Business Partner</p>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <a href="#form" data-track="cta-about" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-8 rounded tracking-wider transition-colors cursor-pointer">
-                        Quero crescimento previsível
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ══ DEPOIMENTOS / CASES DE SUCESSO ══ -->
     <section class="py-24 bg-[#0a0a0a] border-y border-gray-800 hero-pattern">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16 fade-up">
                 <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Cases de Sucesso</span>
-                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">Quem confia na <span class="gm-orange">GM Marketing</span></h2>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Resultados reais. Empresas que escalaram seus faturamentos com o Sistema GM.</p>
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4 leading-tight">Empresas que crescem<br>com previsibilidade<br><span class="gm-orange">com a GM Marketing</span></h2>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto text-lg">Empresas que escalaram seus faturamentos com o método GM</p>
             </div>
 
             <!-- Carrossel -->
@@ -761,7 +638,7 @@
 
             <div class="mt-12 text-center fade-up">
                 <a href="#form" data-track="cta-cases" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-10 transition-colors tracking-wider text-xl rounded cursor-pointer shadow-[0_0_20px_rgba(255,107,0,0.3)]">
-                    Quero Ser o Próximo Case
+                    Quero a consultoria gratuita
                 </a>
             </div>
         </div>
@@ -927,10 +804,10 @@
 
             <!-- Header -->
             <div class="text-center mb-16 fade-up">
-                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">O Que Fazemos</span>
+                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Como Fazemos</span>
                 <h2 class="text-3xl md:text-5xl font-black uppercase leading-tight">
-                    A GM Marketing estrutura o seu marketing<br class="hidden md:block">
-                    com base na sua <span class="gm-orange">necessidade</span>
+                    O método GM vai te ajudar estruturar<br class="hidden md:block">
+                    de ponta a ponta seu <span class="gm-orange">crescimento</span>
                 </h2>
             </div>
 
@@ -1139,7 +1016,7 @@
                         Planos estruturados por nível de maturidade do negócio. O que muda é a profundidade estratégica, automação e escala.
                     </p>
                     <a href="#form" data-track="cta-planos" class="inline-flex items-center gap-3 text-white font-black uppercase py-4 px-8 transition-colors tracking-widest text-sm rounded-sm cursor-pointer shadow-xl" style="background-color:#FF6B00;">
-                        Quero meu diagnóstico gratuito
+                        Quero a consultoria gratuita
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
                     </a>
                 </div>
@@ -1214,6 +1091,89 @@
         </div>
     </section>
 
+    <!-- ══ QUEM SOMOS ══ -->
+    <section class="py-24 bg-[#111] border-y border-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-14 fade-up">
+                <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4" style="color:#FF6B00; border:1px solid #FF6B00; border-radius:4px;">Quem Somos</span>
+                <h2 class="font-black uppercase leading-tight">
+                    <span class="text-2xl md:text-3xl text-gray-400 font-bold normal-case tracking-wide block mb-2">A GM Marketing é uma assessoria de</span>
+                    <span class="text-4xl md:text-6xl gm-orange block">Crescimento Previsível</span>
+                    <span class="text-xl md:text-2xl text-gray-500 font-semibold normal-case tracking-normal block mt-3">— não uma agência de anúncios.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Foto única grande -->
+                <div class="fade-up rounded-xl overflow-hidden" style="min-height:420px;">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80" alt="Escritório GM Marketing" class="w-full h-full object-cover" style="min-height:420px;">
+                </div>
+
+                <!-- Texto + certificações + CTA -->
+                <div class="fade-up delay-2 space-y-6">
+                    <div class="text-gray-300 text-base leading-relaxed space-y-4">
+                        <p>Fundada em 2019, a GM Marketing nasceu para resolver um problema real de empresas em crescimento: a falta de previsibilidade. Não adianta ter bom produto se você não sabe de onde virá o próximo cliente.</p>
+                        <p>Já gerenciamos mais de <strong class="text-white">R$89 milhões em mídia</strong>, entregamos mais de <strong class="text-white">350 projetos</strong> e ajudamos nossos clientes a faturar mais de <strong class="text-white">R$237 milhões</strong>. Somos parceiros de crescimento — não fornecedores de serviço.</p>
+                    </div>
+
+                    <!-- LOGOS DE CERTIFICAÇÃO -->
+                    <div class="pt-6 border-t border-gray-800">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Certificações Oficiais</p>
+                        <div class="flex flex-wrap gap-3">
+                            <!-- Google Partner -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6 flex-shrink-0">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.37-.76-2.83-.76-4.59s.27-3.22.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                                </svg>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Google</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Partner</p>
+                                </div>
+                            </div>
+                            <!-- Google Analytics -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 flex-shrink-0">
+                                    <rect x="1" y="13" width="5" height="10" rx="1.5" fill="#F9AB00"/>
+                                    <rect x="9.5" y="7" width="5" height="16" rx="1.5" fill="#F9AB00"/>
+                                    <rect x="18" y="1" width="5" height="22" rx="1.5" fill="#E37400"/>
+                                </svg>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Google Analytics</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Certificado</p>
+                                </div>
+                            </div>
+                            <!-- Meta Business Partner -->
+                            <div class="flex items-center gap-2 px-3 py-2 border border-gray-700 rounded-lg bg-white/5 hover:border-gray-500 transition-colors cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-7 h-4 flex-shrink-0">
+                                    <defs>
+                                        <linearGradient id="meta-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#0064E0"/>
+                                            <stop offset="40%" stop-color="#0082FB"/>
+                                            <stop offset="100%" stop-color="#00B4FF"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M12 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l1.5 2.5L26.5 10C28.5 6.5 30 5 32 5c3.5 0 6 5 6 10s-2.5 10-6 10c-2 0-3.5-1.5-5.5-5L25 17.5 23.5 20C21.5 23.5 20 25 18 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
+                                    <path d="M38 15c0-5 2.5-10 6-10 2 0 3.5 1.5 5.5 5l.5.8V19l-.5.8C47.5 23.5 46 25 44 25c-3.5 0-6-5-6-10z" fill="url(#meta-grad)"/>
+                                </svg>
+                                <div class="leading-tight">
+                                    <p class="text-[11px] font-black text-white">Meta</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wide">Business Partner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#form" data-track="cta-about" class="inline-block bg-gm hover:bg-gm-dark text-white font-black uppercase py-4 px-8 rounded tracking-wider transition-colors cursor-pointer">
+                        Quero a consultoria
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ══ O SUCESSO DO SEU NEGÓCIO (MANTER) ══ -->
     <section class="py-20 relative overflow-hidden" style="background-color:#FF6B00;">
         <div class="absolute inset-0 bg-black/20"></div>
@@ -1221,7 +1181,7 @@
             <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">O sucesso do seu negócio não pode esperar.</h2>
             <p class="text-white/80 text-lg mb-10">Fale com um assessor de growth da GM Marketing e descubra a estratégia exata para escalar seu faturamento ainda neste trimestre.</p>
             <a href="#form" data-track="cta-footer" class="inline-block bg-black text-white font-black uppercase py-5 px-12 hover:bg-gray-900 transition-colors tracking-widest text-xl rounded-sm shadow-2xl cursor-pointer">
-                Agendar Diagnóstico Gratuito
+                Quero a consultoria gratuita
             </a>
         </div>
     </section>
@@ -1242,51 +1202,109 @@
 
                 <!-- Accordion direita (2/3) -->
                 <div class="lg:col-span-2 space-y-3 fade-up delay-1" id="faq-list">
+
+                    <!-- 1 -->
                     <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
                         <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                            <span class="font-bold text-white text-sm md:text-base">Quanto custa contratar a GM Marketing?</span>
+                            <span class="font-bold text-white text-sm md:text-base">Como funciona a consultoria gratuita?</span>
                             <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                         </button>
                         <div class="faq-answer px-6">
-                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os valores variam conforme o escopo do projeto e o volume de investimento em mídia. Trabalhamos com empresas de diferentes portes. No diagnóstico gratuito apresentamos a proposta ideal para o seu momento.</p>
+                            <div class="text-gray-300 text-sm pb-4 leading-relaxed space-y-3">
+                                <p>A Consultoria gratuita é uma análise estratégica da sua empresa, onde avaliamos:</p>
+                                <ul class="space-y-1 text-gray-400 pl-2">
+                                    <li>• Como você gera demanda hoje</li>
+                                    <li>• Seu funil de vendas</li>
+                                    <li>• Seus números (lead, conversão, CAC)</li>
+                                    <li>• Principais gargalos</li>
+                                </ul>
+                                <p>Ao final, você sai com:</p>
+                                <ul class="space-y-1 pl-2">
+                                    <li class="text-white font-semibold">✔ Clareza do que está travando seu crescimento</li>
+                                    <li class="text-white font-semibold">✔ Oportunidades de escala</li>
+                                    <li class="text-white font-semibold">✔ Um plano inicial de ação</li>
+                                </ul>
+                                <p>Se fizer sentido, mostramos como a GM entra para construir essa estrutura com você.</p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 2 -->
+                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-white text-sm md:text-base">Quanto custa contratar a Assessoria GM?</span>
+                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <div class="text-gray-300 text-sm pb-4 leading-relaxed space-y-3">
+                                <p>O investimento começa a partir de <strong class="text-white">R$2.000/mês</strong>, o que pode aumentar dependendo do nível de maturidade e do objetivo da empresa.</p>
+                                <p>Mais do que um serviço, você está contratando uma estrutura completa de crescimento, que integra marketing, vendas e dados para gerar previsibilidade.</p>
+                                <p class="text-gray-500 italic">Não vendemos "tráfego pago" ou "posts".<br>Construímos um sistema que faz sua empresa vender de forma consistente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3 -->
                     <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
                         <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
                             <span class="font-bold text-white text-sm md:text-base">Em quanto tempo verei resultados?</span>
                             <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                         </button>
                         <div class="faq-answer px-6">
-                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Os primeiros leads qualificados geralmente chegam nos primeiros 15 a 30 dias de campanha ativa. O ROAS positivo consolidado costuma se estabilizar entre 60 e 90 dias.</p>
+                            <div class="text-gray-300 text-sm pb-4 leading-relaxed space-y-3">
+                                <p>Os primeiros indicadores começam a aparecer já nos primeiros <strong class="text-white">7 a 15 dias</strong>, com campanhas rodando e geração de demanda.</p>
+                                <p>Crescimento previsível de verdade acontece entre <strong class="text-white">30 e 90 dias</strong>, quando:</p>
+                                <ul class="space-y-1 text-gray-400 pl-2">
+                                    <li>• O funil está estruturado</li>
+                                    <li>• Os dados começam a guiar decisões</li>
+                                    <li>• O comercial está alinhado</li>
+                                </ul>
+                                <p class="text-gray-500 italic">Nosso foco não é resultado rápido isolado.<br>É criar um crescimento que você consegue repetir todo mês.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
-                        <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                            <span class="font-bold text-white text-sm md:text-base">Preciso ter um time de vendas para contratar?</span>
-                            <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                        </button>
-                        <div class="faq-answer px-6">
-                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Não necessariamente. Podemos trabalhar tanto com empresas que já têm equipe comercial estruturada quanto com negócios onde o próprio dono fecha as vendas. O processo é adaptado ao seu modelo.</p>
-                        </div>
-                    </div>
+
+                    <!-- 4 -->
                     <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
                         <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
                             <span class="font-bold text-white text-sm md:text-base">Qual o investimento mínimo em mídia?</span>
                             <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                         </button>
                         <div class="faq-answer px-6">
-                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">Recomendamos investimento mínimo de R$ 3.000/mês em mídia paga para gerar volume de dados suficiente para otimização. Abaixo disso, os resultados são imprevisíveis.</p>
+                            <div class="text-gray-300 text-sm pb-4 leading-relaxed space-y-3">
+                                <p>Recomendamos um investimento mínimo de <strong class="text-white">R$1.500,00</strong>, o que pode aumentar dependendo da estratégia e necessidade da empresa.</p>
+                                <p>Isso porque:</p>
+                                <ul class="space-y-1 text-gray-400 pl-2">
+                                    <li>• A previsibilidade vem de volume + dados</li>
+                                    <li>• Sem investimento suficiente, não existe otimização real</li>
+                                    <li>• Testes são parte do processo</li>
+                                </ul>
+                                <p class="text-gray-500 italic">Investir menos que isso geralmente significa operar no escuro.</p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 5 -->
                     <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
                         <button class="faq-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-800/50 transition-colors cursor-pointer" aria-expanded="false">
-                            <span class="font-bold text-white text-sm md:text-base">Como funciona o diagnóstico gratuito?</span>
+                            <span class="font-bold text-white text-sm md:text-base">Preciso ter um time de vendas para contratar?</span>
                             <svg class="faq-icon w-5 h-5 flex-shrink-0 ml-4" style="color:#FF6B00" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                         </button>
                         <div class="faq-answer px-6">
-                            <p class="text-gray-300 text-sm pb-4 leading-relaxed">É uma reunião de 30 a 45 minutos onde nosso especialista analisa seu negócio, canais atuais e potencial de crescimento. Ao final, você recebe um plano de ação com as principais alavancas para escalar seu faturamento — sem compromisso.</p>
+                            <div class="text-gray-300 text-sm pb-4 leading-relaxed space-y-3">
+                                <p>Não necessariamente.</p>
+                                <p>Se você já tem time, nós estruturamos e potencializamos.</p>
+                                <p>Se não tem, nós ajudamos a:</p>
+                                <ul class="space-y-1 text-gray-400 pl-2">
+                                    <li>• Criar o processo comercial</li>
+                                    <li>• Definir funil e etapas</li>
+                                    <li>• Estruturar atendimento e follow-up</li>
+                                </ul>
+                                <p class="text-white font-bold mt-2">👉 Marketing sem comercial estruturado não gera crescimento previsível.</p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -1373,14 +1391,6 @@
         })();
 
         /* ── Máscaras de input ── */
-        function maskCNPJ(v) {
-            v = v.replace(/\D/g, '').slice(0, 14);
-            if (v.length > 12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
-            else if (v.length > 8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4}).*/, '$1.$2.$3/$4');
-            else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{3}).*/, '$1.$2.$3');
-            else if (v.length > 2) v = v.replace(/^(\d{2})(\d{3}).*/, '$1.$2');
-            return v;
-        }
         function maskPhone(v) {
             v = v.replace(/\D/g, '').slice(0, 11);
             if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
@@ -1388,7 +1398,6 @@
             else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)/, '($1) $2');
             return v;
         }
-        document.getElementById('cnpj').addEventListener('input', function() { this.value = maskCNPJ(this.value); });
         document.getElementById('telefone').addEventListener('input', function() { this.value = maskPhone(this.value); });
         // Select: apply .selected class when value chosen
         ['faturamento','quando'].forEach(function(id) {
@@ -1448,27 +1457,27 @@
             return true;
         }
 
-        ['empresa','cnpj','telefone'].forEach(function(id) {
+        ['empresa','email','telefone'].forEach(function(id) {
             var el = document.getElementById(id);
             if (!el) return;
             el.addEventListener('blur', function() {
-                if (id === 'empresa')  validateField('empresa',  el.value.trim().length > 1,              'empresa-error');
-                if (id === 'cnpj')     validateField('cnpj',     el.value.replace(/\D/g,'').length === 14,'cnpj-error');
-                if (id === 'telefone') validateField('telefone', el.value.replace(/\D/g,'').length >= 10, 'telefone-error');
+                if (id === 'empresa')  validateField('empresa',  el.value.trim().length > 1,                        'empresa-error');
+                if (id === 'email')    validateField('email',    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()), 'email-error');
+                if (id === 'telefone') validateField('telefone', el.value.replace(/\D/g,'').length >= 10,            'telefone-error');
             });
         });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var empresaVal  = document.getElementById('empresa').value.trim();
-            var cnpjVal     = document.getElementById('cnpj').value.replace(/\D/g,'');
+            var emailVal    = document.getElementById('email').value.trim();
             var telVal      = document.getElementById('telefone').value.replace(/\D/g,'');
             var fatVal      = document.getElementById('faturamento').value;
             var quandoVal   = document.getElementById('quando').value;
 
-            var v1 = validateField('empresa',  empresaVal.length > 1,  'empresa-error');
-            var v2 = validateField('telefone', telVal.length >= 10,    'telefone-error');
-            var v3 = validateField('cnpj',     cnpjVal.length === 14,  'cnpj-error');
+            var v1 = validateField('empresa',  empresaVal.length > 1,                               'empresa-error');
+            var v2 = validateField('telefone', telVal.length >= 10,                                 'telefone-error');
+            var v3 = validateField('email',    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal),         'email-error');
             var v5 = validateSelect('faturamento', 'faturamento-error');
             var v6 = validateSelect('quando',      'quando-error');
             if (!v1 || !v2 || !v3 || !v5 || !v6) return;
@@ -1481,7 +1490,7 @@
             var payload = {
                 empresa:     empresaVal,
                 telefone:    document.getElementById('telefone').value,
-                cnpj:         cnpjVal,
+                email:       emailVal,
                 faturamento: fatVal,
                 quando:      quandoVal
             };
