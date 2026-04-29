@@ -410,12 +410,12 @@
                     <input type="hidden" name="utm_content"  id="utm_content">
                     <input type="hidden" name="utm_term"     id="utm_term">
 
-                    <!-- Campo 1: Empresa -->
+                    <!-- Campo 1: Nome -->
                     <div>
-                        <input type="text" id="empresa" name="empresa" placeholder="Qual é o nome da sua empresa?"
+                        <input type="text" id="nome" name="nome" placeholder="Qual é o seu nome?"
                             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
-                        <span class="field-error" id="empresa-error">Por favor, informe o nome da empresa.</span>
+                        <span class="field-error" id="nome-error">Por favor, informe seu nome.</span>
                     </div>
 
                     <!-- Campo 2: Telefone -->
@@ -432,6 +432,14 @@
                             class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
                             required>
                         <span class="field-error" id="email-error">Informe um e-mail válido.</span>
+                    </div>
+
+                    <!-- Campo 4: Empresa -->
+                    <div>
+                        <input type="text" id="empresa" name="empresa" placeholder="Qual é o nome da sua empresa?"
+                            class="w-full px-4 py-3 bg-[#1a1a1a] border border-gray-600 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors text-white placeholder-gray-500 rounded text-sm"
+                            required>
+                        <span class="field-error" id="empresa-error">Por favor, informe o nome da empresa.</span>
                     </div>
 
 
@@ -1174,18 +1182,6 @@
         </div>
     </section>
 
-    <!-- ══ O SUCESSO DO SEU NEGÓCIO (MANTER) ══ -->
-    <section class="py-20 relative overflow-hidden" style="background-color:#FF6B00;">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 fade-up">
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">O sucesso do seu negócio não pode esperar.</h2>
-            <p class="text-white/80 text-lg mb-10">Fale com um assessor de growth da GM Marketing e descubra a estratégia exata para escalar seu faturamento ainda neste trimestre.</p>
-            <a href="#form" data-track="cta-footer" class="inline-block bg-black text-white font-black uppercase py-5 px-12 hover:bg-gray-900 transition-colors tracking-widest text-xl rounded-sm shadow-2xl cursor-pointer">
-                Quero a consultoria gratuita
-            </a>
-        </div>
-    </section>
-
     <!-- ══ FAQ ══ -->
     <section class="py-20 bg-[#0a0a0a]">
         <div class="max-w-5xl mx-auto px-4">
@@ -1307,6 +1303,18 @@
 
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ══ O SUCESSO DO SEU NEGÓCIO (MANTER) ══ -->
+    <section class="py-20 relative overflow-hidden" style="background-color:#FF6B00;">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 fade-up">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">O sucesso do seu negócio não pode esperar.</h2>
+            <p class="text-white/80 text-lg mb-10">Fale com um assessor de growth da GM Marketing e descubra a estratégia exata para escalar seu faturamento ainda neste trimestre.</p>
+            <a href="#form" data-track="cta-footer" class="inline-block bg-black text-white font-black uppercase py-5 px-12 hover:bg-gray-900 transition-colors tracking-widest text-xl rounded-sm shadow-2xl cursor-pointer">
+                Quero a consultoria gratuita
+            </a>
         </div>
     </section>
 
@@ -1486,10 +1494,11 @@
             return true;
         }
 
-        ['empresa','email','telefone'].forEach(function(id) {
+        ['nome','empresa','email','telefone'].forEach(function(id) {
             var el = document.getElementById(id);
             if (!el) return;
             el.addEventListener('blur', function() {
+                if (id === 'nome')     validateField('nome',     el.value.trim().length > 1,                        'nome-error');
                 if (id === 'empresa')  validateField('empresa',  el.value.trim().length > 1,                        'empresa-error');
                 if (id === 'email')    validateField('email',    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()), 'email-error');
                 if (id === 'telefone') validateField('telefone', el.value.replace(/\D/g,'').length >= 10,            'telefone-error');
@@ -1498,18 +1507,20 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            var empresaVal  = document.getElementById('empresa').value.trim();
+            var nomeVal     = document.getElementById('nome').value.trim();
             var emailVal    = document.getElementById('email').value.trim();
+            var empresaVal  = document.getElementById('empresa').value.trim();
             var telVal      = document.getElementById('telefone').value.replace(/\D/g,'');
             var fatVal      = document.getElementById('faturamento').value;
             var quandoVal   = document.getElementById('quando').value;
 
-            var v1 = validateField('empresa',  empresaVal.length > 1,                               'empresa-error');
-            var v2 = validateField('telefone', telVal.length >= 10,                                 'telefone-error');
-            var v3 = validateField('email',    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal),         'email-error');
+            var v0 = validateField('nome',     nomeVal.length > 1,                                    'nome-error');
+            var v3 = validateField('email',    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal),          'email-error');
+            var v1 = validateField('empresa',  empresaVal.length > 1,                                 'empresa-error');
+            var v2 = validateField('telefone', telVal.length >= 10,                                   'telefone-error');
             var v5 = validateSelect('faturamento', 'faturamento-error');
             var v6 = validateSelect('quando',      'quando-error');
-            if (!v1 || !v2 || !v3 || !v5 || !v6) return;
+            if (!v0 || !v3 || !v1 || !v2 || !v5 || !v6) return;
 
             submitBtn.disabled = true;
             btnText.textContent = 'Enviando...';
@@ -1525,9 +1536,10 @@
             });
 
             var payload = {
+                nome:        nomeVal,
+                email:       emailVal,
                 empresa:     empresaVal,
                 telefone:    document.getElementById('telefone').value,
-                email:       emailVal,
                 faturamento: fatVal,
                 quando:      quandoVal,
                 utms:        utmData

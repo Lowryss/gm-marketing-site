@@ -22,6 +22,8 @@ if (!$input) {
     exit;
 }
 
+$nome        = isset($input['nome'])        ? $input['nome']        : '';
+$email       = isset($input['email'])       ? $input['email']       : '';
 $empresa     = isset($input['empresa'])     ? $input['empresa']     : '';
 $telefone    = isset($input['telefone'])    ? $input['telefone']    : '';
 $cnpj        = isset($input['cnpj'])        ? $input['cnpj']        : '';
@@ -67,11 +69,17 @@ $payload = json_encode([[
     '_embedded' => [
         'tags'     => $utmTags,
         'contacts' => [[
-            'name' => $empresa,
-            'custom_fields_values' => [[
-                'field_code' => 'PHONE',
-                'values' => [['value' => $telefone, 'enum_code' => 'WORK']]
-            ]]
+            'name' => $nome ?: $empresa,
+            'custom_fields_values' => [
+                [
+                    'field_code' => 'PHONE',
+                    'values' => [['value' => $telefone, 'enum_code' => 'WORK']]
+                ],
+                [
+                    'field_code' => 'EMAIL',
+                    'values' => [['value' => $email, 'enum_code' => 'WORK']]
+                ]
+            ]
         ]]
     ]
 ]]);
